@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emprendimientos Locales - ConectaTuMundo</title>
+<meta name="description" content="Directorio de emprendimientos locales en Durazno, Uruguay. Negocios que confían en ConectaTuMundo para servicios digitales y tutorías.">
+<meta name="keywords" content="emprendimientos, Durazno, Uruguay, negocios locales, servicios digitales, ConectaTuMundo">
+<meta name="author" content="ConectaTuMundo">
+<link rel="canonical" href="https://conectatumundo.net/vitrina_emprendimientos">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --lila:#C4A8E8;--lila-light:#EDE5F8;--lila-mid:#9E78CC;--lila-dark:#5C3D8A;
+    --tierra:#F5EFE6;--tierra-dark:#E8D8C0;--verde:#7CB98A;--verde-light:#DFF0E3;
+    --texto:#2C1A4A;--texto-suave:#7A6890;--blanco:#FDFBFF;
+    --sombra:rgba(92,61,138,0.08);
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;background:var(--blanco);color:var(--texto);min-height:100vh}
+
+  /* NAVIGATION */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:200;
+    background:rgba(253,251,255,0.97);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--lila-light);
+    padding:0 1.2rem;height:58px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--lila-dark);font-weight:700;text-decoration:none;flex-shrink:0}
+  .nav-logo span{color:var(--lila)}
+  .nav-links{display:none;list-style:none;gap:1.5rem;align-items:center}
+  .nav-links a{text-decoration:none;color:var(--texto-suave);font-size:.85rem;font-weight:500;transition:color .2s}
+  .nav-links a:hover{color:var(--lila-dark)}
+  .nav-links a.active{color:var(--lila-dark);font-weight:600}
+  .nav-right{display:flex;align-items:center;gap:.7rem}
+  .nav-cta{background:var(--lila-dark);color:#fff;padding:.4rem 1rem;border-radius:50px;font-size:.82rem;font-weight:500;text-decoration:none;white-space:nowrap;transition:background .2s}
+  .nav-cta:hover{background:var(--lila-mid)}
+  .nav-hamburger{background:none;border:1.5px solid var(--lila-light);border-radius:8px;width:36px;height:36px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+  .nav-hamburger span{display:block;width:16px;height:1.5px;background:var(--lila-dark);border-radius:2px;transition:all .25s}
+  .nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  .nav-hamburger.open span:nth-child(2){opacity:0}
+  .nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+  /* DRAWER MÓVIL */
+  .nav-drawer{
+    position:fixed;top:58px;left:0;right:0;bottom:0;z-index:190;
+    background:rgba(253,251,255,0.98);backdrop-filter:blur(14px);
+    display:flex;flex-direction:column;padding:1.5rem 1.2rem;
+    transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;
+  }
+  .nav-drawer.open{transform:translateX(0)}
+  .drawer-section{margin-bottom:1.8rem}
+  .drawer-label{font-size:.72rem;color:var(--lila-mid);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.8rem}
+  .drawer-links{display:flex;flex-direction:column;gap:.2rem}
+  .drawer-link{display:flex;align-items:center;gap:.8rem;padding:.8rem .9rem;border-radius:12px;text-decoration:none;color:var(--texto);font-size:.95rem;font-weight:500;transition:background .15s}
+  .drawer-link:hover,.drawer-link.active{background:var(--lila-light);color:var(--lila-dark)}
+  .drawer-link-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+  .drawer-link-sub{font-size:.77rem;color:var(--texto-suave);display:block;margin-top:.1rem;font-weight:400}
+  .drawer-cta{display:block;text-align:center;background:var(--lila-dark);color:#fff;padding:.85rem;border-radius:50px;font-size:.95rem;font-weight:600;text-decoration:none;margin-top:auto}
+  .drawer-divider{height:1px;background:var(--lila-light);margin:.5rem 0 1.5rem}
+
+  /* HEADER */
+  .page-header{
+    background:linear-gradient(150deg,var(--tierra) 0%,var(--lila-light) 100%);
+    padding:3rem 1.2rem 2.5rem;text-align:center;position:relative;overflow:hidden;
+    margin-top:58px; /* Account for fixed navbar */
+  }
+  .page-header::before{content:'';position:absolute;top:-60px;left:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--tierra-dark) 0%,transparent 70%);opacity:.5}
+  .page-header::after{content:'';position:absolute;bottom:-40px;right:-30px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,var(--lila) 0%,transparent 70%);opacity:.25}
+  .section-tag{font-size:.75rem;color:var(--lila-mid);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+  .page-header h1{font-family:'Playfair Display',serif;font-size:2rem;color:var(--texto);margin-bottom:.7rem;line-height:1.2}
+  .page-header h1 em{color:var(--lila-dark);font-style:normal}
+  .page-header p{color:var(--texto-suave);font-size:.92rem;line-height:1.7;max-width:480px;margin:0 auto 1.5rem}
+  .header-stats{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+  .hstat{background:#fff;border:1px solid var(--lila-light);border-radius:12px;padding:.6rem 1.1rem;font-size:.82rem;color:var(--texto);font-weight:500}
+  .hstat span{color:var(--lila-dark);font-weight:700}
+
+  /* FILTROS */
+  .filtros-wrap{padding:1.2rem 1.2rem .5rem;position:sticky;top:58px;background:rgba(253,251,255,.96);backdrop-filter:blur(10px);z-index:10;border-bottom:1px solid var(--lila-light);margin-top:-58px;}
+  .filtros-scroll{display:flex;gap:.6rem;overflow-x:auto;padding-bottom:.3rem;scrollbar-width:none}
+  .filtros-scroll::-webkit-scrollbar{display:none}
+  .filtro-btn{flex-shrink:0;border:1.5px solid var(--lila-light);background:#fff;color:var(--texto-suave);padding:.38rem .9rem;border-radius:50px;font-size:.8rem;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap}
+  .filtro-btn.active,.filtro-btn:hover{background:var(--lila-dark);color:#fff;border-color:var(--lila-dark)}
+
+  /* BUSCADOR */
+  .search-wrap{padding:.8rem 1.2rem 1rem}
+  .search-box{display:flex;align-items:center;gap:.7rem;background:#fff;border:1.5px solid var(--lila-light);border-radius:12px;padding:.6rem 1rem;transition:border-color .2s}
+  .search-box:focus-within{border-color:var(--lila-mid)}
+  .search-box input{border:none;outline:none;font-size:.9rem;font-family:'DM Sans',sans-serif;color:var(--texto);background:transparent;width:100%}
+  .search-box input::placeholder{color:var(--texto-suave)}
+
+  /* GRID */
+  .grid-wrap{padding:0 1.2rem 3rem}
+  .emp-grid{display:grid;grid-template-columns:1fr;gap:1.1rem}
+  .no-results{text-align:center;padding:3rem 1rem;color:var(--texto-suave);font-size:.92rem}
+  .no-results span{display:block;font-size:2rem;margin-bottom:.8rem}
+
+  /* CARD */
+  .emp-card{
+    background:#fff;border:1px solid var(--lila-light);border-radius:18px;
+    overflow:hidden;box-shadow:0 2px 12px var(--sombra);transition:all .22s;cursor:default;
+  }
+  .emp-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px var(--sombra);border-color:var(--lila)}
+
+  /* BANNER COLOR */
+  .card-banner{height:72px;display:flex;align-items:flex-end;padding:.8rem 1.2rem;position:relative;overflow:hidden}
+  .card-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,.18))}
+  .banner-emoji{position:absolute;right:1rem;top:50%;transform:translateY(-50%);font-size:2.2rem;opacity:.35;z-index:1}
+
+  /* LOGO AVATAR */
+  .card-logo{
+    width:52px;height:52px;border-radius:14px;border:3px solid #fff;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Playfair Display',serif;font-weight:700;font-size:1.1rem;color:#fff;
+    position:relative;z-index:2;margin-top:-26px;margin-left:1.2rem;flex-shrink:0;
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+  }
+
+  .card-body{padding:0 1.2rem 1.2rem}
+  .card-head-row{display:flex;align-items:flex-start;justify-content:space-between;gap:.5rem;margin-bottom:.5rem;padding-top:.5rem}
+  .card-nombre{font-weight:700;font-size:1rem;color:var(--texto);line-height:1.2}
+  .card-rubro{font-size:.78rem;color:var(--texto-suave);margin-top:.15rem}
+  .card-badge-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:.3rem;flex-shrink:0}
+  .badge{font-size:.7rem;font-weight:600;padding:.2rem .65rem;border-radius:50px}
+  .badge-aliado{background:var(--verde-light);color:#4A8A58}
+  .badge-nuevo{background:var(--lila-light);color:var(--lila-dark)}
+  .badge-destacado{background:#FFF3D6;color:#A07A00}
+
+  .card-desc{font-size:.83rem;color:var(--texto-suave);line-height:1.6;margin-bottom:.9rem}
+
+  /* TAGS SERVICIOS */
+  .card-servicios{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+  .serv-tag{background:var(--tierra);color:var(--texto);font-size:.74rem;padding:.2rem .7rem;border-radius:8px;font-weight:500;border:1px solid var(--tierra-dark)}
+
+  /* DATOS */
+  .card-datos{display:flex;flex-wrap:wrap;gap:.5rem;padding-top:.85rem;border-top:1px solid var(--lila-light)}
+  .dato{display:flex;align-items:center;gap:.35rem;font-size:.76rem;color:var(--texto-suave)}
+  .dato-icon{font-size:.85rem}
+
+  /* SUMATE BANNER */
+  .sumate-banner{
+    margin:0 1.2rem 2rem;
+    background:linear-gradient(135deg,var(--lila-dark),#3A2260);
+    border-radius:18px;padding:1.8rem 1.4rem;color:#fff;text-align:center;
+  }
+  .sumate-banner h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:.6rem}
+  .sumate-banner p{font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:1.2rem}
+  .sumate-btn{background:var(--lila);color:var(--lila-dark);border:none;padding:.7rem 1.5rem;border-radius:50px;font-size:.88rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .2s}
+  .sumate-btn:hover{background:#fff}
+
+  /* FOOTER */
+  footer{background:var(--texto);color:rgba(255,255,255,.55);padding:2rem 1.2rem;text-align:center;margin-top:3rem;}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.4rem}
+  .footer-logo span{color:var(--lila)}
+  footer p{font-size:.8rem;line-height:1.65}
+  .footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin:.9rem 0;list-style:none}
+  .footer-links a{color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s}
+  .footer-links a:hover{color:var(--lila)}
+
+  @media(min-width:560px){
+    .emp-grid{grid-template-columns:1fr 1fr}
+    .page-header h1{font-size:2.4rem}
+  }
+  @media(min-width:900px){
+    .emp-grid{grid-template-columns:repeat(3,1fr)}
+    .page-header{padding:4rem 2rem 3rem}
+    .filtros-wrap,.search-wrap,.grid-wrap{padding-left:2rem;padding-right:2rem}
+    .sumate-banner{margin-left:2rem;margin-right:2rem}
+    .page-header h1{font-size:2.8rem}
+    .nav-hamburger{display:none}
+    .nav-links{display:flex}
+  }
+
+  @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .emp-card{animation:fadeIn .35s ease both}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Conecta<span>Tu</span>Mundo</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="comunidad_estudiantes.html">Tutores</a></li>
+    <li><a href="vitrina_emprendimientos.html" class="active">Emprendimientos</a></li>
+    <li><a href="index.html#conecta">Red Conecta</a></li>
+    <li><a href="index.html#formacion">Formación</a></li>
+    <li><a href="faq_conectatumundo.html">FAQ</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="index.html#contacto" class="nav-cta">Hablemos</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- DRAWER MÓVIL -->
+<div class="nav-drawer" id="drawer">
+  <div class="drawer-section">
+    <div class="drawer-label">Servicios</div>
+    <div class="drawer-links">
+      <a href="index.html#servicios" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--lila-light)">🖥️</div>
+        <div><span>Agencia digital</span><span class="drawer-link-sub">Web, soporte, asesoría</span></div>
+      </a>
+      <a href="index.html#formacion" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--tierra-dark)">📡</div>
+        <div><span>Talleres</span><span class="drawer-link-sub">Educación digital comunitaria</span></div>
+      </a>
+    </div>
+  </div>
+  <div class="drawer-divider"></div>
+  <div class="drawer-section">
+    <div class="drawer-label">Comunidad</div>
+    <div class="drawer-links">
+      <a href="comunidad_estudiantes.html" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--lila-light)">🎓</div>
+        <div><span>Tutores</span><span class="drawer-link-sub">Clases particulares</span></div>
+      </a>
+      <a href="vitrina_emprendimientos.html" class="drawer-link active" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--verde-light)">🏪</div>
+        <div><span>Emprendimientos</span><span class="drawer-link-sub">Negocios locales aliados</span></div>
+      </a>
+      <a href="index.html#conecta" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:#E8D0F8">🤝</div>
+        <div><span>Red Conecta</span><span class="drawer-link-sub">Cómo funciona</span></div>
+      </a>
+    </div>
+  </div>
+  <div class="drawer-divider"></div>
+  <div class="drawer-section">
+    <div class="drawer-links">
+      <a href="faq_conectatumundo.html" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--lila-light)">❓</div>
+        <div><span>Preguntas frecuentes</span></div>
+      </a>
+      <a href="index.html#sobre" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--tierra-dark)">👤</div>
+        <div><span>Sobre mí</span></div>
+      </a>
+    </div>
+  </div>
+  <a href="index.html#contacto" class="drawer-cta" onclick="closeDrawer()">Hablemos 💬</a>
+</div>
+
+<div class="page-header">
+  <div class="section-tag">Red Conecta · Emprendimientos</div>
+  <h1>Negocios locales que<br><em>confían en nosotros</em></h1>
+  <p>Emprendimientos de Durazno y la región que ya trabajan con ConectaTuMundo o forman parte de la red. Apoyalos, son de acá.</p>
+  <div class="header-stats">
+    <div class="hstat"><span id="total-count">8</span> emprendimientos</div>
+    <div class="hstat"><span>6</span> rubros distintos</div>
+    <div class="hstat">📍 Durazno y región</div>
+  </div>
+</div>
+
+<div class="filtros-wrap">
+  <div class="filtros-scroll">
+    <button class="filtro-btn active" data-filtro="todos">Todos</button>
+    <button class="filtro-btn" data-filtro="gastronomia">Gastronomía</button>
+    <button class="filtro-btn" data-filtro="comercio">Comercio</button>
+    <button class="filtro-btn" data-filtro="servicios">Servicios</button>
+    <button class="filtro-btn" data-filtro="artesanal">Artesanal</button>
+    <button class="filtro-btn" data-filtro="salud">Salud y bienestar</button>
+    <button class="filtro-btn" data-filtro="educacion">Educación</button>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <span>🔍</span>
+    <input type="text" id="buscador" placeholder="Buscá por nombre o rubro...">
+  </div>
+</div>
+
+<div class="grid-wrap">
+  <div class="emp-grid" id="grid"></div>
+  <div class="no-results" id="no-results" style="display:none">
+    <span>🔎</span>
+    No encontramos emprendimientos con ese filtro.<br>Probá con otro término.
+  </div>
+</div>
+
+<div class="sumate-banner">
+  <h3>¿Tenés un emprendimiento?</h3>
+  <p>Sumate a la red ConectaTuMundo y aparecé en esta vitrina. Te ayudamos a crecer con servicios digitales y conexiones reales.</p>
+  <button class="sumate-btn">Quiero sumarme →</button>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--texto);color:rgba(255,255,255,.55);padding:2rem 1.2rem;text-align:center;margin-top:3rem;">
+  <div class="footer-logo" style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.4rem;">Conecta<span>Tu</span>Mundo</div>
+  <ul class="footer-links" style="display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin:.9rem 0;list-style:none;padding:0;">
+    <li><a href="index1.html" style="color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s;">Inicio</a></li>
+    <li><a href="comunidad_estudiantes.html" style="color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s;">Tutores</a></li>
+    <li><a href="faq_conectatumundo.html" style="color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s;">FAQ</a></li>
+  </ul>
+  <p style="font-size:.8rem;line-height:1.65;">contacto@conectatumundo.net · (+598) 099 123 456 · Durazno, Uruguay · 2026</p>
+</footer>
+
+<script>
+const emps = [
+  {
+    nombre: "La Vuelta del Mate",
+    rubro: "Panadería & Cafetería",
+    categoria: "gastronomia",
+    desc: "Panadería artesanal familiar con más de 10 años en el barrio. Facturas, tortas y el mejor café con leche de Durazno.",
+    servicios: ["Pedidos online", "Sitio web", "Redes sociales"],
+    datos: ["📍 Centro, Durazno", "🕐 Lun–Sáb 7–13h"],
+    badge: "aliado",
+    bannerColor: "#C4875A",
+    logoColor: "#A06040",
+    emoji: "☕",
+    logo: "LM"
+  },
+  {
+    nombre: "Taller Don Ruben",
+    rubro: "Mecánica & Chapa",
+    categoria: "servicios",
+    desc: "Mecánica general, chapa y pintura. Servicio honesto y sin vueltas para vehículos de todo tipo.",
+    servicios: ["Google Maps", "WhatsApp Business"],
+    datos: ["📍 Barrio Sur, Durazno", "🕐 Lun–Vie 8–18h"],
+    badge: "nuevo",
+    bannerColor: "#4A7FA8",
+    logoColor: "#2A5F88",
+    emoji: "🔧",
+    logo: "DR"
+  },
+  {
+    nombre: "Florecer Estética",
+    rubro: "Salud & Bienestar",
+    categoria: "salud",
+    desc: "Centro de estética y bienestar con tratamientos faciales, corporales y relajación. Atención personalizada en un espacio tranquilo.",
+    servicios: ["Sitio web", "Reservas online", "Redes sociales"],
+    datos: ["📍 Durazno centro", "📅 Con turno previo"],
+    badge: "destacado",
+    bannerColor: "#9E78CC",
+    logoColor: "#7A58AC",
+    emoji: "🌸",
+    logo: "FE"
+  },
+  {
+    nombre: "Almacén El Progreso",
+    rubro: "Comercio minorista",
+    categoria: "comercio",
+    desc: "Almacén de barrio con más de 20 años de historia. Fiambres, frutas y verduras, abarrotes y atención de siempre.",
+    servicios: ["Google Maps", "WhatsApp pedidos"],
+    datos: ["📍 Barrio Norte, Durazno", "🕐 Todos los días 7–21h"],
+    badge: "aliado",
+    bannerColor: "#7CB98A",
+    logoColor: "#5A9A6A",
+    emoji: "🛒",
+    logo: "EP"
+  },
+  {
+    nombre: "Manos de la Tierra",
+    rubro: "Artesanías & Tejidos",
+    categoria: "artesanal",
+    desc: "Emprendimiento familiar de artesanías en lana, cuero y madera. Productos únicos hechos a mano con materiales del campo uruguayo.",
+    servicios: ["Tienda online", "Instagram", "Sitio web"],
+    datos: ["📍 Trinidad, Flores", "🚚 Envíos a todo Uruguay"],
+    badge: "nuevo",
+    bannerColor: "#C4A8E8",
+    logoColor: "#9E78CC",
+    emoji: "🧶",
+    logo: "MT"
+  },
+  {
+    nombre: "ProfeNet Durazno",
+    rubro: "Educación & Tutorías",
+    categoria: "educacion",
+    desc: "Centro de apoyo escolar y bachillerato. Clases grupales e individuales en matemática, lengua y ciencias.",
+    servicios: ["Sitio web", "Inscripciones online", "Redes sociales"],
+    datos: ["📍 Durazno", "🕐 Lun–Sáb tarde"],
+    badge: "aliado",
+    bannerColor: "#F4C430",
+    logoColor: "#C4A000",
+    emoji: "📚",
+    logo: "PN"
+  },
+  {
+    nombre: "Servicios Villalba",
+    rubro: "Electricidad & Gas",
+    categoria: "servicios",
+    desc: "Instalaciones eléctricas, gasfitería y plomería. Más de 15 años de trayectoria en Durazno y alrededores.",
+    servicios: ["Google Maps", "WhatsApp Business"],
+    datos: ["📍 Durazno y zona", "📞 Disponible emergencias"],
+    badge: "aliado",
+    bannerColor: "#E8885A",
+    logoColor: "#C06840",
+    emoji: "⚡",
+    logo: "SV"
+  },
+  {
+    nombre: "Dulce Campo",
+    rubro: "Gastronomía & Delivery",
+    categoria: "gastronomia",
+    desc: "Comida casera con delivery a domicilio. Menú del día, viandas para empresas y tortas encargadas para eventos.",
+    servicios: ["Pedidos por WhatsApp", "Redes sociales", "Menú digital"],
+    datos: ["📍 Durazno", "🚴 Delivery Lun–Sáb"],
+    badge: "destacado",
+    bannerColor: "#A8CC78",
+    logoColor: "#7AAA50",
+    emoji: "🍱",
+    logo: "DC"
+  }
+];
+
+const badgeLabels = {
+  aliado: {text:"✦ Aliado", cls:"badge-aliado"},
+  nuevo:  {text:"★ Nuevo",  cls:"badge-nuevo"},
+  destacado:{text:"⬡ Destacado",cls:"badge-destacado"}
+};
+
+function renderCard(e, delay){
+  const b = badgeLabels[e.badge];
+  return `
+  <div class="emp-card" style="animation-delay:${delay}ms"
+    data-cat="${e.categoria}" data-nombre="${e.nombre.toLowerCase()} ${e.rubro.toLowerCase()}">
+    <div class="card-banner" style="background:${e.bannerColor}">
+      <span class="banner-emoji">${e.emoji}</span>
+    </div>
+    <div style="display:flex;align-items:flex-start;gap:.6rem">
+      <div class="card-logo" style="background:${e.logoColor}">${e.logo}</div>
+      <div class="card-head-row" style="flex:1;padding-right:1.2rem;padding-top:.5rem">
+        <div>
+          <div class="card-nombre">${e.nombre}</div>
+          <div class="card-rubro">${e.rubro}</div>
+        </div>
+        <div class="card-badge-wrap">
+          <span class="badge ${b.cls}">${b.text}</span>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="card-desc">${e.desc}</p>
+      <div class="card-servicios">
+        ${e.servicios.map(s=>`<span class="serv-tag">${s}</span>`).join('')}
+      </div>
+      <div class="card-datos">
+        ${e.datos.map(d=>`<span class="dato">${d}</span>`).join('')}
+      </div>
+    </div>
+  </div>`;
+}
+
+function render(lista){
+  const grid = document.getElementById('grid');
+  const noR  = document.getElementById('no-results');
+  if(!lista.length){grid.innerHTML='';noR.style.display='block';return}
+  noR.style.display='none';
+  grid.innerHTML = lista.map((e,i)=>renderCard(e,i*50)).join('');
+  document.getElementById('total-count').textContent = lista.length;
+}
+
+render(emps);
+
+document.querySelectorAll('.filtro-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    filtrar();
+  });
+});
+
+function filtrar(){
+  const f = document.querySelector('.filtro-btn.active').dataset.filtro;
+  const q = document.getElementById('buscador').value.toLowerCase().trim();
+  let lista = emps;
+  if(f!=='todos') lista = lista.filter(e=>e.categoria===f);
+  if(q) lista = lista.filter(e=>e['data-nombre']||(`${e.nombre} ${e.rubro}`).toLowerCase().includes(q));
+  render(lista);
+}
+
+document.getElementById('buscador').addEventListener('input', filtrar);
+
+// Navigation script
+const ham = document.getElementById('hamburger');
+const drawer = document.getElementById('drawer');
+ham.addEventListener('click',()=>{
+  const open = drawer.classList.toggle('open');
+  ham.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+function closeDrawer(){
+  drawer.classList.remove('open');
+  ham.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click',e=>{
+  if(!drawer.contains(e.target)&&!ham.contains(e.target)&&drawer.classList.contains('open')) closeDrawer();
+});
+
+// Highlight active page in navigation
+document.addEventListener('DOMContentLoaded', function() {
+  const currentPage = window.location.pathname.split('/').pop();
+  const navLinks = document.querySelectorAll('.nav-links a');
+  
+  navLinks.forEach(link => {
+    const hrefPage = link.getAttribute('href');
+    if (hrefPage === currentPage || (currentPage === '' && hrefPage === 'index.html')) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+});
+</script>
+</body>
+</html>

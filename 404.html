@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página no encontrada - ConectaTuMundo</title>
+<meta name="description" content="La página que buscas no existe en ConectaTuMundo. Encuentra nuestros servicios digitales, tutorías y emprendimientos en Durazno, Uruguay.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --lila:#C4A8E8;--lila-light:#EDE5F8;--lila-mid:#9E78CC;--lila-dark:#5C3D8A;
+    --tierra:#F5EFE6;--tierra-dark:#E8D8C0;--verde:#7CB98A;--verde-light:#DFF0E3;
+    --texto:#2C1A4A;--texto-suave:#7A6890;--blanco:#FDFBFF;
+    --sombra:rgba(92,61,138,0.08);
+  }
+  body{font-family:'DM Sans',sans-serif;background:var(--blanco);color:var(--texto);min-height:100vh;display:flex;flex-direction:column}
+  
+  /* HEADER */
+  .page-header{
+    background:linear-gradient(150deg,var(--lila-light) 0%,var(--tierra) 100%);
+    padding:3rem 1.2rem 2.5rem;text-align:center;position:relative;overflow:hidden;
+  }
+  .page-header::before{content:'';position:absolute;top:-50px;right:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,var(--lila) 0%,transparent 70%);opacity:.3}
+  .section-tag{font-size:.75rem;color:var(--lila-mid);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+  .page-header h1{font-family:'Playfair Display',serif;font-size:2rem;color:var(--texto);margin-bottom:.7rem;line-height:1.2}
+  .page-header h1 em{color:var(--lila-dark);font-style:normal}
+  .page-header p{color:var(--texto-suave);font-size:.92rem;line-height:1.7;max-width:460px;margin:0 auto}
+
+  /* CONTENT */
+  .content-wrap{max-width:800px;margin:0 auto;padding:2rem 1.2rem 3rem;text-align:center;flex:1;display:flex;flex-direction:column;justify-content:center}
+  .error-code{font-size:6rem;font-family:'Playfair Display',serif;color:var(--lila);margin-bottom:1rem}
+  .error-message{font-size:1.2rem;margin-bottom:2rem}
+  .nav-buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-top:1.5rem}
+  .btn-primary{background:var(--lila-dark);color:#fff;padding:.82rem 1.4rem;border-radius:50px;font-size:.92rem;font-weight:600;text-decoration:none;text-align:center;display:inline-block;transition:background .2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+  .btn-primary:hover{background:var(--lila-mid)}
+  
+  /* FOOTER */
+  footer{background:var(--texto);color:rgba(255,255,255,.55);padding:2rem 1.2rem;text-align:center}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.4rem}
+  .footer-logo span{color:var(--lila)}
+  footer p{font-size:.8rem;line-height:1.65}
+
+  @media(min-width:600px){
+    .page-header h1{font-size:2.5rem}
+    .content-wrap{padding:3rem 2rem 4rem}
+    .error-code{font-size:8rem}
+    .error-message{font-size:1.4rem}
+  }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="section-tag">Error</div>
+  <h1>Página<br><em>no encontrada</em></h1>
+  <p>Lo sentimos, la página que estás buscando no existe o ha sido movida.</p>
+</div>
+
+<div class="content-wrap">
+  <div class="error-code">404</div>
+  <div class="error-message">
+    <p>La página que estás buscando podría haber sido:</p>
+    <ul style="list-style:none;margin-top:1rem;text-align:left;display:inline-block">
+      <li>• Eliminada permanentemente</li>
+      <li>• Movida a otra ubicación</li>
+      <li>• Cambiada de nombre</li>
+      <li>• Temporalmente no disponible</li>
+    </ul>
+  </div>
+  
+  <div class="nav-buttons">
+    <a href="index1.html" class="btn-primary">Ir a la página principal</a>
+    <a href="faq_conectatumundo.html" class="btn-primary">Ver preguntas frecuentes</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Conecta<span>Tu</span>Mundo</div>
+  <p>contacto@conectatumundo.net · (+598) 099 123 456 · Durazno, Uruguay · 2026</p>
+</footer>
+
+</body>
+</html>

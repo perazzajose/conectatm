@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ConectaTuMundo - Servicios Digitales en Durazno, Uruguay</title>
+<meta name="description" content="Plataforma de servicios digitales, desarrollo web, tutorías y talleres en Durazno, Uruguay. Conectamos emprendimientos con talento local.">
+<meta name="keywords" content="desarrollo web, tutorías, emprendimientos, Durazno, Uruguay, servicios digitales, educación digital">
+<meta name="author" content="ConectaTuMundo">
+<link rel="canonical" href="https://conectatumundo.net">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --lila:#C4A8E8;--lila-light:#EDE5F8;--lila-mid:#9E78CC;--lila-dark:#5C3D8A;
+  --tierra:#F5EFE6;--tierra-dark:#E8D8C0;--verde:#7CB98A;--verde-light:#DFF0E3;
+  --texto:#2C1A4A;--texto-suave:#7A6890;--blanco:#FDFBFF;
+  --sombra:rgba(92,61,138,0.10);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--blanco);color:var(--texto);overflow-x:hidden}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:rgba(253,251,255,0.97);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--lila-light);
+  padding:0 1.2rem;height:58px;display:flex;align-items:center;justify-content:space-between;
+}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--lila-dark);font-weight:700;text-decoration:none;flex-shrink:0}
+.nav-logo span{color:var(--lila)}
+.nav-links{display:none;list-style:none;gap:1.5rem;align-items:center}
+.nav-links a{text-decoration:none;color:var(--texto-suave);font-size:.85rem;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--lila-dark)}
+.nav-right{display:flex;align-items:center;gap:.7rem}
+.nav-cta{background:var(--lila-dark);color:#fff;padding:.4rem 1rem;border-radius:50px;font-size:.82rem;font-weight:500;text-decoration:none;white-space:nowrap;transition:background .2s}
+.nav-cta:hover{background:var(--lila-mid)}
+.nav-hamburger{background:none;border:1.5px solid var(--lila-light);border-radius:8px;width:36px;height:36px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+.nav-hamburger span{display:block;width:16px;height:1.5px;background:var(--lila-dark);border-radius:2px;transition:all .25s}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+/* ── DRAWER MÓVIL ── */
+.nav-drawer{
+  position:fixed;top:58px;left:0;right:0;bottom:0;z-index:190;
+  background:rgba(253,251,255,0.98);backdrop-filter:blur(14px);
+  display:flex;flex-direction:column;padding:1.5rem 1.2rem;
+  transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;
+}
+.nav-drawer.open{transform:translateX(0)}
+.drawer-section{margin-bottom:1.8rem}
+.drawer-label{font-size:.72rem;color:var(--lila-mid);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.8rem}
+.drawer-links{display:flex;flex-direction:column;gap:.2rem}
+.drawer-link{display:flex;align-items:center;gap:.8rem;padding:.8rem .9rem;border-radius:12px;text-decoration:none;color:var(--texto);font-size:.95rem;font-weight:500;transition:background .15s}
+.drawer-link:hover,.drawer-link.active{background:var(--lila-light);color:var(--lila-dark)}
+.drawer-link-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.drawer-link-sub{font-size:.77rem;color:var(--texto-suave);display:block;margin-top:.1rem;font-weight:400}
+.drawer-cta{display:block;text-align:center;background:var(--lila-dark);color:#fff;padding:.85rem;border-radius:50px;font-size:.95rem;font-weight:600;text-decoration:none;margin-top:auto}
+.drawer-divider{height:1px;background:var(--lila-light);margin:.5rem 0 1.5rem}
+
+/* ── HERO ── */
+.hero{
+  min-height:100svh;display:flex;align-items:center;
+  background:linear-gradient(160deg,var(--lila-light) 0%,var(--tierra) 55%,var(--blanco) 100%);
+  padding:5.5rem 1.2rem 3rem;position:relative;overflow:hidden;
+}
+.hero::before{content:'';position:absolute;top:-80px;right:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,var(--lila) 0%,transparent 70%);opacity:.28}
+.hero::after{content:'';position:absolute;bottom:-40px;left:-30px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,var(--verde) 0%,transparent 70%);opacity:.2}
+.hero-inner{max-width:1100px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:2rem}
+.hero-tag{display:inline-flex;align-items:center;gap:.45rem;background:var(--lila-light);color:var(--lila-dark);border:1px solid var(--lila);padding:.3rem .9rem;border-radius:50px;font-size:.75rem;font-weight:500;width:fit-content}
+.hero-tag::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--lila-mid);flex-shrink:0}
+h1{font-family:'Playfair Display',serif;font-size:2.5rem;line-height:1.13;color:var(--texto);margin:.7rem 0 1rem}
+h1 em{color:var(--lila-dark);font-style:normal}
+.hero-sub{font-size:.97rem;line-height:1.75;color:var(--texto-suave);margin-bottom:1.8rem}
+.hero-btns{display:flex;flex-direction:column;gap:.7rem}
+.btn-primary{background:var(--lila-dark);color:#fff;padding:.82rem 1.4rem;border-radius:50px;font-size:.92rem;font-weight:600;text-decoration:none;text-align:center;display:block;transition:background .2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{background:var(--lila-mid)}
+.btn-outline{background:transparent;color:var(--lila-dark);border:1.5px solid var(--lila);padding:.8rem 1.4rem;border-radius:50px;font-size:.92rem;font-weight:500;text-decoration:none;text-align:center;display:block;transition:background .2s}
+.btn-outline:hover{background:var(--lila-light)}
+
+/* PILLS HERO */
+.hero-pills{display:flex;flex-direction:column;gap:.65rem}
+.hero-pill{background:#fff;border:1px solid var(--lila-light);border-radius:14px;padding:.85rem 1rem;display:flex;align-items:center;gap:.8rem;box-shadow:0 2px 12px var(--sombra)}
+.pill-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0}
+.pill-icon.lila{background:var(--lila-light)}
+.pill-icon.verde{background:var(--verde-light)}
+.pill-icon.tierra{background:var(--tierra-dark)}
+.pill-text{font-size:.84rem;font-weight:500;color:var(--texto);line-height:1.3}
+.pill-text span{display:block;font-size:.75rem;color:var(--texto-suave);font-weight:400}
+
+/* ── SECCIONES ── */
+section{padding:3.5rem 1.2rem}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-tag{font-size:.74rem;color:var(--lila-mid);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+h2{font-family:'Playfair Display',serif;font-size:1.85rem;color:var(--texto);margin-bottom:.8rem;line-height:1.2}
+.section-sub{color:var(--texto-suave);font-size:.92rem;line-height:1.7;margin-bottom:2rem}
+
+/* ── SERVICIOS ── */
+#servicios{background:var(--blanco)}
+.servicios-grid{display:grid;grid-template-columns:1fr;gap:1rem}
+.serv-card{background:var(--tierra);border-radius:18px;padding:1.4rem;border:1px solid var(--tierra-dark);transition:all .22s}
+.serv-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--sombra)}
+.serv-icon{width:44px;height:44px;border-radius:12px;background:var(--lila-light);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1rem}
+.serv-title{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--texto);margin-bottom:.45rem}
+.serv-desc{font-size:.84rem;color:var(--texto-suave);line-height:1.6}
+.serv-badge{display:inline-block;margin-top:.7rem;font-size:.73rem;background:var(--lila-light);color:var(--lila-dark);padding:.2rem .7rem;border-radius:50px;font-weight:500}
+
+/* ── COMUNIDAD ACCESOS ── */
+#comunidad{background:var(--tierra)}
+.comunidad-cards{display:flex;flex-direction:column;gap:1rem}
+.com-card{border-radius:18px;padding:1.6rem;display:flex;flex-direction:column;gap:1rem;text-decoration:none;transition:all .22s;border:1.5px solid transparent}
+.com-card.tutores{background:var(--lila-light);border-color:var(--lila)}
+.com-card.emprendimientos{background:var(--verde-light);border-color:#A8D8B8}
+.com-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--sombra)}
+.com-card-head{display:flex;align-items:center;gap:.9rem}
+.com-icon{width:48px;height:48px;border-radius:14px;background:#fff;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.com-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--texto)}
+.com-sub{font-size:.8rem;color:var(--texto-suave);margin-top:.15rem}
+.com-desc{font-size:.85rem;color:var(--texto-suave);line-height:1.65}
+.com-link{font-size:.84rem;font-weight:600;color:var(--lila-dark);display:flex;align-items:center;gap:.3rem}
+.com-card.emprendimientos .com-link{color:#3A7A48}
+
+/* ── CONECTA ── */
+#conecta{background:linear-gradient(150deg,var(--lila-dark) 0%,#3A2260 100%);color:#fff}
+#conecta h2{color:#fff}
+#conecta .section-tag{color:var(--lila)}
+#conecta .section-sub{color:rgba(255,255,255,.7)}
+.conecta-chips{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:1.5rem}
+.chip{background:rgba(196,168,232,.15);border:1px solid rgba(196,168,232,.3);color:var(--lila);padding:.28rem .75rem;border-radius:50px;font-size:.78rem;font-weight:500}
+.conecta-cards{display:flex;flex-direction:column;gap:.85rem;margin-bottom:1.8rem}
+.cc-card{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:1.1rem 1.2rem;display:flex;gap:.85rem;align-items:flex-start}
+.cc-dot{width:34px;height:34px;border-radius:9px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.9rem}
+.cc-dot.a{background:rgba(196,168,232,.25)}
+.cc-dot.b{background:rgba(124,185,138,.25)}
+.cc-title{font-size:.88rem;font-weight:600;color:#fff;margin-bottom:.2rem}
+.cc-desc{font-size:.8rem;color:rgba(255,255,255,.6);line-height:1.5}
+.conecta-cta{display:block;text-align:center;background:var(--lila);color:var(--lila-dark);padding:.75rem;border-radius:50px;font-size:.9rem;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;width:100%}
+
+/* ── FORMACIÓN ── */
+#formacion{background:var(--blanco)}
+.form-grid{display:flex;flex-direction:column;gap:1rem}
+.form-card{background:var(--tierra);border-radius:16px;padding:1.4rem;border:1px solid var(--tierra-dark)}
+.form-num{font-family:'Playfair Display',serif;font-size:2rem;color:var(--lila-light);font-weight:700;margin-bottom:.5rem;line-height:1}
+.form-title{font-size:.92rem;font-weight:600;color:var(--texto);margin-bottom:.4rem}
+.form-desc{font-size:.83rem;color:var(--texto-suave);line-height:1.55}
+.taller-cta{margin-top:1.5rem;background:#fff;border-radius:16px;padding:1.4rem;border:1px solid var(--tierra-dark);display:flex;flex-direction:column;gap:1rem}
+.taller-cta strong{font-size:.95rem;color:var(--texto)}
+.taller-cta p{font-size:.85rem;color:var(--texto-suave);line-height:1.6}
+
+/* ── FAQ PREVIEW ── */
+#faq-preview{background:var(--lila-light)}
+.faq-list{display:flex;flex-direction:column;gap:.7rem;margin-bottom:1.5rem}
+.faq-item{background:#fff;border:1px solid var(--lila-light);border-radius:14px;overflow:hidden}
+.faq-item.open{border-color:var(--lila)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.9rem 1rem;background:transparent;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.88rem;font-weight:500;color:var(--texto);text-align:left}
+.faq-q:hover{background:var(--lila-light)}
+.faq-item.open .faq-q{background:var(--lila-light);color:var(--lila-dark)}
+.faq-ico{width:22px;height:22px;border-radius:50%;background:var(--lila-light);color:var(--lila-dark);display:flex;align-items:center;justify-content:center;font-size:.95rem;flex-shrink:0;transition:transform .25s,background .2s;font-weight:700}
+.faq-item.open .faq-ico{transform:rotate(45deg);background:var(--lila-dark);color:#fff}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .3s ease}
+.faq-item.open .faq-a{max-height:300px}
+.faq-a-inner{padding:.2rem 1rem .9rem;font-size:.84rem;color:var(--texto-suave);line-height:1.7}
+.ver-mas{display:block;text-align:center;background:var(--lila-dark);color:#fff;padding:.75rem;border-radius:50px;font-size:.88rem;font-weight:600;text-decoration:none}
+
+/* ── SOBRE MÍ ── */
+#sobre{background:var(--blanco)}
+.sobre-blob{width:90px;height:90px;border-radius:60% 40% 55% 45% / 50% 60% 40% 50%;background:linear-gradient(135deg,var(--lila-light),var(--tierra-dark));display:flex;align-items:center;justify-content:center;margin-bottom:1.2rem}
+.sobre-initials{font-family:'Playfair Display',serif;font-size:2rem;color:var(--lila-dark);font-weight:700}
+.sobre-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1.1rem}
+.sobre-chip{background:var(--lila-light);color:var(--lila-dark);padding:.25rem .75rem;border-radius:50px;font-size:.75rem;font-weight:500}
+.sobre-texto p{color:var(--texto-suave);line-height:1.72;margin-bottom:.85rem;font-size:.9rem}
+
+/* ── CONTACTO ── */
+#contacto{background:var(--tierra)}
+.contacto-form{background:#fff;border-radius:18px;padding:1.5rem;border:1px solid var(--tierra-dark);margin-top:1.4rem}
+.form-group{display:flex;flex-direction:column;gap:.35rem;margin-bottom:.85rem}
+.form-group label{font-size:.8rem;font-weight:500;color:var(--texto)}
+.form-group input,.form-group textarea,.form-group select{border:1.5px solid var(--lila-light);border-radius:10px;padding:.62rem .9rem;font-size:.88rem;font-family:'DM Sans',sans-serif;color:var(--texto);outline:none;transition:border-color .2s;background:var(--blanco);width:100%}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--lila-mid)}
+.form-group textarea{resize:vertical;min-height:85px}
+.form-submit{width:100%;background:var(--lila-dark);color:#fff;border:none;padding:.82rem;border-radius:50px;font-size:.92rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:.3rem;transition:background .2s}
+.form-submit:hover{background:var(--lila-mid)}
+.checkbox-label{display:flex;align-items:center;font-size:.85rem;color:var(--texto-suave)}
+.checkbox-label input[type="checkbox"]{margin-right:.5rem}
+
+/* ── FOOTER ── */
+footer{background:var(--texto);color:rgba(255,255,255,.55);padding:2rem 1.2rem;text-align:center}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.4rem}
+.footer-logo span{color:var(--lila)}
+footer p{font-size:.8rem;line-height:1.65}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin:.9rem 0;list-style:none}
+.footer-links a{color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--lila)}
+
+/* ── DESKTOP ── */
+@media(min-width:600px){
+  nav{padding:0 2rem;height:64px}
+  .hero{padding:7rem 2rem 4rem}
+  h1{font-size:3rem}
+  .hero-btns{flex-direction:row}
+  .btn-primary,.btn-outline{display:inline-block;width:auto}
+  section{padding:5rem 2rem}
+  h2{font-size:2.1rem}
+  .servicios-grid{grid-template-columns:1fr 1fr}
+  .form-grid{grid-template-columns:1fr 1fr 1fr}
+  .comunidad-cards{flex-direction:row}
+  .taller-cta{flex-direction:row;align-items:center;justify-content:space-between}
+}
+@media(min-width:900px){
+  .nav-hamburger{display:none}
+  .nav-links{display:flex}
+  .hero-inner{flex-direction:row;align-items:center;gap:3rem}
+  .hero-inner>div:first-child{flex:1}
+  .hero-pills{flex:1}
+  .servicios-grid{grid-template-columns:repeat(3,1fr)}
+  .sobre-layout{display:grid;grid-template-columns:auto 1fr;gap:3rem;align-items:center}
+  .sobre-blob{margin-bottom:0;width:140px;height:140px}
+  .sobre-initials{font-size:3rem}
+}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.hero-inner>*{animation:fadeUp .6s ease both}
+.hero-inner>*:nth-child(2){animation-delay:.12s}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Conecta<span>Tu</span>Mundo</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="comunidad_estudiantes.html">Tutores</a></li>
+    <li><a href="vitrina_emprendimientos.html">Emprendimientos</a></li>
+    <li><a href="index.html#conecta">Red Conecta</a></li>
+    <li><a href="index.html#formacion">Formación</a></li>
+    <li><a href="faq_conectatumundo.html">FAQ</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="index.html#contacto" class="nav-cta">Hablemos</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- DRAWER MÓVIL -->
+<div class="nav-drawer" id="drawer">
+  <div class="drawer-section">
+    <div class="drawer-label">Servicios</div>
+    <div class="drawer-links">
+      <a href="index.html#servicios" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--lila-light)">🖥️</div>
+        <div><span>Agencia digital</span><span class="drawer-link-sub">Web, soporte, asesoría</span></div>
+      </a>
+      <a href="index.html#formacion" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--tierra-dark)">📡</div>
+        <div><span>Talleres</span><span class="drawer-link-sub">Educación digital comunitaria</span></div>
+      </a>
+    </div>
+  </div>
+  <div class="drawer-divider"></div>
+  <div class="drawer-section">
+    <div class="drawer-label">Comunidad</div>
+    <div class="drawer-links">
+      <a href="comunidad_estudiantes.html" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--lila-light)">🎓</div>
+        <div><span>Tutores</span><span class="drawer-link-sub">Clases particulares</span></div>
+      </a>
+      <a href="vitrina_emprendimientos.html" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--verde-light)">🏪</div>
+        <div><span>Emprendimientos</span><span class="drawer-link-sub">Negocios locales aliados</span></div>
+      </a>
+      <a href="index.html#conecta" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:#E8D0F8">🤝</div>
+        <div><span>Red Conecta</span><span class="drawer-link-sub">Cómo funciona</span></div>
+      </a>
+    </div>
+  </div>
+  <div class="drawer-divider"></div>
+  <div class="drawer-section">
+    <div class="drawer-links">
+      <a href="faq_conectatumundo.html" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--lila-light)">❓</div>
+        <div><span>Preguntas frecuentes</span></div>
+      </a>
+      <a href="index.html#sobre" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--tierra-dark)">👤</div>
+        <div><span>Sobre mí</span></div>
+      </a>
+    </div>
+  </div>
+  <a href="index.html#contacto" class="drawer-cta" onclick="closeDrawer()">Hablemos 💬</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Durazno, Uruguay · Servicios digitales</div>
+      <h1>Tu negocio merece<br><em>presencia digital</em><br>de verdad.</h1>
+      <p class="hero-sub">Desarrollo web, asesoría y conexión de talento pensados para el interior. Cercanos, accesibles, con raíces locales.</p>
+      <div class="hero-btns">
+        <a href="#servicios" class="btn-primary">Ver servicios</a>
+        <a href="#conecta" class="btn-outline">Red Conecta →</a>
+      </div>
+    </div>
+    <div class="hero-pills">
+      <div class="hero-pill">
+        <div class="pill-icon lila">🌐</div>
+        <div class="pill-text">Sitio web profesional<span>Desde el diseño hasta el lanzamiento</span></div>
+      </div>
+      <div class="hero-pill">
+        <div class="pill-icon verde">🤝</div>
+        <div class="pill-text">Talento accesible — Red Conecta<span>Estudiantes calificados, precio justo</span></div>
+      </div>
+      <div class="hero-pill">
+        <div class="pill-icon tierra">📡</div>
+        <div class="pill-text">Asesoría y soporte digital<span>Acompañamiento continuo</span></div>
+      </div>
+      <div class="hero-pill">
+        <div class="pill-icon lila">🏫</div>
+        <div class="pill-text">Talleres de educación digital<span>Liceos, clubes y comunidades</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="section-inner">
+    <div class="section-tag">Agencia digital local</div>
+    <h2>Servicios para emprendimientos que quieren crecer</h2>
+    <p class="section-sub">Todo lo que tu negocio necesita en el mundo digital, con precios pensados para el interior.</p>
+    <div class="servicios-grid">
+      <div class="serv-card">
+        <div class="serv-icon">🖥️</div>
+        <div class="serv-title">Desarrollo web</div>
+        <p class="serv-desc">Sitios modernos y rápidos. Desde una landing hasta tiendas online completas, con dominio y soporte.</p>
+        <span class="serv-badge">Desde $250 USD</span>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">🔍</div>
+        <div class="serv-title">Auditoría digital</div>
+        <p class="serv-desc">Analizamos tu presencia online y te entregamos un informe con qué mejorar primero.</p>
+        <span class="serv-badge">Diagnóstico gratis</span>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">💡</div>
+        <div class="serv-title">Asesoría 1:1</div>
+        <p class="serv-desc">Sesiones personalizadas de estrategia digital, redes y herramientas para crecer.</p>
+        <span class="serv-badge">Por sesión o mensual</span>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">🔧</div>
+        <div class="serv-title">Soporte IT</div>
+        <p class="serv-desc">Computadoras, redes o software. Atención rápida para que tu negocio no se detenga.</p>
+        <span class="serv-badge">Remoto y presencial</span>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">📱</div>
+        <div class="serv-title">Redes sociales</div>
+        <p class="serv-desc">Estrategia y acompañamiento para Instagram, Facebook y Google Mi Negocio.</p>
+        <span class="serv-badge">Pack mensual</span>
+      </div>
+      <div class="serv-card">
+        <div class="serv-icon">🎯</div>
+        <div class="serv-title">Identidad digital</div>
+        <p class="serv-desc">Logo, colores y materiales para que tu marca tenga coherencia en todos lados.</p>
+        <span class="serv-badge">Pack completo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMUNIDAD -->
+<section id="comunidad">
+  <div class="section-inner">
+    <div class="section-tag">Red Conecta · Comunidad</div>
+    <h2>Explorá la comunidad</h2>
+    <p class="section-sub">Tutores que enseñan y emprendimientos que crecen — todos parte de la misma red.</p>
+    <div class="comunidad-cards">
+      <a href="#" class="com-card tutores">
+        <div class="com-card-head">
+          <div class="com-icon">🎓</div>
+          <div>
+            <div class="com-title">Tutores & clases</div>
+            <div class="com-sub">8 tutores activos</div>
+          </div>
+        </div>
+        <p class="com-desc">Estudiantes avanzados del interior que dan clases particulares a precio accesible. Matemática, contabilidad, inglés, informática y más.</p>
+        <span class="com-link">Ver tutores →</span>
+      </a>
+      <a href="#" class="com-card emprendimientos">
+        <div class="com-card-head">
+          <div class="com-icon">🏪</div>
+          <div>
+            <div class="com-title">Emprendimientos</div>
+            <div class="com-sub">8 negocios aliados</div>
+          </div>
+        </div>
+        <p class="com-desc">Negocios locales de Durazno y la región que trabajan con ConectaTuMundo. Apoyalos, son de acá.</p>
+        <span class="com-link">Ver emprendimientos →</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- RED CONECTA -->
+<section id="conecta">
+  <div class="section-inner">
+    <div class="section-tag">Red Conecta</div>
+    <h2>Conectamos mundos que se necesitan</h2>
+    <p class="section-sub">Tu emprendimiento necesita apoyo. Hay estudiantes con el conocimiento justo. Los conectamos.</p>
+    <div class="conecta-chips">
+      <span class="chip">Contabilidad</span><span class="chip">Diseño gráfico</span>
+      <span class="chip">Marketing digital</span><span class="chip">Asesoría legal</span>
+      <span class="chip">Fotografía</span><span class="chip">Inglés</span>
+    </div>
+    <div class="conecta-cards">
+      <div class="cc-card">
+        <div class="cc-dot a">🏪</div>
+        <div><div class="cc-title">Para tu emprendimiento</div><div class="cc-desc">Talento calificado por una fracción del costo de un profesional. Sin burocracia.</div></div>
+      </div>
+      <div class="cc-card">
+        <div class="cc-dot b">🎓</div>
+        <div><div class="cc-title">Para estudiantes</div><div class="cc-desc">Experiencia práctica real antes de graduarte. Contactos con empresarios locales.</div></div>
+      </div>
+      <div class="cc-card">
+        <div class="cc-dot a">🤝</div>
+        <div><div class="cc-title">Con garantía de calidad</div><div class="cc-desc">Validamos cada perfil y acompañamos el proceso de principio a fin.</div></div>
+      </div>
+    </div>
+    <button class="conecta-cta" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Quiero conectarme →</button>
+  </div>
+</section>
+
+<!-- FORMACIÓN -->
+<section id="formacion">
+  <div class="section-inner">
+    <div class="section-tag">Formación comunitaria</div>
+    <h2>Educación digital para el interior</h2>
+    <p class="section-sub">Talleres en liceos, escuelas y organizaciones. Porque la tecnología tiene que llegar a todos.</p>
+    <div class="form-grid">
+      <div class="form-card">
+        <div class="form-num">01</div>
+        <div class="form-title">Seguridad en internet</div>
+        <p class="form-desc">Estafas, contraseñas, privacidad y cómo proteger tu información.</p>
+      </div>
+      <div class="form-card">
+        <div class="form-num">02</div>
+        <div class="form-title">Herramientas para emprendedores</div>
+        <p class="form-desc">Google Workspace, facturación digital y redes para negocios.</p>
+      </div>
+      <div class="form-card">
+        <div class="form-num">03</div>
+        <div class="form-title">Uso responsable de redes</div>
+        <p class="form-desc">Derechos digitales, fake news y huella digital para jóvenes y adultos.</p>
+      </div>
+    </div>
+    <div class="taller-cta">
+      <div>
+        <strong>¿Querés un taller para tu institución?</strong>
+        <p>Presencial en Durazno o virtual para todo el país.</p>
+      </div>
+      <button class="btn-primary" style="white-space:nowrap" onclick="document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">Solicitar taller</button>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ PREVIEW -->
+<section id="faq-preview">
+  <div class="section-inner">
+    <div class="section-tag">Preguntas frecuentes</div>
+    <h2>Las dudas más comunes</h2>
+    <p class="section-sub">Respondemos antes de que tengas que preguntar.</p>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>¿Qué es ConectaTuMundo exactamente?</span><span class="faq-ico">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">ConectaTuMundo es una plataforma de servicios digitales y conexión de talento con base en Durazno. Desarrollamos sitios web, conectamos negocios con estudiantes calificados y damos talleres de educación digital en el interior.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>¿Cómo funciona la Red Conecta para mi negocio?</span><span class="faq-ico">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Nos contás qué necesitás, buscamos al estudiante o profesional adecuado en nuestra red y coordinamos la primera reunión. Acompañamos todo el proceso para que salga bien. Sin burocracia, sin procesos largos.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>¿Solo operan en Durazno?</span><span class="faq-ico">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Estamos basados en Durazno pero trabajamos con emprendimientos de toda la región centro. Los talleres los damos presencial en Durazno o virtual para todo el país. La Red Conecta también funciona de forma remota.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)"><span>¿Qué pasa si el estudiante no cumple?</span><span class="faq-ico">+</span></button>
+        <div class="faq-a"><div class="faq-a-inner">Validamos cada perfil antes de presentarlo y acompañamos el proceso. Si hay algún problema, lo resolvemos. No dejamos a ningún emprendimiento sin respuesta.</div></div>
+      </div>
+    </div>
+    <a href="#" class="ver-mas">Ver todas las preguntas →</a>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<section id="sobre">
+  <div class="section-inner">
+    <div class="sobre-layout">
+      <div class="sobre-blob"><div class="sobre-initials">JM</div></div>
+      <div>
+        <div class="section-tag">Sobre mí</div>
+        <h2>Un emprendedor del interior, para el interior</h2>
+        <div class="sobre-chips">
+          <span class="sobre-chip">Desarrollo web</span>
+          <span class="sobre-chip">Firebase</span>
+          <span class="sobre-chip">Diseño UI</span>
+          <span class="sobre-chip">Operaciones</span>
+          <span class="sobre-chip">Durazno</span>
+        </div>
+        <div class="sobre-texto">
+          <p>Hola, soy José. Nací y crecí en el interior, y sé bien lo que cuesta encontrar ayuda tecnológica cercana, accesible y que entienda cómo funciona un negocio de barrio.</p>
+          <p>ConectaTuMundo nació de esa necesidad. No es una agencia de Montevideo que opera desde lejos — estoy acá, en Durazno, tomando un mate, con ganas de que tu negocio crezca junto con la comunidad.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="section-inner">
+    <div class="section-tag">Contacto</div>
+    <h2>¿Hablamos?</h2>
+    <p class="section-sub" style="margin-bottom:0">Contame qué necesita tu negocio. Te respondo a la brevedad, sin compromiso.</p>
+    <div class="contacto-form">
+      <form id="contact-form">
+        <div class="form-group"><label for="nombre">Nombre *</label><input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required></div>
+        <div class="form-group"><label for="contacto">WhatsApp / Email *</label><input type="text" id="contacto" name="contacto" placeholder="Tu contacto" required></div>
+        <div class="form-group">
+          <label for="interes">¿Qué te interesa?</label>
+          <select id="interes" name="interes">
+            <option value="">Seleccioná una opción</option>
+            <option>Desarrollo web</option>
+            <option>Auditoría digital gratis</option>
+            <option>Red Conecta — soy emprendedor</option>
+            <option>Red Conecta — soy estudiante</option>
+            <option>Taller o charla</option>
+            <option>Asesoría 1:1</option>
+            <option>Otro</option>
+          </select>
+        </div>
+        <div class="form-group"><label for="mensaje">Mensaje *</label><textarea id="mensaje" name="mensaje" placeholder="Contame brevemente sobre tu negocio o consulta..." required></textarea></div>
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="terminos" name="terminos" required> Acepto la <a href="privacy.html" target="_blank">política de privacidad</a> *
+          </label>
+        </div>
+        <button type="submit" class="form-submit">Enviar mensaje ✉️</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Conecta<span>Tu</span>Mundo</div>
+  <ul class="footer-links">
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#comunidad">Tutores</a></li>
+    <li><a href="#comunidad">Emprendimientos</a></li>
+    <li><a href="#conecta">Red Conecta</a></li>
+    <li><a href="#formacion">Formación</a></li>
+    <li><a href="#faq-preview">FAQ</a></li>
+  </ul>
+  <p>contacto@conectatumundo.net · (+598) 099 123 456 · Durazno, Uruguay · 2026</p>
+</footer>
+
+<script>
+const ham = document.getElementById('hamburger');
+const drawer = document.getElementById('drawer');
+ham.addEventListener('click',()=>{
+  const open = drawer.classList.toggle('open');
+  ham.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+function closeDrawer(){
+  drawer.classList.remove('open');
+  ham.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click',e=>{
+  if(!drawer.contains(e.target)&&!ham.contains(e.target)&&drawer.classList.contains('open')) closeDrawer();
+});
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  const isOpen=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
+  if(!isOpen) item.classList.add('open');
+}
+
+// Form validation
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  
+  // Get form values
+  const nombre = document.getElementById('nombre').value.trim();
+  const contacto = document.getElementById('contacto').value.trim();
+  const interes = document.getElementById('interes').value;
+  const mensaje = document.getElementById('mensaje').value.trim();
+  const terminos = document.getElementById('terminos').checked;
+  
+  // Validate required fields
+  if (!nombre || !contacto || !interes || !mensaje) {
+    alert('Por favor completa todos los campos obligatorios.');
+    return;
+  }
+  
+  if (!terminos) {
+    alert('Debes aceptar la política de privacidad.');
+    return;
+  }
+  
+  // Basic email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const isEmail = emailRegex.test(contacto);
+  const isPhone = /^\+?\d[\d\s\-\(\)]+$/.test(contacto);
+  
+  if (!isEmail && !isPhone) {
+    alert('Por favor ingresa un email o número de teléfono válido.');
+    return;
+  }
+  
+  // If validation passes, submit the form (in a real implementation)
+  alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
+  this.reset();
+});
+
+// Highlight active page in navigation
+document.addEventListener('DOMContentLoaded', function() {
+  const currentPage = window.location.pathname.split('/').pop();
+  const navLinks = document.querySelectorAll('.nav-links a');
+  
+  navLinks.forEach(link => {
+    const hrefPage = link.getAttribute('href');
+    if (hrefPage === currentPage || (currentPage === '' && hrefPage === 'index.html') || (currentPage === 'index.html')) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+});
+</script>
+</body>
+</html>

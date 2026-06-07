@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tutores en Durazno - ConectaTuMundo</title>
+<meta name="description" content="Encuentra tutores particulares en Durazno, Uruguay. Estudiantes avanzados que ofrecen clases de matemática, contabilidad, inglés, informática y más.">
+<meta name="keywords" content="tutores, clases particulares, Durazno, Uruguay, educación, estudiantes, matemática, contabilidad, inglés">
+<meta name="author" content="ConectaTuMundo">
+<link rel="canonical" href="https://conectatumundo.net/comunidad_estudiantes">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --lila:#C4A8E8;--lila-light:#EDE5F8;--lila-mid:#9E78CC;--lila-dark:#5C3D8A;
+    --tierra:#F5EFE6;--tierra-dark:#E8D8C0;--verde:#7CB98A;--verde-light:#DFF0E3;
+    --texto:#2C1A4A;--texto-suave:#7A6890;--blanco:#FDFBFF;
+    --sombra:rgba(92,61,138,0.08);
+  }
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;background:var(--blanco);color:var(--texto);min-height:100vh}
+
+  /* NAVIGATION */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:200;
+    background:rgba(253,251,255,0.97);backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--lila-light);
+    padding:0 1.2rem;height:58px;display:flex;align-items:center;justify-content:space-between;
+  }
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--lila-dark);font-weight:700;text-decoration:none;flex-shrink:0}
+  .nav-logo span{color:var(--lila)}
+  .nav-links{display:none;list-style:none;gap:1.5rem;align-items:center}
+  .nav-links a{text-decoration:none;color:var(--texto-suave);font-size:.85rem;font-weight:500;transition:color .2s}
+  .nav-links a:hover{color:var(--lila-dark)}
+  .nav-links a.active{color:var(--lila-dark);font-weight:600}
+  .nav-right{display:flex;align-items:center;gap:.7rem}
+  .nav-cta{background:var(--lila-dark);color:#fff;padding:.4rem 1rem;border-radius:50px;font-size:.82rem;font-weight:500;text-decoration:none;white-space:nowrap;transition:background .2s}
+  .nav-cta:hover{background:var(--lila-mid)}
+  .nav-hamburger{background:none;border:1.5px solid var(--lila-light);border-radius:8px;width:36px;height:36px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;padding:0}
+  .nav-hamburger span{display:block;width:16px;height:1.5px;background:var(--lila-dark);border-radius:2px;transition:all .25s}
+  .nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+  .nav-hamburger.open span:nth-child(2){opacity:0}
+  .nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+  /* DRAWER MÓVIL */
+  .nav-drawer{
+    position:fixed;top:58px;left:0;right:0;bottom:0;z-index:190;
+    background:rgba(253,251,255,0.98);backdrop-filter:blur(14px);
+    display:flex;flex-direction:column;padding:1.5rem 1.2rem;
+    transform:translateX(100%);transition:transform .3s ease;overflow-y:auto;
+  }
+  .nav-drawer.open{transform:translateX(0)}
+  .drawer-section{margin-bottom:1.8rem}
+  .drawer-label{font-size:.72rem;color:var(--lila-mid);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.8rem}
+  .drawer-links{display:flex;flex-direction:column;gap:.2rem}
+  .drawer-link{display:flex;align-items:center;gap:.8rem;padding:.8rem .9rem;border-radius:12px;text-decoration:none;color:var(--texto);font-size:.95rem;font-weight:500;transition:background .15s}
+  .drawer-link:hover,.drawer-link.active{background:var(--lila-light);color:var(--lila-dark)}
+  .drawer-link-icon{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+  .drawer-link-sub{font-size:.77rem;color:var(--texto-suave);display:block;margin-top:.1rem;font-weight:400}
+  .drawer-cta{display:block;text-align:center;background:var(--lila-dark);color:#fff;padding:.85rem;border-radius:50px;font-size:.95rem;font-weight:600;text-decoration:none;margin-top:auto}
+  .drawer-divider{height:1px;background:var(--lila-light);margin:.5rem 0 1.5rem}
+
+  /* HEADER */
+  .page-header{
+    background:linear-gradient(150deg,var(--lila-light) 0%,var(--tierra) 100%);
+    padding:3rem 1.2rem 2.5rem;text-align:center;position:relative;overflow:hidden;
+    margin-top:58px; /* Account for fixed navbar */
+  }
+  .page-header::before{content:'';position:absolute;top:-60px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--lila) 0%,transparent 70%);opacity:.3}
+  .page-header::after{content:'';position:absolute;bottom:-40px;left:-30px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,var(--verde) 0%,transparent 70%);opacity:.2}
+  .section-tag{font-size:.75rem;color:var(--lila-mid);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+  .page-header h1{font-family:'Playfair Display',serif;font-size:2rem;color:var(--texto);margin-bottom:.7rem;line-height:1.2}
+  .page-header h1 em{color:var(--lila-dark);font-style:normal}
+  .page-header p{color:var(--texto-suave);font-size:.92rem;line-height:1.7;max-width:480px;margin:0 auto 1.5rem}
+  .header-stats{display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+  .hstat{background:#fff;border:1px solid var(--lila-light);border-radius:12px;padding:.6rem 1.1rem;font-size:.82rem;color:var(--texto);font-weight:500}
+  .hstat span{color:var(--lila-dark);font-weight:700}
+
+  /* FILTROS */
+  .filtros-wrap{padding:1.2rem 1.2rem .5rem;position:sticky;top:58px;background:rgba(253,251,255,.95);backdrop-filter:blur(10px);z-index:10;border-bottom:1px solid var(--lila-light);margin-top:-58px;}
+  .filtros-scroll{display:flex;gap:.6rem;overflow-x:auto;padding-bottom:.3rem;scrollbar-width:none}
+  .filtros-scroll::-webkit-scrollbar{display:none}
+  .filtro-btn{flex-shrink:0;border:1.5px solid var(--lila-light);background:#fff;color:var(--texto-suave);padding:.38rem .9rem;border-radius:50px;font-size:.8rem;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap}
+  .filtro-btn.active,.filtro-btn:hover{background:var(--lila-dark);color:#fff;border-color:var(--lila-dark)}
+
+  /* BUSCADOR */
+  .search-wrap{padding:.8rem 1.2rem 1rem}
+  .search-box{display:flex;align-items:center;gap:.7rem;background:#fff;border:1.5px solid var(--lila-light);border-radius:12px;padding:.6rem 1rem;transition:border-color .2s}
+  .search-box:focus-within{border-color:var(--lila-mid)}
+  .search-box input{border:none;outline:none;font-size:.9rem;font-family:'DM Sans',sans-serif;color:var(--texto);background:transparent;width:100%}
+  .search-box input::placeholder{color:var(--texto-suave)}
+  .search-icon{font-size:1rem;flex-shrink:0}
+
+  /* GRID */
+  .grid-wrap{padding:0 1.2rem 3rem}
+  .perfiles-grid{display:grid;grid-template-columns:1fr;gap:1.1rem}
+  .no-results{text-align:center;padding:3rem 1rem;color:var(--texto-suave);font-size:.92rem}
+  .no-results span{display:block;font-size:2rem;margin-bottom:.8rem}
+
+  /* CARD */
+  .perfil-card{
+    background:#fff;border:1px solid var(--lila-light);border-radius:18px;
+    padding:1.4rem;transition:all .22s;cursor:default;
+    box-shadow:0 2px 12px var(--sombra);
+  }
+  .perfil-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px var(--sombra);border-color:var(--lila)}
+  .card-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
+  .avatar{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;font-family:'Playfair Display',serif;font-weight:700;color:#fff;font-size:1.3rem}
+  .card-info{flex:1;min-width:0}
+  .card-nombre{font-weight:600;font-size:.98rem;color:var(--texto);margin-bottom:.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .card-inst{font-size:.78rem;color:var(--texto-suave);line-height:1.4}
+  .card-nivel{display:inline-block;margin-top:.25rem;font-size:.72rem;background:var(--lila-light);color:var(--lila-dark);padding:.18rem .65rem;border-radius:50px;font-weight:500}
+  .card-badge{margin-left:auto;flex-shrink:0}
+  .badge-nuevo{background:var(--verde-light);color:#4A8A58;font-size:.7rem;font-weight:600;padding:.2rem .6rem;border-radius:50px}
+
+  /* MATERIAS */
+  .card-materias{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+  .materia-tag{background:var(--tierra);color:var(--texto);font-size:.75rem;padding:.22rem .7rem;border-radius:8px;font-weight:500;border:1px solid var(--tierra-dark)}
+
+  /* RESEÑAS */
+  .card-resenas{border-top:1px solid var(--lila-light);padding-top:.9rem}
+  .resenas-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
+  .stars-row{display:flex;align-items:center;gap:.3rem}
+  .stars{font-size:.85rem;letter-spacing:-.5px}
+  .rating-num{font-size:.82rem;font-weight:600;color:var(--texto)}
+  .resenas-count{font-size:.75rem;color:var(--texto-suave)}
+  .resena-item{background:var(--tierra);border-radius:10px;padding:.7rem .9rem;margin-bottom:.5rem}
+  .resena-texto{font-size:.8rem;color:var(--texto-suave);line-height:1.5;margin-bottom:.35rem}
+  .resena-autor{font-size:.73rem;color:var(--lila-mid);font-weight:500}
+  .sin-resenas{font-size:.8rem;color:var(--texto-suave);font-style:italic}
+
+  /* SUMATE BANNER */
+  .sumate-banner{
+    margin:0 1.2rem 2rem;background:linear-gradient(135deg,var(--lila-dark),#3A2260);
+    border-radius:18px;padding:1.8rem 1.4rem;color:#fff;text-align:center;
+  }
+  .sumate-banner h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:.6rem}
+  .sumate-banner p{font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:1.2rem}
+  .sumate-btn{background:var(--lila);color:var(--lila-dark);border:none;padding:.7rem 1.5rem;border-radius:50px;font-size:.88rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .2s}
+  .sumate-btn:hover{background:#fff}
+
+  /* FOOTER */
+  footer{background:var(--texto);color:rgba(255,255,255,.55);padding:2rem 1.2rem;text-align:center;margin-top:3rem;}
+  .footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.4rem}
+  .footer-logo span{color:var(--lila)}
+  footer p{font-size:.8rem;line-height:1.65}
+  .footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin:.9rem 0;list-style:none}
+  .footer-links a{color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s}
+  .footer-links a:hover{color:var(--lila)}
+
+  @media(min-width:560px){
+    .perfiles-grid{grid-template-columns:1fr 1fr}
+    .page-header h1{font-size:2.4rem}
+  }
+  @media(min-width:900px){
+    .perfiles-grid{grid-template-columns:repeat(3,1fr)}
+    .page-header{padding:4rem 2rem 3rem}
+    .filtros-wrap,.search-wrap,.grid-wrap,.sumate-banner{padding-left:2rem;padding-right:2rem}
+    .sumate-banner{margin-left:2rem;margin-right:2rem}
+    .page-header h1{font-size:2.8rem}
+    .nav-hamburger{display:none}
+    .nav-links{display:flex}
+  }
+
+  @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .perfil-card{animation:fadeIn .35s ease both}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Conecta<span>Tu</span>Mundo</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="comunidad_estudiantes.html" class="active">Tutores</a></li>
+    <li><a href="vitrina_emprendimientos.html">Emprendimientos</a></li>
+    <li><a href="index.html#conecta">Red Conecta</a></li>
+    <li><a href="index.html#formacion">Formación</a></li>
+    <li><a href="faq_conectatumundo.html">FAQ</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="index.html#contacto" class="nav-cta">Hablemos</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- DRAWER MÓVIL -->
+<div class="nav-drawer" id="drawer">
+  <div class="drawer-section">
+    <div class="drawer-label">Servicios</div>
+    <div class="drawer-links">
+      <a href="index.html#servicios" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--lila-light)">🖥️</div>
+        <div><span>Agencia digital</span><span class="drawer-link-sub">Web, soporte, asesoría</span></div>
+      </a>
+      <a href="index.html#formacion" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--tierra-dark)">📡</div>
+        <div><span>Talleres</span><span class="drawer-link-sub">Educación digital comunitaria</span></div>
+      </a>
+    </div>
+  </div>
+  <div class="drawer-divider"></div>
+  <div class="drawer-section">
+    <div class="drawer-label">Comunidad</div>
+    <div class="drawer-links">
+      <a href="comunidad_estudiantes.html" class="drawer-link active" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--lila-light)">🎓</div>
+        <div><span>Tutores</span><span class="drawer-link-sub">Clases particulares</span></div>
+      </a>
+      <a href="vitrina_emprendimientos.html" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--verde-light)">🏪</div>
+        <div><span>Emprendimientos</span><span class="drawer-link-sub">Negocios locales aliados</span></div>
+      </a>
+      <a href="index.html#conecta" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:#E8D0F8">🤝</div>
+        <div><span>Red Conecta</span><span class="drawer-link-sub">Cómo funciona</span></div>
+      </a>
+    </div>
+  </div>
+  <div class="drawer-divider"></div>
+  <div class="drawer-section">
+    <div class="drawer-links">
+      <a href="faq_conectatumundo.html" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--lila-light)">❓</div>
+        <div><span>Preguntas frecuentes</span></div>
+      </a>
+      <a href="index.html#sobre" class="drawer-link" onclick="closeDrawer()">
+        <div class="drawer-link-icon" style="background:var(--tierra-dark)">👤</div>
+        <div><span>Sobre mí</span></div>
+      </a>
+    </div>
+  </div>
+  <a href="index.html#contacto" class="drawer-cta" onclick="closeDrawer()">Hablemos 💬</a>
+</div>
+
+<div class="page-header">
+  <div class="section-tag">Red Conecta · Comunidad</div>
+  <h1>Encontrá tu<br><em>profe particular</em></h1>
+  <p>Estudiantes avanzados del interior que comparten lo que saben. Clases accesibles, trato cercano y horarios flexibles.</p>
+  <div class="header-stats">
+    <div class="hstat"><span id="total-count">8</span> tutores activos</div>
+    <div class="hstat"><span>5</span> materias disponibles</div>
+    <div class="hstat">📍 Durazno y alrededores</div>
+  </div>
+</div>
+
+<div class="filtros-wrap">
+  <div class="filtros-scroll">
+    <button class="filtro-btn active" data-filtro="todos">Todos</button>
+    <button class="filtro-btn" data-filtro="matematica">Matemática</button>
+    <button class="filtro-btn" data-filtro="informatica">Informática</button>
+    <button class="filtro-btn" data-filtro="contabilidad">Contabilidad</button>
+    <button class="filtro-btn" data-filtro="lengua">Lengua</button>
+    <button class="filtro-btn" data-filtro="ingles">Inglés</button>
+    <button class="filtro-btn" data-filtro="fisica">Física</button>
+  </div>
+</div>
+
+<div class="search-wrap">
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="buscador" placeholder="Buscá por nombre o materia...">
+  </div>
+</div>
+
+<div class="grid-wrap">
+  <div class="perfiles-grid" id="grid"></div>
+  <div class="no-results" id="no-results" style="display:none">
+    <span>🔎</span>
+    No encontramos tutores con ese filtro. <br>Probá con otra materia o término.
+  </div>
+</div>
+
+<div class="sumate-banner">
+  <h3>¿Sos estudiante y querés dar clases?</h3>
+  <p>Sumate a la comunidad ConectaTuMundo. Compartí tu conocimiento, ganás experiencia y ayudás a tu comunidad.</p>
+  <button class="sumate-btn">Quiero ser tutor →</button>
+</div>
+
+<!-- FOOTER -->
+<footer style="background:var(--texto);color:rgba(255,255,255,.55);padding:2rem 1.2rem;text-align:center;margin-top:3rem;">
+  <div class="footer-logo" style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.4rem;">Conecta<span>Tu</span>Mundo</div>
+  <ul class="footer-links" style="display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin:.9rem 0;list-style:none;padding:0;">
+    <li><a href="index1.html" style="color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s;">Inicio</a></li>
+    <li><a href="faq_conectatumundo.html" style="color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s;">FAQ</a></li>
+    <li><a href="vitrina_emprendimientos.html" style="color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s;">Emprendimientos</a></li>
+  </ul>
+  <p style="font-size:.8rem;line-height:1.65;">contacto@conectatumundo.net · (+598) 099 123 456 · Durazno, Uruguay · 2026</p>
+</footer>
+
+<script>
+const avatarColores = ["#5C3D8A","#9E78CC","#7CB98A","#C4875A","#4A7FA8","#A85C7A","#6A8A4A","#8A6A4A"];
+
+const tutores = [
+  {
+    nombre:"Valentina Rodríguez",
+    inst:"UTU Durazno · 3er año Contabilidad",
+    nivel:"Estudiante avanzada",
+    materias:["Contabilidad básica","Administración","Excel"],
+    nuevo:false,
+    avatar:"VR",
+    color:avatarColores[0],
+    rating:4.9,
+    resenas:[
+      {texto:"Me ayudó a entender el balance de forma muy clara. Súper paciente y puntual.",autor:"Emprendedora local"},
+      {texto:"Excelente explicación de los asientos contables. Lo recomiendo.",autor:"Dueño de almacén"}
+    ]
+  },
+  {
+    nombre:"Matías Fernández",
+    inst:"UDELAR · Ingeniería de Sistemas (remoto)",
+    nivel:"Universitario 4to año",
+    materias:["Matemática","Física","Programación"],
+    nuevo:true,
+    avatar:"MF",
+    color:avatarColores[1],
+    rating:5.0,
+    resenas:[
+      {texto:"Explica con ejemplos reales, muy didáctico. Mi hijo mejoró mucho en pocas clases.",autor:"Mamá de alumno"}
+    ]
+  },
+  {
+    nombre:"Lucía Bentancur",
+    inst:"Liceo N°1 Durazno · Bachillerato",
+    nivel:"Bachillerata",
+    materias:["Lengua","Literatura","Historia"],
+    nuevo:false,
+    avatar:"LB",
+    color:avatarColores[2],
+    rating:4.7,
+    resenas:[
+      {texto:"Me preparó para el examen de Literatura en una semana. Muy buena.",autor:"Estudiante de 6to"}
+    ]
+  },
+  {
+    nombre:"Diego Acosta",
+    inst:"INEFOP · Técnico en Informática",
+    nivel:"Técnico certificado",
+    materias:["Informática","Ofimática","Redes"],
+    nuevo:false,
+    avatar:"DA",
+    color:avatarColores[3],
+    rating:4.8,
+    resenas:[
+      {texto:"Me enseñó a usar Excel desde cero para mi negocio. Muy claro y sin apurarse.",autor:"Emprendedora"},
+      {texto:"Instaló y explicó todo el sistema. Muy profesional.",autor:"Comerciante"}
+    ]
+  },
+  {
+    nombre:"Sofía Núñez",
+    inst:"UTU Durazno · Idiomas",
+    nivel:"Estudiante avanzada",
+    materias:["Inglés","Portugués"],
+    nuevo:true,
+    avatar:"SN",
+    color:avatarColores[4],
+    rating:4.9,
+    resenas:[
+      {texto:"Las clases de inglés son muy dinámicas. Aprendí más en un mes que en todo el liceo.",autor:"Joven de 17 años"}
+    ]
+  },
+  {
+    nombre:"Andrés Cabrera",
+    inst:"UDELAR · Contador Público (avanzado)",
+    nivel:"Universitario 5to año",
+    materias:["Contabilidad","Finanzas","Impuestos básicos"],
+    nuevo:false,
+    avatar:"AC",
+    color:avatarColores[5],
+    rating:4.6,
+    resenas:[
+      {texto:"Muy bien explicado todo. Me ayudó a entender el IVA para mi emprendimiento.",autor:"Emprendedor"}
+    ]
+  },
+  {
+    nombre:"Camila Torres",
+    inst:"Liceo N°2 Durazno · Bachillerato Científico",
+    nivel:"Bachillerata",
+    materias:["Matemática","Física","Química"],
+    nuevo:false,
+    avatar:"CT",
+    color:avatarColores[6],
+    rating:4.8,
+    resenas:[
+      {texto:"Gracias a ella aprobé Física. Muy paciente y explica re bien.",autor:"Estudiante de bachillerato"},
+      {texto:"Clases muy ordenadas y claras. Se nota que sabe el tema.",autor:"Mamá de alumna"}
+    ]
+  },
+  {
+    nombre:"Nicolás Pérez",
+    inst:"INEFOP · Desarrollador Web Jr",
+    nivel:"Técnico certificado",
+    materias:["Informática","Programación web","Diseño básico"],
+    nuevo:true,
+    avatar:"NP",
+    color:avatarColores[7],
+    rating:0,
+    resenas:[]
+  }
+];
+
+function estrellas(rating){
+  if(!rating) return '';
+  const llenas = Math.floor(rating);
+  const media = rating - llenas >= 0.5 ? 1 : 0;
+  return '★'.repeat(llenas) + (media?'½':'') + '☆'.repeat(5-llenas-media);
+}
+
+function renderCard(t, delay){
+  const tieneResenas = t.resenas.length > 0;
+  return `
+  <div class="perfil-card" style="animation-delay:${delay}ms"
+    data-materias="${t.materias.join(' ').toLowerCase()}"
+    data-nombre="${t.nombre.toLowerCase()}">
+    <div class="card-top">
+      <div class="avatar" style="background:${t.color}">${t.avatar}</div>
+      <div class="card-info">
+        <div class="card-nombre">${t.nombre}</div>
+        <div class="card-inst">${t.inst}</div>
+        <span class="card-nivel">${t.nivel}</span>
+      </div>
+      ${t.nuevo ? '<div class="card-badge"><span class="badge-nuevo">✦ Nuevo</span></div>' : ''}
+    </div>
+    <div class="card-materias">
+      ${t.materias.map(m=>`<span class="materia-tag">${m}</span>`).join('')}
+    </div>
+    <div class="card-resenas">
+      <div class="resenas-header">
+        <div class="stars-row">
+          ${tieneResenas ? `
+            <span class="stars" style="color:#F4C430">${estrellas(t.rating)}</span>
+            <span class="rating-num">${t.rating.toFixed(1)}</span>
+          ` : ''}
+        </div>
+        <span class="resenas-count">${tieneResenas ? `${t.resenas.length} reseña${t.resenas.length>1?'s':''}` : ''}</span>
+      </div>
+      ${tieneResenas
+        ? t.resenas.slice(0,1).map(r=>`
+          <div class="resena-item">
+            <div class="resena-texto">"${r.texto}"</div>
+            <div class="resena-autor">— ${r.autor}</div>
+          </div>`).join('')
+        : '<div class="sin-resenas">Todavía sin reseñas — ¡sé el primero!</div>'
+      }
+    </div>
+  </div>`;
+}
+
+function render(lista){
+  const grid = document.getElementById('grid');
+  const noR = document.getElementById('no-results');
+  if(!lista.length){
+    grid.innerHTML='';
+    noR.style.display='block';
+    return;
+  }
+  noR.style.display='none';
+  grid.innerHTML = lista.map((t,i)=>renderCard(t,i*50)).join('');
+  document.getElementById('total-count').textContent = lista.length;
+}
+
+render(tutores);
+
+// FILTROS
+document.querySelectorAll('.filtro-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    filtrar();
+  });
+});
+
+function filtrar(){
+  const f = document.querySelector('.filtro-btn.active').dataset.filtro;
+  const q = document.getElementById('buscador').value.toLowerCase().trim();
+  let lista = tutores;
+  if(f !== 'todos') lista = lista.filter(t=>t.materias.join(' ').toLowerCase().includes(f));
+  if(q) lista = lista.filter(t=>t.nombre.toLowerCase().includes(q)||t.materias.join(' ').toLowerCase().includes(q));
+  render(lista);
+}
+
+document.getElementById('buscador').addEventListener('input', filtrar);
+
+// Navigation script
+const ham = document.getElementById('hamburger');
+const drawer = document.getElementById('drawer');
+ham.addEventListener('click',()=>{
+  const open = drawer.classList.toggle('open');
+  ham.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+function closeDrawer(){
+  drawer.classList.remove('open');
+  ham.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click',e=>{
+  if(!drawer.contains(e.target)&&!ham.contains(e.target)&&drawer.classList.contains('open')) closeDrawer();
+});
+
+// Highlight active page in navigation
+document.addEventListener('DOMContentLoaded', function() {
+  const currentPage = window.location.pathname.split('/').pop();
+  const navLinks = document.querySelectorAll('.nav-links a');
+  
+  navLinks.forEach(link => {
+    const hrefPage = link.getAttribute('href');
+    if (hrefPage === currentPage || (currentPage === '' && hrefPage === 'index.html')) {
+      link.classList.add('active');
+    } else {
+      link.classList.remove('active');
+    }
+  });
+});
+</script>
+</body>
+</html>
