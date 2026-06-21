@@ -100,18 +100,28 @@
   /* CARD */
   .perfil-card{
     background:#fff;border:1px solid var(--lila-light);border-radius:18px;
-    padding:1.4rem;transition:all .22s;cursor:default;
-    box-shadow:0 2px 12px var(--sombra);
+    overflow:hidden;box-shadow:0 2px 12px var(--sombra);transition:all .22s;cursor:default;
   }
   .perfil-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px var(--sombra);border-color:var(--lila)}
-  .card-top{display:flex;align-items:flex-start;gap:1rem;margin-bottom:1rem}
-  .avatar{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0;font-family:'Playfair Display',serif;font-weight:700;color:#fff;font-size:1.3rem}
-  .card-info{flex:1;min-width:0}
-  .card-nombre{font-weight:600;font-size:.98rem;color:var(--texto);margin-bottom:.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .card-inst{font-size:.78rem;color:var(--texto-suave);line-height:1.4}
+  .card-banner{height:64px;position:relative;overflow:hidden}
+  .card-banner::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.15))}
+  .banner-deco{position:absolute;right:-10px;top:-10px;width:90px;height:90px;border-radius:50%;background:rgba(255,255,255,.18)}
+  .banner-deco-2{position:absolute;left:30%;bottom:-30px;width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.12)}
+  .avatar{
+    width:58px;height:58px;border-radius:15px;border:3px solid #fff;
+    display:flex;align-items:center;justify-content:center;overflow:hidden;
+    font-family:'Playfair Display',serif;font-weight:700;font-size:1.3rem;color:#fff;
+    position:relative;z-index:2;margin-top:-29px;margin-left:1.2rem;flex-shrink:0;
+    box-shadow:0 2px 8px rgba(0,0,0,.12);
+  }
+  .avatar img{width:100%;height:100%;object-fit:cover;}
+  .card-body{padding:.6rem 1.2rem 1.2rem}
+  .card-info{min-width:0}
+  .card-nombre{font-weight:700;font-size:1rem;color:var(--texto);margin-bottom:.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .card-inst{font-size:.78rem;color:var(--texto-suave);line-height:1.4;margin-bottom:.85rem}
 
   /* MATERIAS */
-  .card-materias{display:flex;flex-wrap:wrap;gap:.4rem}
+  .card-materias{display:flex;flex-wrap:wrap;gap:.4rem;padding-top:.85rem;border-top:1px solid var(--lila-light)}
   .materia-tag{background:var(--tierra);color:var(--texto);font-size:.75rem;padding:.22rem .7rem;border-radius:8px;font-weight:500;border:1px solid var(--tierra-dark)}
 
   .sumate-banner{
@@ -307,11 +317,14 @@ async function cargarTutores(){
   try{
     const q = query(collection(db,'tutores'), orderBy('nombre'));
     const snap = await getDocs(q);
-    tutores = snap.docs.map((d,i) => ({
-      id:d.id,
-      ...d.data(),
-      color: avatarColores[i % avatarColores.length]
-    }));
+    tutores = snap.docs.map((d,i) => {
+      const data = d.data();
+      return {
+        id:d.id,
+        ...data,
+        color: data.color || avatarColores[i % avatarColores.length]
+      };
+    });
     render(tutores);
   }catch(err){
     console.error(err);
@@ -323,16 +336,23 @@ async function cargarTutores(){
 
 function renderCard(t, delay){
   const materias = t.materias || [];
+  const avatarContent = t.imagenUrl
+    ? `<img src="${escapeHtml(t.imagenUrl)}" alt="${escapeHtml(t.nombre)}" onerror="this.parentElement.innerHTML='${escapeHtml(t.avatar||'')}'">`
+    : escapeHtml(t.avatar||'');
   return `
   <div class="perfil-card" style="animation-delay:${delay}ms">
-    <div class="card-top">
-      <div class="avatar" style="background:${t.color}">${escapeHtml(t.avatar||'')}</div>
+    <div class="card-banner" style="background:${t.color||'#5C3D8A'}">
+      <span class="banner-deco"></span>
+      <span class="banner-deco-2"></span>
+    </div>
+    <div class="avatar" style="background:${t.color||'#5C3D8A'}">${avatarContent}</div>
+    <div class="card-body">
       <div class="card-info">
         <div class="card-nombre">${escapeHtml(t.nombre)}</div>
         ${t.institucion ? `<div class="card-inst">${escapeHtml(t.institucion)}</div>` : ''}
       </div>
+      ${materias.length ? `<div class="card-materias">${materias.map(m=>`<span class="materia-tag">${escapeHtml(m)}</span>`).join('')}</div>` : ''}
     </div>
-    ${materias.length ? `<div class="card-materias">${materias.map(m=>`<span class="materia-tag">${escapeHtml(m)}</span>`).join('')}</div>` : ''}
   </div>`;
 }
 

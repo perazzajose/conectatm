@@ -265,8 +265,15 @@
         <input type="color" id="empBannerColor" value="#9E78CC">
       </div>
       <div class="field">
-        <label>Color logo</label>
+        <label>Color logo <span class="hint">(si no hay imagen)</span></label>
         <input type="color" id="empLogoColor" value="#7A58AC">
+      </div>
+    </div>
+    <div class="field">
+      <label>URL de imagen / avatar <span class="hint">(opcional, ej. Imgur)</span></label>
+      <input type="text" id="empImagenUrl" placeholder="https://i.imgur.com/xxxxx.jpg">
+      <div id="empImagenPreviewWrap" style="display:none;margin-top:10px;">
+        <img id="empImagenPreview" src="" alt="Vista previa" style="width:60px;height:60px;border-radius:14px;object-fit:cover;border:2px solid var(--border);">
       </div>
     </div>
 
@@ -299,6 +306,19 @@
     <div class="field">
       <label>Contacto</label>
       <input type="text" id="tutContacto" placeholder="Ej: maria@email.com">
+    </div>
+    <div class="field">
+      <label>URL de imagen / avatar <span class="hint">(opcional, ej. Imgur)</span></label>
+      <input type="text" id="tutImagenUrl" placeholder="https://i.imgur.com/xxxxx.jpg">
+      <div id="tutImagenPreviewWrap" style="display:none;margin-top:10px;">
+        <img id="tutImagenPreview" src="" alt="Vista previa" style="width:60px;height:60px;border-radius:14px;object-fit:cover;border:2px solid var(--border);">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Color avatar <span class="hint">(si no hay imagen)</span></label>
+        <input type="color" id="tutColor" value="#5C3D8A">
+      </div>
     </div>
 
     <div class="modal-actions">
@@ -420,11 +440,15 @@ function renderEmprendimientos(filter=''){
     container.innerHTML = '<div class="empty-state">No hay emprendimientos cargados todavía.</div>';
     return;
   }
-  let html = '<table><thead><tr><th>Nombre</th><th>Rubro</th><th>Categoría</th><th>Estado</th><th>Color</th><th>Acciones</th></tr></thead><tbody>';
+  let html = '<table><thead><tr><th>Img</th><th>Nombre</th><th>Rubro</th><th>Categoría</th><th>Estado</th><th>Color</th><th>Acciones</th></tr></thead><tbody>';
   list.forEach(e => {
     const badgeClass = e.estado === 'con_web' ? 'badge-conweb' : 'badge-sinweb';
     const badgeText = e.estado === 'con_web' ? 'Con web' : 'Sin web';
+    const thumb = e.imagenUrl
+      ? `<img src="${escapeHtml(e.imagenUrl)}" style="width:32px;height:32px;border-radius:8px;object-fit:cover;display:block;" onerror="this.style.display='none'">`
+      : `<span class="swatch" style="background:${e.logoColor||'#ccc'};width:32px;height:32px;border-radius:8px;"></span>`;
     html += `<tr>
+      <td data-label="Img">${thumb}</td>
       <td data-label="Nombre"><strong>${escapeHtml(e.nombre)}</strong></td>
       <td data-label="Rubro">${escapeHtml(e.rubro||'-')}</td>
       <td data-label="Categoría">${escapeHtml(e.categoria||'-')}</td>
@@ -442,6 +466,30 @@ function renderEmprendimientos(filter=''){
 
 document.getElementById('searchEmprendimientos').addEventListener('input', e => renderEmprendimientos(e.target.value));
 
+document.getElementById('empImagenUrl').addEventListener('input', e => {
+  const url = e.target.value.trim();
+  const wrap = document.getElementById('empImagenPreviewWrap');
+  const img = document.getElementById('empImagenPreview');
+  if(url){
+    img.src = url;
+    wrap.style.display = 'block';
+  } else {
+    wrap.style.display = 'none';
+  }
+});
+
+document.getElementById('tutImagenUrl').addEventListener('input', e => {
+  const url = e.target.value.trim();
+  const wrap = document.getElementById('tutImagenPreviewWrap');
+  const img = document.getElementById('tutImagenPreview');
+  if(url){
+    img.src = url;
+    wrap.style.display = 'block';
+  } else {
+    wrap.style.display = 'none';
+  }
+});
+
 window.editEmp = function(id){
   const e = emprendimientos.find(x=>x.id===id);
   document.getElementById('modalEmpTitle').textContent = 'Editar emprendimiento';
@@ -458,6 +506,10 @@ window.editEmp = function(id){
   document.getElementById('empEmoji').value = e.emoji||'';
   document.getElementById('empBannerColor').value = e.bannerColor||'#9E78CC';
   document.getElementById('empLogoColor').value = e.logoColor||'#7A58AC';
+  document.getElementById('empImagenUrl').value = e.imagenUrl||'';
+  const wrap = document.getElementById('empImagenPreviewWrap');
+  const img = document.getElementById('empImagenPreview');
+  if(e.imagenUrl){ img.src = e.imagenUrl; wrap.style.display='block'; } else { wrap.style.display='none'; }
   document.getElementById('modalEmprendimiento').classList.add('active');
 }
 
@@ -484,6 +536,7 @@ document.getElementById('btnSaveEmp').addEventListener('click', async () => {
     emoji: document.getElementById('empEmoji').value.trim() || '🏪',
     bannerColor: document.getElementById('empBannerColor').value,
     logoColor: document.getElementById('empLogoColor').value,
+    imagenUrl: document.getElementById('empImagenUrl').value.trim(),
     logo: nombre.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('')
   };
   if(!data.nombre){ showToast('El nombre es obligatorio'); return; }
@@ -522,9 +575,13 @@ function renderTutores(filter=''){
     container.innerHTML = '<div class="empty-state">No hay tutores cargados todavía.</div>';
     return;
   }
-  let html = '<table><thead><tr><th>Nombre</th><th>Institución</th><th>Materias</th><th>Contacto</th><th>Acciones</th></tr></thead><tbody>';
+  let html = '<table><thead><tr><th>Img</th><th>Nombre</th><th>Institución</th><th>Materias</th><th>Contacto</th><th>Acciones</th></tr></thead><tbody>';
   list.forEach(t => {
+    const thumb = t.imagenUrl
+      ? `<img src="${escapeHtml(t.imagenUrl)}" style="width:32px;height:32px;border-radius:8px;object-fit:cover;display:block;" onerror="this.style.display='none'">`
+      : `<span class="swatch" style="background:${t.color||'#ccc'};width:32px;height:32px;border-radius:8px;"></span>`;
     html += `<tr>
+      <td data-label="Img">${thumb}</td>
       <td data-label="Nombre"><strong>${escapeHtml(t.nombre)}</strong></td>
       <td data-label="Institución">${escapeHtml(t.institucion||'-')}</td>
       <td data-label="Materias">${escapeHtml(arrayToCsv(t.materias))}</td>
@@ -549,6 +606,11 @@ window.editTut = function(id){
   document.getElementById('tutInstitucion').value = t.institucion||'';
   document.getElementById('tutArea').value = arrayToCsv(t.materias);
   document.getElementById('tutContacto').value = t.contacto||'';
+  document.getElementById('tutImagenUrl').value = t.imagenUrl||'';
+  document.getElementById('tutColor').value = t.color||'#5C3D8A';
+  const wrap = document.getElementById('tutImagenPreviewWrap');
+  const img = document.getElementById('tutImagenPreview');
+  if(t.imagenUrl){ img.src = t.imagenUrl; wrap.style.display='block'; } else { wrap.style.display='none'; }
   document.getElementById('modalTutor').classList.add('active');
 }
 
@@ -567,6 +629,8 @@ document.getElementById('btnSaveTut').addEventListener('click', async () => {
     institucion: document.getElementById('tutInstitucion').value.trim(),
     materias: csvToArray(document.getElementById('tutArea').value),
     contacto: document.getElementById('tutContacto').value.trim(),
+    imagenUrl: document.getElementById('tutImagenUrl').value.trim(),
+    color: document.getElementById('tutColor').value,
     avatar: nombre.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('')
   };
   if(!data.nombre){ showToast('El nombre es obligatorio'); return; }
@@ -601,6 +665,8 @@ document.getElementById('fabAdd').addEventListener('click', () => {
     document.getElementById('empEmoji').value = '';
     document.getElementById('empBannerColor').value = '#9E78CC';
     document.getElementById('empLogoColor').value = '#7A58AC';
+    document.getElementById('empImagenUrl').value = '';
+    document.getElementById('empImagenPreviewWrap').style.display = 'none';
     document.getElementById('modalEmprendimiento').classList.add('active');
   } else {
     document.getElementById('modalTutTitle').textContent = 'Nuevo tutor';
@@ -609,6 +675,9 @@ document.getElementById('fabAdd').addEventListener('click', () => {
     document.getElementById('tutInstitucion').value = '';
     document.getElementById('tutArea').value = '';
     document.getElementById('tutContacto').value = '';
+    document.getElementById('tutImagenUrl').value = '';
+    document.getElementById('tutColor').value = '#5C3D8A';
+    document.getElementById('tutImagenPreviewWrap').style.display = 'none';
     document.getElementById('modalTutor').classList.add('active');
   }
 });
