@@ -64,7 +64,7 @@
   .page-header{
     background:linear-gradient(150deg,var(--lila-light) 0%,var(--tierra) 100%);
     padding:3rem 1.2rem 2.5rem;text-align:center;position:relative;overflow:hidden;
-    margin-top:58px; /* Account for fixed navbar */
+    margin-top:58px;
   }
   .page-header::before{content:'';position:absolute;top:-60px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--lila) 0%,transparent 70%);opacity:.3}
   .page-header::after{content:'';position:absolute;bottom:-40px;left:-30px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,var(--verde) 0%,transparent 70%);opacity:.2}
@@ -109,27 +109,11 @@
   .card-info{flex:1;min-width:0}
   .card-nombre{font-weight:600;font-size:.98rem;color:var(--texto);margin-bottom:.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .card-inst{font-size:.78rem;color:var(--texto-suave);line-height:1.4}
-  .card-nivel{display:inline-block;margin-top:.25rem;font-size:.72rem;background:var(--lila-light);color:var(--lila-dark);padding:.18rem .65rem;border-radius:50px;font-weight:500}
-  .card-badge{margin-left:auto;flex-shrink:0}
-  .badge-nuevo{background:var(--verde-light);color:#4A8A58;font-size:.7rem;font-weight:600;padding:.2rem .6rem;border-radius:50px}
 
   /* MATERIAS */
-  .card-materias{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+  .card-materias{display:flex;flex-wrap:wrap;gap:.4rem}
   .materia-tag{background:var(--tierra);color:var(--texto);font-size:.75rem;padding:.22rem .7rem;border-radius:8px;font-weight:500;border:1px solid var(--tierra-dark)}
 
-  /* RESEÑAS */
-  .card-resenas{border-top:1px solid var(--lila-light);padding-top:.9rem}
-  .resenas-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
-  .stars-row{display:flex;align-items:center;gap:.3rem}
-  .stars{font-size:.85rem;letter-spacing:-.5px}
-  .rating-num{font-size:.82rem;font-weight:600;color:var(--texto)}
-  .resenas-count{font-size:.75rem;color:var(--texto-suave)}
-  .resena-item{background:var(--tierra);border-radius:10px;padding:.7rem .9rem;margin-bottom:.5rem}
-  .resena-texto{font-size:.8rem;color:var(--texto-suave);line-height:1.5;margin-bottom:.35rem}
-  .resena-autor{font-size:.73rem;color:var(--lila-mid);font-weight:500}
-  .sin-resenas{font-size:.8rem;color:var(--texto-suave);font-style:italic}
-
-  /* SUMATE BANNER */
   .sumate-banner{
     margin:0 1.2rem 2rem;background:linear-gradient(135deg,var(--lila-dark),#3A2260);
     border-radius:18px;padding:1.8rem 1.4rem;color:#fff;text-align:center;
@@ -139,7 +123,6 @@
   .sumate-btn{background:var(--lila);color:var(--lila-dark);border:none;padding:.7rem 1.5rem;border-radius:50px;font-size:.88rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .2s}
   .sumate-btn:hover{background:#fff}
 
-  /* FOOTER */
   footer{background:var(--texto);color:rgba(255,255,255,.55);padding:2rem 1.2rem;text-align:center;margin-top:3rem;}
   .footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.4rem}
   .footer-logo span{color:var(--lila)}
@@ -147,6 +130,9 @@
   .footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin:.9rem 0;list-style:none}
   .footer-links a{color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s}
   .footer-links a:hover{color:var(--lila)}
+
+  .skeleton{background:linear-gradient(90deg,var(--lila-light) 25%,#fff 37%,var(--lila-light) 63%);background-size:400% 100%;animation:shimmer 1.4s ease infinite;border-radius:18px;height:140px}
+  @keyframes shimmer{0%{background-position:100% 50%}100%{background-position:0 50%}}
 
   @media(min-width:560px){
     .perfiles-grid{grid-template-columns:1fr 1fr}
@@ -241,8 +227,8 @@
   <h1>Encontrá tu<br><em>profe particular</em></h1>
   <p>Estudiantes avanzados del interior que comparten lo que saben. Clases accesibles, trato cercano y horarios flexibles.</p>
   <div class="header-stats">
-    <div class="hstat"><span id="total-count">8</span> tutores activos</div>
-    <div class="hstat"><span>5</span> materias disponibles</div>
+    <div class="hstat"><span id="total-count">0</span> tutores activos</div>
+    <div class="hstat"><span id="materia-count">0</span> materias disponibles</div>
     <div class="hstat">📍 Durazno y alrededores</div>
   </div>
 </div>
@@ -267,185 +253,86 @@
 </div>
 
 <div class="grid-wrap">
-  <div class="perfiles-grid" id="grid"></div>
+  <div class="perfiles-grid" id="grid">
+    <div class="skeleton"></div><div class="skeleton"></div><div class="skeleton"></div>
+  </div>
   <div class="no-results" id="no-results" style="display:none">
     <span>🔎</span>
-    No encontramos tutores con ese filtro. <br>Probá con otra materia o término.
+    <span id="no-results-text">No encontramos tutores con ese filtro. <br>Probá con otra materia o término.</span>
   </div>
 </div>
 
 <div class="sumate-banner">
   <h3>¿Sos estudiante y querés dar clases?</h3>
   <p>Sumate a la comunidad ConectaTuMundo. Compartí tu conocimiento, ganás experiencia y ayudás a tu comunidad.</p>
-  <button class="sumate-btn">Quiero ser tutor →</button>
+  <button class="sumate-btn" onclick="window.location.href='index.html#contacto'">Quiero ser tutor →</button>
 </div>
 
 <!-- FOOTER -->
-<footer style="background:var(--texto);color:rgba(255,255,255,.55);padding:2rem 1.2rem;text-align:center;margin-top:3rem;">
-  <div class="footer-logo" style="font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.4rem;">Conecta<span>Tu</span>Mundo</div>
-  <ul class="footer-links" style="display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin:.9rem 0;list-style:none;padding:0;">
-    <li><a href="index1.html" style="color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s;">Inicio</a></li>
-    <li><a href="faq_conectatumundo.html" style="color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s;">FAQ</a></li>
-    <li><a href="vitrina_emprendimientos.html" style="color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s;">Emprendimientos</a></li>
+<footer>
+  <div class="footer-logo">Conecta<span>Tu</span>Mundo</div>
+  <ul class="footer-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="faq_conectatumundo.html">FAQ</a></li>
+    <li><a href="vitrina_emprendimientos.html">Emprendimientos</a></li>
   </ul>
-  <p style="font-size:.8rem;line-height:1.65;">contacto@conectatumundo.net · (+598) 099 123 456 · Durazno, Uruguay · 2026</p>
+  <p>contacto@conectatumundo.net · (+598) 099 123 456 · Durazno, Uruguay · 2026</p>
 </footer>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA3A2l9qydi-Ro1Cdd5aoD7pWxJUil6chU",
+  authDomain: "conectatumundo-admin.firebaseapp.com",
+  projectId: "conectatumundo-admin",
+  storageBucket: "conectatumundo-admin.firebasestorage.app",
+  messagingSenderId: "204768677691",
+  appId: "1:204768677691:web:05e3e333f7efcef736711e"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+let tutores = [];
 const avatarColores = ["#5C3D8A","#9E78CC","#7CB98A","#C4875A","#4A7FA8","#A85C7A","#6A8A4A","#8A6A4A"];
 
-const tutores = [
-  {
-    nombre:"Valentina Rodríguez",
-    inst:"UTU Durazno · 3er año Contabilidad",
-    nivel:"Estudiante avanzada",
-    materias:["Contabilidad básica","Administración","Excel"],
-    nuevo:false,
-    avatar:"VR",
-    color:avatarColores[0],
-    rating:4.9,
-    resenas:[
-      {texto:"Me ayudó a entender el balance de forma muy clara. Súper paciente y puntual.",autor:"Emprendedora local"},
-      {texto:"Excelente explicación de los asientos contables. Lo recomiendo.",autor:"Dueño de almacén"}
-    ]
-  },
-  {
-    nombre:"Matías Fernández",
-    inst:"UDELAR · Ingeniería de Sistemas (remoto)",
-    nivel:"Universitario 4to año",
-    materias:["Matemática","Física","Programación"],
-    nuevo:true,
-    avatar:"MF",
-    color:avatarColores[1],
-    rating:5.0,
-    resenas:[
-      {texto:"Explica con ejemplos reales, muy didáctico. Mi hijo mejoró mucho en pocas clases.",autor:"Mamá de alumno"}
-    ]
-  },
-  {
-    nombre:"Lucía Bentancur",
-    inst:"Liceo N°1 Durazno · Bachillerato",
-    nivel:"Bachillerata",
-    materias:["Lengua","Literatura","Historia"],
-    nuevo:false,
-    avatar:"LB",
-    color:avatarColores[2],
-    rating:4.7,
-    resenas:[
-      {texto:"Me preparó para el examen de Literatura en una semana. Muy buena.",autor:"Estudiante de 6to"}
-    ]
-  },
-  {
-    nombre:"Diego Acosta",
-    inst:"INEFOP · Técnico en Informática",
-    nivel:"Técnico certificado",
-    materias:["Informática","Ofimática","Redes"],
-    nuevo:false,
-    avatar:"DA",
-    color:avatarColores[3],
-    rating:4.8,
-    resenas:[
-      {texto:"Me enseñó a usar Excel desde cero para mi negocio. Muy claro y sin apurarse.",autor:"Emprendedora"},
-      {texto:"Instaló y explicó todo el sistema. Muy profesional.",autor:"Comerciante"}
-    ]
-  },
-  {
-    nombre:"Sofía Núñez",
-    inst:"UTU Durazno · Idiomas",
-    nivel:"Estudiante avanzada",
-    materias:["Inglés","Portugués"],
-    nuevo:true,
-    avatar:"SN",
-    color:avatarColores[4],
-    rating:4.9,
-    resenas:[
-      {texto:"Las clases de inglés son muy dinámicas. Aprendí más en un mes que en todo el liceo.",autor:"Joven de 17 años"}
-    ]
-  },
-  {
-    nombre:"Andrés Cabrera",
-    inst:"UDELAR · Contador Público (avanzado)",
-    nivel:"Universitario 5to año",
-    materias:["Contabilidad","Finanzas","Impuestos básicos"],
-    nuevo:false,
-    avatar:"AC",
-    color:avatarColores[5],
-    rating:4.6,
-    resenas:[
-      {texto:"Muy bien explicado todo. Me ayudó a entender el IVA para mi emprendimiento.",autor:"Emprendedor"}
-    ]
-  },
-  {
-    nombre:"Camila Torres",
-    inst:"Liceo N°2 Durazno · Bachillerato Científico",
-    nivel:"Bachillerata",
-    materias:["Matemática","Física","Química"],
-    nuevo:false,
-    avatar:"CT",
-    color:avatarColores[6],
-    rating:4.8,
-    resenas:[
-      {texto:"Gracias a ella aprobé Física. Muy paciente y explica re bien.",autor:"Estudiante de bachillerato"},
-      {texto:"Clases muy ordenadas y claras. Se nota que sabe el tema.",autor:"Mamá de alumna"}
-    ]
-  },
-  {
-    nombre:"Nicolás Pérez",
-    inst:"INEFOP · Desarrollador Web Jr",
-    nivel:"Técnico certificado",
-    materias:["Informática","Programación web","Diseño básico"],
-    nuevo:true,
-    avatar:"NP",
-    color:avatarColores[7],
-    rating:0,
-    resenas:[]
-  }
-];
+function escapeHtml(str){
+  if(!str) return '';
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
 
-function estrellas(rating){
-  if(!rating) return '';
-  const llenas = Math.floor(rating);
-  const media = rating - llenas >= 0.5 ? 1 : 0;
-  return '★'.repeat(llenas) + (media?'½':'') + '☆'.repeat(5-llenas-media);
+async function cargarTutores(){
+  try{
+    const q = query(collection(db,'tutores'), orderBy('nombre'));
+    const snap = await getDocs(q);
+    tutores = snap.docs.map((d,i) => ({
+      id:d.id,
+      ...d.data(),
+      color: avatarColores[i % avatarColores.length]
+    }));
+    render(tutores);
+  }catch(err){
+    console.error(err);
+    document.getElementById('grid').innerHTML = '';
+    document.getElementById('no-results').style.display = 'block';
+    document.getElementById('no-results-text').textContent = 'No pudimos cargar los tutores en este momento.';
+  }
 }
 
 function renderCard(t, delay){
-  const tieneResenas = t.resenas.length > 0;
+  const materias = t.materias || [];
   return `
-  <div class="perfil-card" style="animation-delay:${delay}ms"
-    data-materias="${t.materias.join(' ').toLowerCase()}"
-    data-nombre="${t.nombre.toLowerCase()}">
+  <div class="perfil-card" style="animation-delay:${delay}ms">
     <div class="card-top">
-      <div class="avatar" style="background:${t.color}">${t.avatar}</div>
+      <div class="avatar" style="background:${t.color}">${escapeHtml(t.avatar||'')}</div>
       <div class="card-info">
-        <div class="card-nombre">${t.nombre}</div>
-        <div class="card-inst">${t.inst}</div>
-        <span class="card-nivel">${t.nivel}</span>
+        <div class="card-nombre">${escapeHtml(t.nombre)}</div>
+        ${t.institucion ? `<div class="card-inst">${escapeHtml(t.institucion)}</div>` : ''}
       </div>
-      ${t.nuevo ? '<div class="card-badge"><span class="badge-nuevo">✦ Nuevo</span></div>' : ''}
     </div>
-    <div class="card-materias">
-      ${t.materias.map(m=>`<span class="materia-tag">${m}</span>`).join('')}
-    </div>
-    <div class="card-resenas">
-      <div class="resenas-header">
-        <div class="stars-row">
-          ${tieneResenas ? `
-            <span class="stars" style="color:#F4C430">${estrellas(t.rating)}</span>
-            <span class="rating-num">${t.rating.toFixed(1)}</span>
-          ` : ''}
-        </div>
-        <span class="resenas-count">${tieneResenas ? `${t.resenas.length} reseña${t.resenas.length>1?'s':''}` : ''}</span>
-      </div>
-      ${tieneResenas
-        ? t.resenas.slice(0,1).map(r=>`
-          <div class="resena-item">
-            <div class="resena-texto">"${r.texto}"</div>
-            <div class="resena-autor">— ${r.autor}</div>
-          </div>`).join('')
-        : '<div class="sin-resenas">Todavía sin reseñas — ¡sé el primero!</div>'
-      }
-    </div>
+    ${materias.length ? `<div class="card-materias">${materias.map(m=>`<span class="materia-tag">${escapeHtml(m)}</span>`).join('')}</div>` : ''}
   </div>`;
 }
 
@@ -455,16 +342,20 @@ function render(lista){
   if(!lista.length){
     grid.innerHTML='';
     noR.style.display='block';
+    document.getElementById('no-results-text').innerHTML = tutores.length
+      ? 'No encontramos tutores con ese filtro. <br>Probá con otra materia o término.'
+      : 'Todavía no hay tutores cargados.<br>¡Volvé pronto!';
+    document.getElementById('total-count').textContent = '0';
     return;
   }
   noR.style.display='none';
   grid.innerHTML = lista.map((t,i)=>renderCard(t,i*50)).join('');
   document.getElementById('total-count').textContent = lista.length;
+  const materias = new Set();
+  tutores.forEach(t=>(t.materias||[]).forEach(m=>materias.add(m.toLowerCase())));
+  document.getElementById('materia-count').textContent = materias.size;
 }
 
-render(tutores);
-
-// FILTROS
 document.querySelectorAll('.filtro-btn').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.filtro-btn').forEach(b=>b.classList.remove('active'));
@@ -477,12 +368,14 @@ function filtrar(){
   const f = document.querySelector('.filtro-btn.active').dataset.filtro;
   const q = document.getElementById('buscador').value.toLowerCase().trim();
   let lista = tutores;
-  if(f !== 'todos') lista = lista.filter(t=>t.materias.join(' ').toLowerCase().includes(f));
-  if(q) lista = lista.filter(t=>t.nombre.toLowerCase().includes(q)||t.materias.join(' ').toLowerCase().includes(q));
+  if(f !== 'todos') lista = lista.filter(t=>(t.materias||[]).join(' ').toLowerCase().includes(f));
+  if(q) lista = lista.filter(t=>t.nombre.toLowerCase().includes(q)||(t.materias||[]).join(' ').toLowerCase().includes(q));
   render(lista);
 }
 
 document.getElementById('buscador').addEventListener('input', filtrar);
+
+cargarTutores();
 
 // Navigation script
 const ham = document.getElementById('hamburger');
@@ -500,12 +393,12 @@ function closeDrawer(){
 document.addEventListener('click',e=>{
   if(!drawer.contains(e.target)&&!ham.contains(e.target)&&drawer.classList.contains('open')) closeDrawer();
 });
+window.closeDrawer = closeDrawer;
 
 // Highlight active page in navigation
 document.addEventListener('DOMContentLoaded', function() {
   const currentPage = window.location.pathname.split('/').pop();
   const navLinks = document.querySelectorAll('.nav-links a');
-  
   navLinks.forEach(link => {
     const hrefPage = link.getAttribute('href');
     if (hrefPage === currentPage || (currentPage === '' && hrefPage === 'index.html')) {
