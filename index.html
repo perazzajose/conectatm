@@ -611,8 +611,8 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
   const btn = this.querySelector('.form-submit');
   btn.textContent = 'Enviando...';
   btn.disabled = true;
-
-  emailjs.send("service_u1td04m", "template_q1xnbeq", {
+  
+emailjs.send("service_u1td04m", "2h4dr4p", {
     nombre:   document.getElementById('nombre').value,
     contacto: document.getElementById('contacto').value,
     interes:  document.getElementById('interes').value,
