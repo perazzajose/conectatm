@@ -9,6 +9,8 @@
 <link rel="canonical" href="https://conectatumundo.net">
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="apple-touch-icon" href="/favicon.png">
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<script>emailjs.init("EBaQ7CHxo114SzA_-");</script>
 
 <!-- Open Graph -->
 <meta property="og:title" content="ConectaTuMundo - Servicios Digitales en Durazno"/>
@@ -603,79 +605,57 @@ footer p{font-size:.8rem;line-height:1.65}
 </footer>
 
 <script>
-const ham = document.getElementById('hamburger');
-const drawer = document.getElementById('drawer');
-ham.addEventListener('click',()=>{
-  const open = drawer.classList.toggle('open');
-  ham.classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
-});
-function closeDrawer(){
-  drawer.classList.remove('open');
-  ham.classList.remove('open');
-  document.body.style.overflow='';
-}
-document.addEventListener('click',e=>{
-  if(!drawer.contains(e.target)&&!ham.contains(e.target)&&drawer.classList.contains('open')) closeDrawer();
-});
-function toggleFaq(btn){
-  const item=btn.closest('.faq-item');
-  const isOpen=item.classList.contains('open');
-  document.querySelectorAll('.faq-item.open').forEach(el=>el.classList.remove('open'));
-  if(!isOpen) item.classList.add('open');
-}
-
-// Form validation
+// Formulario EmailJS
 document.getElementById('contact-form').addEventListener('submit', function(e) {
   e.preventDefault();
-  
-  // Get form values
-  const nombre = document.getElementById('nombre').value.trim();
-  const contacto = document.getElementById('contacto').value.trim();
-  const interes = document.getElementById('interes').value;
-  const mensaje = document.getElementById('mensaje').value.trim();
-  const terminos = document.getElementById('terminos').checked;
-  
-  // Validate required fields
-  if (!nombre || !contacto || !interes || !mensaje) {
-    alert('Por favor completa todos los campos obligatorios.');
-    return;
-  }
-  
-  if (!terminos) {
-    alert('Debes aceptar la política de privacidad.');
-    return;
-  }
-  
-  // Basic email validation
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const isEmail = emailRegex.test(contacto);
-  const isPhone = /^\+?\d[\d\s\-\(\)]+$/.test(contacto);
-  
-  if (!isEmail && !isPhone) {
-    alert('Por favor ingresa un email o número de teléfono válido.');
-    return;
-  }
-  
-  // If validation passes, submit the form (in a real implementation)
-  alert('¡Gracias por tu mensaje! Nos pondremos en contacto contigo pronto.');
-  this.reset();
-});
+  const btn = this.querySelector('.form-submit');
+  btn.textContent = 'Enviando...';
+  btn.disabled = true;
 
-// Highlight active page in navigation
-document.addEventListener('DOMContentLoaded', function() {
-  const currentPage = window.location.pathname.split('/').pop();
-  const navLinks = document.querySelectorAll('.nav-links a');
-  
-  navLinks.forEach(link => {
-    const hrefPage = link.getAttribute('href');
-    if (hrefPage === currentPage || (currentPage === '' && hrefPage === 'index.html') || (currentPage === 'index.html')) {
-      link.classList.add('active');
-    } else {
-      link.classList.remove('active');
-    }
+  emailjs.send("service_u1td04m", "template_q1xnbeq", {
+    nombre:   document.getElementById('nombre').value,
+    contacto: document.getElementById('contacto').value,
+    interes:  document.getElementById('interes').value,
+    mensaje:  document.getElementById('mensaje').value,
+    time:     new Date().toLocaleString('es-UY')
+  })
+  .then(() => {
+    btn.textContent = '¡Mensaje enviado! ✅';
+    btn.style.background = 'var(--verde)';
+    document.getElementById('contact-form').reset();
+    setTimeout(() => {
+      btn.textContent = 'Enviar mensaje ✉️';
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 4000);
+  })
+  .catch(() => {
+    btn.textContent = 'Error al enviar ❌';
+    btn.style.background = '#e74c3c';
+    btn.disabled = false;
+    setTimeout(() => {
+      btn.textContent = 'Enviar mensaje ✉️';
+      btn.style.background = '';
+    }, 3000);
   });
 });
+</script>
+
+<!-- WHATSAPP FLOTANTE -->
+<a href="https://wa.me/5987154271?text=Hola%20Jos%C3%A9%2C%20vi%20tu%20web%20y%20quisiera%20consultarte%20algo"
+   style="
+     position:fixed; bottom:1.4rem; right:1.4rem; z-index:999;
+     background:#25D366; color:#fff;
+     width:52px; height:52px; border-radius:50%;
+     display:flex; align-items:center; justify-content:center;
+     font-size:1.6rem; text-decoration:none;
+     box-shadow:0 4px 16px rgba(37,211,102,0.45);
+     transition:transform .2s, box-shadow .2s;
+   "
+   onmouseover="this.style.transform='scale(1.12)'"
+   onmouseout="this.style.transform='scale(1)'"
+   title="Escribime por WhatsApp"
+   target="_blank">💬</a>
 </script>
 </body>
 </html>
