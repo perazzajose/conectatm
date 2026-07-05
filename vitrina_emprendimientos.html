@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ConectaTuMundo - Servicios Digitales</title>
-<meta name="description" content="Plataforma de servicios digitales, desarrollo web, tutorías y talleres en Durazno, Uruguay. Conectamos emprendimientos con talento local.">
+<title>Emprendimientos Locales de Durazno | ConectaTuMundo</title>
+<meta name="description" content="Conocé los emprendimientos y negocios de Durazno que forman parte de la red ConectaTuMundo. Apoyá el talento y los negocios locales del interior.">
 <meta name="author" content="ConectaTuMundo">
 <link rel="canonical" href="https://conectatumundo.net">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
 
 <!-- Open Graph -->
-<meta property="og:title" content="ConectaTuMundo - Servicios Digitales en Durazno"/>
-<meta property="og:description" content="Desarrollo web, consultoría digital y soporte IT para pymes del interior de Uruguay."/>
+<meta property="og:title" content="Emprendimientos Locales de Durazno | ConectaTuMundo"/>
+<meta property="og:description" content="Conocé los emprendimientos y negocios de Durazno que forman parte de la red ConectaTuMundo. Apoyá el talento local."/>
 <meta property="og:image" content="https://conectatumundo.net/favicon.png"/>
 <meta property="og:url" content="https://conectatumundo.net"/>
 <meta property="og:type" content="website"/>
@@ -20,8 +20,8 @@
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="ConectaTuMundo - Servicios Digitales en Durazno"/>
-<meta name="twitter:description" content="Desarrollo web, consultoría digital y soporte IT para pymes del interior de Uruguay."/>
+<meta name="twitter:title" content="Emprendimientos Locales de Durazno | ConectaTuMundo"/>
+<meta name="twitter:description" content="Conocé los emprendimientos y negocios de Durazno que forman parte de la red ConectaTuMundo. Apoyá el talento local."/>
 
 <!-- Schema.org -->
 <script type="application/ld+json">
@@ -164,6 +164,8 @@
 
   .card-datos{display:flex;flex-wrap:wrap;gap:.5rem;padding-top:.85rem;border-top:1px solid var(--lila-light)}
   .dato{display:flex;align-items:center;gap:.35rem;font-size:.76rem;color:var(--texto-suave)}
+  .card-sitio-btn{display:inline-flex;align-items:center;gap:.3rem;margin-top:.8rem;padding:.45rem 1rem;background:var(--lila-dark);color:#fff;border-radius:50px;font-size:.8rem;font-weight:500;text-decoration:none;transition:background .2s}
+  .card-sitio-btn:hover{background:var(--lila-mid)}
 
   .sumate-banner{
     margin:0 1.2rem 2rem;
@@ -407,6 +409,7 @@ function renderCard(e, delay){
       ${e.desc ? `<p class="card-desc">${escapeHtml(e.desc)}</p>` : ''}
       ${servicios.length ? `<div class="card-servicios">${servicios.map(s=>`<span class="serv-tag">${escapeHtml(s)}</span>`).join('')}</div>` : ''}
       ${datos.length ? `<div class="card-datos">${datos.map(d=>`<span class="dato">${escapeHtml(d)}</span>`).join('')}</div>` : ''}
+      ${e.sitio ? `<a href="${escapeHtml(e.sitio)}" target="_blank" rel="noopener noreferrer" class="card-sitio-btn">🌐 Ver sitio →</a>` : ''}
     </div>
   </div>`;
 }

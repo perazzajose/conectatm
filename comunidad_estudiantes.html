@@ -3,16 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ConectaTuMundo - Servicios Digitales en Durazno, Uruguay</title>
-<meta name="description" content="Plataforma de servicios digitales, desarrollo web, tutorías y talleres en Durazno, Uruguay. Conectamos emprendimientos con talento local.">
+<title>Tutores y Clases Particulares en Durazno | ConectaTuMundo</title>
+<meta name="description" content="Encontrá estudiantes universitarios que dan clases particulares y tutorías en Durazno. Matemática, inglés, informática, contabilidad y más. ConectaTuMundo.">
 <meta name="author" content="ConectaTuMundo">
 <link rel="canonical" href="https://conectatumundo.net">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
 
 <!-- Open Graph -->
-<meta property="og:title" content="ConectaTuMundo - Servicios Digitales en Durazno"/>
-<meta property="og:description" content="Desarrollo web, consultoría digital y soporte IT para pymes del interior de Uruguay."/>
+<meta property="og:title" content="Tutores y Clases Particulares en Durazno | ConectaTuMundo"/>
+<meta property="og:description" content="Encontrá estudiantes universitarios que dan clases particulares y tutorías en Durazno. Matemática, inglés, informática y más."/>
 <meta property="og:image" content="https://conectatumundo.net/favicon.png"/>
 <meta property="og:url" content="https://conectatumundo.net"/>
 <meta property="og:type" content="website"/>
@@ -20,8 +20,8 @@
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="ConectaTuMundo - Servicios Digitales en Durazno"/>
-<meta name="twitter:description" content="Desarrollo web, consultoría digital y soporte IT para pymes del interior de Uruguay."/>
+<meta name="twitter:title" content="Tutores y Clases Particulares en Durazno | ConectaTuMundo"/>
+<meta name="twitter:description" content="Encontrá estudiantes universitarios que dan clases particulares y tutorías en Durazno. Matemática, inglés, informática y más."/>
 
 <!-- Schema.org -->
 <script type="application/ld+json">
@@ -445,6 +445,15 @@ function closeDrawer(){
 document.addEventListener('click',e=>{
   if(!drawer.contains(e.target)&&!ham.contains(e.target)&&drawer.classList.contains('open')) closeDrawer();
 });
+window.closeDrawer = closeDrawer;
+
+function closeDrawer(){
+  const drawer = document.getElementById('drawer');
+  const ham = document.getElementById('hamburger');
+  if(drawer) drawer.classList.remove('open');
+  if(ham) ham.classList.remove('open');
+  document.body.style.overflow='';
+}
 window.closeDrawer = closeDrawer;
 
 // Highlight active page in navigation

@@ -245,6 +245,10 @@
       <label>Datos visibles <span class="hint">(separados por coma, ej. dirección y horario)</span></label>
       <input type="text" id="empDatos" placeholder="Ej: 📍 Centro Durazno, 🕐 Lun–Sáb 7–13h">
     </div>
+    <div class="field">
+      <label>Sitio web <span class="hint">(URL del emprendimiento, ej. https://ejemplo.com)</span></label>
+      <input type="url" id="empSitio" placeholder="https://...">
+    </div>
     <div class="field-row">
       <div class="field">
         <label>Insignia</label>
@@ -502,6 +506,7 @@ window.editEmp = function(id){
   document.getElementById('empEstado').value = e.estado||'sin_web';
   document.getElementById('empServicios').value = arrayToCsv(e.servicios);
   document.getElementById('empDatos').value = arrayToCsv(e.datos);
+  document.getElementById('empSitio').value = e.sitio||'';
   document.getElementById('empBadge').value = e.badge||'aliado';
   document.getElementById('empEmoji').value = e.emoji||'';
   document.getElementById('empBannerColor').value = e.bannerColor||'#9E78CC';
@@ -532,6 +537,7 @@ document.getElementById('btnSaveEmp').addEventListener('click', async () => {
     estado: document.getElementById('empEstado').value,
     servicios: csvToArray(document.getElementById('empServicios').value),
     datos: csvToArray(document.getElementById('empDatos').value),
+    sitio: document.getElementById('empSitio').value.trim(),
     badge: document.getElementById('empBadge').value,
     emoji: document.getElementById('empEmoji').value.trim() || '🏪',
     bannerColor: document.getElementById('empBannerColor').value,
@@ -661,6 +667,7 @@ document.getElementById('fabAdd').addEventListener('click', () => {
     document.getElementById('empEstado').value = 'sin_web';
     document.getElementById('empServicios').value = '';
     document.getElementById('empDatos').value = '';
+    document.getElementById('empSitio').value = '';
     document.getElementById('empBadge').value = 'aliado';
     document.getElementById('empEmoji').value = '';
     document.getElementById('empBannerColor').value = '#9E78CC';

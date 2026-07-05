@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ConectaTuMundo - Servicios Digitales en Durazno, Uruguay</title>
-<meta name="description" content="Plataforma de servicios digitales, desarrollo web, tutorías y talleres en Durazno, Uruguay. Conectamos emprendimientos con talento local.">
+<title>ConectaTuMundo — Desarrollo Web y Servicios Digitales en Durazno, Uruguay</title>
+<meta name="description" content="Desarrollo web, soporte IT y asesoría digital para negocios del interior. Sitios profesionales con precios accesibles. Basados en Durazno, Uruguay.">
 <meta name="author" content="ConectaTuMundo">
 <link rel="canonical" href="https://conectatumundo.net">
-<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>emailjs.init("EBaQ7CHxo114SzA_-");</script>
 
 <!-- Open Graph -->
-<meta property="og:title" content="ConectaTuMundo - Servicios Digitales en Durazno"/>
-<meta property="og:description" content="Desarrollo web, consultoría digital y soporte IT para pymes del interior de Uruguay."/>
+<meta property="og:title" content="ConectaTuMundo — Desarrollo Web y Servicios Digitales en Durazno"/>
+<meta property="og:description" content="Desarrollo web, soporte IT y asesoría digital para negocios del interior de Uruguay. Precios accesibles, atención cercana."/>
 <meta property="og:image" content="https://conectatumundo.net/favicon.png"/>
 <meta property="og:url" content="https://conectatumundo.net"/>
 <meta property="og:type" content="website"/>
@@ -22,8 +22,8 @@
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:title" content="ConectaTuMundo - Servicios Digitales en Durazno"/>
-<meta name="twitter:description" content="Desarrollo web, consultoría digital y soporte IT para pymes del interior de Uruguay."/>
+<meta name="twitter:title" content="ConectaTuMundo — Desarrollo Web y Servicios Digitales en Durazno"/>
+<meta name="twitter:description" content="Desarrollo web, soporte IT y asesoría digital para negocios del interior de Uruguay. Precios accesibles, atención cercana."/>
 
 <!-- Schema.org -->
 <script type="application/ld+json">
@@ -415,7 +415,7 @@ footer p{font-size:.8rem;line-height:1.65}
     <h2>Explorá la comunidad</h2>
     <p class="section-sub">Tutores que enseñan y emprendimientos que crecen — todos parte de la misma red.</p>
     <div class="comunidad-cards">
-      <a href="#" class="com-card tutores">
+      <a href="comunidad_estudiantes.html" class="com-card tutores">
         <div class="com-card-head">
           <div class="com-icon">🎓</div>
           <div>
@@ -527,7 +527,7 @@ footer p{font-size:.8rem;line-height:1.65}
         <div class="faq-a"><div class="faq-a-inner">Validamos cada perfil antes de presentarlo y acompañamos el proceso. Si hay algún problema, lo resolvemos. No dejamos a ningún emprendimiento sin respuesta.</div></div>
       </div>
     </div>
-    <a href="#" class="ver-mas">Ver todas las preguntas →</a>
+    <a href="faq_conectatumundo.html" class="ver-mas">Ver todas las preguntas →</a>
   </div>
 </section>
 
@@ -639,6 +639,37 @@ emailjs.send("service_u1td04m", "template_th43thh", {
     }, 3000);
   });
 });
+
+// Menú móvil
+const ham = document.getElementById('hamburger');
+const drawer = document.getElementById('drawer');
+if(ham && drawer){
+  ham.addEventListener('click',()=>{
+    const open = drawer.classList.toggle('open');
+    ham.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  });
+  document.addEventListener('click',e=>{
+    if(!drawer.contains(e.target)&&!ham.contains(e.target)&&drawer.classList.contains('open')){
+      drawer.classList.remove('open');
+      ham.classList.remove('open');
+      document.body.style.overflow='';
+    }
+  });
+}
+function closeDrawer(){
+  if(drawer) drawer.classList.remove('open');
+  if(ham) ham.classList.remove('open');
+  document.body.style.overflow='';
+}
+window.closeDrawer = closeDrawer;
+
+// FAQ toggle
+function toggleFaq(btn){
+  const item = btn.closest('.faq-item');
+  if(item) item.classList.toggle('open');
+}
+window.toggleFaq = toggleFaq;
 </script>
 
 <!-- WHATSAPP FLOTANTE -->
