@@ -7,13 +7,15 @@
 <meta name="description" content="Respuestas a las dudas más comunes sobre desarrollo web, Red Conecta, talleres y servicios digitales en Durazno, Uruguay.">
 <meta name="author" content="ConectaTuMundo">
 <link rel="canonical" href="https://conectatumundo.net">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
 <!-- Open Graph -->
 <meta property="og:title" content="Preguntas Frecuentes — Servicios Digitales en Durazno | ConectaTuMundo"/>
 <meta property="og:description" content="Respuestas a las dudas más comunes sobre desarrollo web, Red Conecta, talleres y servicios digitales en Durazno, Uruguay."/>
-<meta property="og:image" content="https://conectatumundo.net/favicon.png"/>
+<meta property="og:image" content="https://conectatumundo.net/favicon-512.png"/>
 <meta property="og:url" content="https://conectatumundo.net"/>
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="es_UY"/>
@@ -58,7 +60,8 @@
     border-bottom:1px solid var(--lila-light);
     padding:0 1.2rem;height:58px;display:flex;align-items:center;justify-content:space-between;
   }
-  .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--lila-dark);font-weight:700;text-decoration:none;flex-shrink:0}
+  .nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--lila-dark);font-weight:700;text-decoration:none;flex-shrink:0;display:flex;align-items:center;gap:.5rem}
+  .nav-logo img{height:155px;width:auto;flex-shrink:0; margin-top: 15px; }
   .nav-logo span{color:var(--lila)}
   .nav-links{display:none;list-style:none;gap:1.5rem;align-items:center}
   .nav-links a{text-decoration:none;color:var(--texto-suave);font-size:.85rem;font-weight:500;transition:color .2s}
@@ -167,7 +170,7 @@
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-logo">Conecta<span>Tu</span>Mundo</a>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="ConectaTuMundo"></a>
   <ul class="nav-links">
     <li><a href="index.html">Inicio</a></li>
     <li><a href="comunidad_estudiantes.html">Tutores</a></li>
@@ -190,11 +193,11 @@
     <div class="drawer-label">Servicios</div>
     <div class="drawer-links">
       <a href="index.html#servicios" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:var(--lila-light)">🖥️</div>
+        <div class="drawer-link-icon" style="background:var(--lila-light)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg></div>
         <div><span>Agencia digital</span><span class="drawer-link-sub">Web, soporte, asesoría</span></div>
       </a>
       <a href="index.html#formacion" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:var(--tierra-dark)">📡</div>
+        <div class="drawer-link-icon" style="background:var(--tierra-dark)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12a9 9 0 0 1 14 0"/><path d="M8.5 15a5 5 0 0 1 7 0"/><circle cx="12" cy="18.5" r="1.4" fill="currentColor" stroke="none"/></svg></div>
         <div><span>Talleres</span><span class="drawer-link-sub">Educación digital comunitaria</span></div>
       </a>
     </div>
@@ -204,15 +207,15 @@
     <div class="drawer-label">Comunidad</div>
     <div class="drawer-links">
       <a href="comunidad_estudiantes.html" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:var(--lila-light)">🎓</div>
+        <div class="drawer-link-icon" style="background:var(--lila-light)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5 12 5l10 4.5-10 4.5L2 9.5Z"/><path d="M6.5 11.6V16c0 1.4 2.5 2.6 5.5 2.6s5.5-1.2 5.5-2.6v-4.4"/><path d="M20.5 9.5v5.2"/></svg></div>
         <div><span>Tutores</span><span class="drawer-link-sub">Clases particulares</span></div>
       </a>
       <a href="vitrina_emprendimientos.html" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:var(--verde-light)">🏪</div>
+        <div class="drawer-link-icon" style="background:var(--verde-light)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5 4.7 4h14.6l1.2 5.5"/><path d="M3.5 9.5a2.6 2.6 0 0 0 5.1.6 2.6 2.6 0 0 0 5 0 2.6 2.6 0 0 0 5 0 2.6 2.6 0 0 0 5.1-.6"/><path d="M5 10v9.5h14V10"/><path d="M9.5 19.5V14h5v5.5"/></svg></div>
         <div><span>Emprendimientos</span><span class="drawer-link-sub">Negocios locales aliados</span></div>
       </a>
       <a href="index.html#conecta" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:#E8D0F8">🤝</div>
+        <div class="drawer-link-icon" style="background:#E8D0F8"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12.5 6 9l3 2 3-2.3L15.5 11l3-2.7 3 3"/><path d="M6 9l4 6.5 2-1.5 2 2 2-1.7 2 1.7"/><path d="M9.2 14.8 8 17l2 1.6"/></svg></div>
         <div><span>Red Conecta</span><span class="drawer-link-sub">Cómo funciona</span></div>
       </a>
     </div>
@@ -221,16 +224,16 @@
   <div class="drawer-section">
     <div class="drawer-links">
       <a href="faq_conectatumundo.html" class="drawer-link active" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:var(--lila-light)">❓</div>
+        <div class="drawer-link-icon" style="background:var(--lila-light)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.3 9.4a2.7 2.7 0 1 1 3.9 2.4c-.9.5-1.2 1-1.2 2"/><circle cx="12" cy="17" r="0.15" fill="currentColor"/></svg></div>
         <div><span>Preguntas frecuentes</span></div>
       </a>
       <a href="index.html#sobre" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:var(--tierra-dark)">👤</div>
+        <div class="drawer-link-icon" style="background:var(--tierra-dark)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c1-3.6 4-5.4 7-5.4s6 1.8 7 5.4"/></svg></div>
         <div><span>Sobre mí</span></div>
       </a>
     </div>
   </div>
-  <a href="index.html#contacto" class="drawer-cta" onclick="closeDrawer()">Hablemos 💬</a>
+  <a href="index.html#contacto" class="drawer-cta" onclick="closeDrawer()">Hablemos</a>
 </div>
 
 <div class="page-header">
@@ -242,11 +245,11 @@
 <div class="tabs-wrap">
   <div class="tabs-scroll">
     <button class="tab-btn active" data-grupo="todos">Todas</button>
-    <button class="tab-btn" data-grupo="general">🌐 General</button>
-    <button class="tab-btn" data-grupo="emprendimiento">🏪 Emprendimientos</button>
-    <button class="tab-btn" data-grupo="estudiante">🎓 Estudiantes</button>
-    <button class="tab-btn" data-grupo="agencia">🖥️ Agencia web</button>
-    <button class="tab-btn" data-grupo="talleres">📡 Talleres</button>
+    <button class="tab-btn" data-grupo="general"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 4 5.8 4 9s-1.4 6.4-4 9c-2.6-2.6-4-5.8-4-9s1.4-6.4 4-9Z"/></svg> General</button>
+    <button class="tab-btn" data-grupo="emprendimiento"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5 4.7 4h14.6l1.2 5.5"/><path d="M3.5 9.5a2.6 2.6 0 0 0 5.1.6 2.6 2.6 0 0 0 5 0 2.6 2.6 0 0 0 5 0 2.6 2.6 0 0 0 5.1-.6"/><path d="M5 10v9.5h14V10"/><path d="M9.5 19.5V14h5v5.5"/></svg> Emprendimientos</button>
+    <button class="tab-btn" data-grupo="estudiante"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5 12 5l10 4.5-10 4.5L2 9.5Z"/><path d="M6.5 11.6V16c0 1.4 2.5 2.6 5.5 2.6s5.5-1.2 5.5-2.6v-4.4"/><path d="M20.5 9.5v5.2"/></svg> Estudiantes</button>
+    <button class="tab-btn" data-grupo="agencia"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg> Agencia web</button>
+    <button class="tab-btn" data-grupo="talleres"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12a9 9 0 0 1 14 0"/><path d="M8.5 15a5 5 0 0 1 7 0"/><circle cx="12" cy="18.5" r="1.4" fill="currentColor" stroke="none"/></svg> Talleres</button>
   </div>
 </div>
 
@@ -274,7 +277,7 @@
 const faqs = [
   {
     grupo:"general",
-    grupoLabel:"🌐 General",
+    grupoLabel:"<svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 4 5.8 4 9s-1.4 6.4-4 9c-2.6-2.6-4-5.8-4-9s1.4-6.4 4-9Z"/></svg> General",
     items:[
       {
         q:"¿Qué es ConectaTuMundo exactamente?",
@@ -296,7 +299,7 @@ const faqs = [
   },
   {
     grupo:"emprendimiento",
-    grupoLabel:"🏪 Para emprendimientos",
+    grupoLabel:"<svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5 4.7 4h14.6l1.2 5.5"/><path d="M3.5 9.5a2.6 2.6 0 0 0 5.1.6 2.6 2.6 0 0 0 5 0 2.6 2.6 0 0 0 5 0 2.6 2.6 0 0 0 5.1-.6"/><path d="M5 10v9.5h14V10"/><path d="M9.5 19.5V14h5v5.5"/></svg> Para emprendimientos",
     items:[
       {
         q:"¿Cómo funciona la Red Conecta para mi negocio?",
@@ -325,7 +328,7 @@ const faqs = [
   },
   {
     grupo:"estudiante",
-    grupoLabel:"🎓 Para estudiantes",
+    grupoLabel:"<svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5 12 5l10 4.5-10 4.5L2 9.5Z"/><path d="M6.5 11.6V16c0 1.4 2.5 2.6 5.5 2.6s5.5-1.2 5.5-2.6v-4.4"/><path d="M20.5 9.5v5.2"/></svg> Para estudiantes",
     items:[
       {
         q:"¿Cómo me sumo como tutor o prestador de servicios?",
@@ -353,7 +356,7 @@ const faqs = [
   },
   {
     grupo:"agencia",
-    grupoLabel:"🖥️ Agencia web",
+    grupoLabel:"<svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg> Agencia web",
     items:[
       {
         q:"¿Cuánto cuesta un sitio web?",
@@ -375,7 +378,7 @@ const faqs = [
   },
   {
     grupo:"talleres",
-    grupoLabel:"📡 Talleres y formación",
+    grupoLabel:"<svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12a9 9 0 0 1 14 0"/><path d="M8.5 15a5 5 0 0 1 7 0"/><circle cx="12" cy="18.5" r="1.4" fill="currentColor" stroke="none"/></svg> Talleres y formación",
     items:[
       {
         q:"¿Qué temas cubren los talleres?",

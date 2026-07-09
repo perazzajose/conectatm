@@ -7,15 +7,17 @@
 <meta name="description" content="Desarrollo web, soporte IT y asesoría digital para negocios del interior. Sitios profesionales con precios accesibles. Basados en Durazno, Uruguay.">
 <meta name="author" content="ConectaTuMundo">
 <link rel="canonical" href="https://conectatumundo.net">
-<link rel="icon" type="image/png" href="/favicon.png">
-<link rel="apple-touch-icon" href="/favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>emailjs.init("EBaQ7CHxo114SzA_-");</script>
 
 <!-- Open Graph -->
 <meta property="og:title" content="ConectaTuMundo — Desarrollo Web y Servicios Digitales en Durazno"/>
 <meta property="og:description" content="Desarrollo web, soporte IT y asesoría digital para negocios del interior de Uruguay. Precios accesibles, atención cercana."/>
-<meta property="og:image" content="https://conectatumundo.net/favicon.png"/>
+<meta property="og:image" content="https://conectatumundo.net/favicon-512.png"/>
 <meta property="og:url" content="https://conectatumundo.net"/>
 <meta property="og:type" content="website"/>
 <meta property="og:locale" content="es_UY"/>
@@ -50,6 +52,7 @@
   --tierra:#F5EFE6;--tierra-dark:#E8D8C0;--verde:#7CB98A;--verde-light:#DFF0E3;
   --texto:#2C1A4A;--texto-suave:#7A6890;--blanco:#FDFBFF;
   --sombra:rgba(92,61,138,0.10);
+  --btnsec:hsla(283, 97%, 76%, 0.452);
 }
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--blanco);color:var(--texto);overflow-x:hidden}
@@ -57,11 +60,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--blanco);color:var(--texto
 /* ── NAV ── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:200;
-  background:rgba(253,251,255,0.97);backdrop-filter:blur(14px);
+  background:rgba(253, 253, 253, 0.87);backdrop-filter:blur(14px);
   border-bottom:1px solid var(--lila-light);
   padding:0 1.2rem;height:58px;display:flex;align-items:center;justify-content:space-between;
+  
 }
-.nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--lila-dark);font-weight:700;text-decoration:none;flex-shrink:0}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--lila-dark);font-weight:700;text-decoration:none;flex-shrink:0;display:flex;align-items:center;gap:.5rem}
+.nav-logo img{height:155px;width:auto;flex-shrink:0; margin-top: 15px; }
+
 .nav-logo span{color:var(--lila)}
 .nav-links{display:none;list-style:none;gap:1.5rem;align-items:center}
 .nav-links a{text-decoration:none;color:var(--texto-suave);font-size:.85rem;font-weight:500;transition:color .2s}
@@ -95,11 +101,73 @@ nav{
 
 /* ── HERO ── */
 .hero{
-  min-height:100svh;display:flex;align-items:center;
-  background:linear-gradient(160deg,var(--lila-light) 0%,var(--tierra) 55%,var(--blanco) 100%);
-  padding:5.5rem 1.2rem 3rem;position:relative;overflow:hidden;
+    position:relative;
+    overflow:hidden;
+    background:linear-gradient(
+        160deg,
+        var(--lila-light) 0%,
+        var(--tierra) 55%,
+        var(--blanco) 100%
+    );
 }
-.hero::before{content:'';position:absolute;top:-80px;right:-60px;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,var(--lila) 0%,transparent 70%);opacity:.28}
+
+.hero::before{
+    content:"";
+    position:absolute;
+    inset:0;
+
+   /* background:url("hero-bg.jpg") center/cover no-repeat*/
+    opacity: 0.7;
+
+    z-index:0;
+}
+
+.hero-inner{
+    position:relative;
+    z-index:2;
+}
+.highlight{
+    position:relative;
+    display:inline-block;
+    z-index:1;
+}
+
+.highlight::after{
+    content:"";
+    position:absolute;
+    left:-4px;
+    right:-4px;
+    bottom:.12em;
+    height:.45em;
+    background:#ff90ff;
+    opacity:.60;
+    border-radius:3px;
+    z-index:-1;
+}
+.accent{
+    position:relative;
+    z-index:1;
+    font-weight:600;
+}
+
+.accent::before{
+    content:"";
+    position:absolute;
+    left:-2px;
+    right:-2px;
+    bottom:2px;
+    height:4em;
+    background:#ffffff88;
+    opacity:.60;
+    z-index:-1;
+    transform:rotate(-1deg);
+}
+
+.r1::after{ transform:rotate(-2deg); }
+.r2::after{ transform:rotate(1deg); }
+.r3::after{ transform:rotate(2.3deg); }
+.r4::after{ transform:rotate(-1.4deg); }
+.r5::after{ transform:rotate(.6deg); }
 .hero::after{content:'';position:absolute;bottom:-40px;left:-30px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,var(--verde) 0%,transparent 70%);opacity:.2}
 .hero-inner{max-width:1100px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:2rem}
 .hero-tag{display:inline-flex;align-items:center;gap:.45rem;background:var(--lila-light);color:var(--lila-dark);border:1px solid var(--lila);padding:.3rem .9rem;border-radius:50px;font-size:.75rem;font-weight:500;width:fit-content}
@@ -262,7 +330,7 @@ footer p{font-size:.8rem;line-height:1.65}
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-logo">Conecta<span>Tu</span>Mundo</a>
+  <a href="index.html" class="nav-logo"><img src="logo.png" alt="ConectaTuMundo"> </a>
   <ul class="nav-links">
     <li><a href="index.html">Inicio</a></li>
     <li><a href="comunidad_estudiantes.html">Tutores</a></li>
@@ -285,11 +353,11 @@ footer p{font-size:.8rem;line-height:1.65}
     <div class="drawer-label">Servicios</div>
     <div class="drawer-links">
       <a href="index.html#servicios" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:var(--lila-light)">🖥️</div>
+        <div class="drawer-link-icon" style="background:var(--lila-light)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg></div>
         <div><span>Agencia digital</span><span class="drawer-link-sub">Web, soporte, asesoría</span></div>
       </a>
       <a href="index.html#formacion" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:var(--tierra-dark)">📡</div>
+        <div class="drawer-link-icon" style="background:var(--tierra-dark)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12a9 9 0 0 1 14 0"/><path d="M8.5 15a5 5 0 0 1 7 0"/><circle cx="12" cy="18.5" r="1.4" fill="currentColor" stroke="none"/></svg></div>
         <div><span>Talleres</span><span class="drawer-link-sub">Educación digital comunitaria</span></div>
       </a>
     </div>
@@ -299,15 +367,15 @@ footer p{font-size:.8rem;line-height:1.65}
     <div class="drawer-label">Comunidad</div>
     <div class="drawer-links">
       <a href="comunidad_estudiantes.html" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:var(--lila-light)">🎓</div>
+        <div class="drawer-link-icon" style="background:var(--lila-light)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5 12 5l10 4.5-10 4.5L2 9.5Z"/><path d="M6.5 11.6V16c0 1.4 2.5 2.6 5.5 2.6s5.5-1.2 5.5-2.6v-4.4"/><path d="M20.5 9.5v5.2"/></svg></div>
         <div><span>Tutores</span><span class="drawer-link-sub">Clases particulares</span></div>
       </a>
       <a href="vitrina_emprendimientos.html" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:var(--verde-light)">🏪</div>
+        <div class="drawer-link-icon" style="background:var(--verde-light)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5 4.7 4h14.6l1.2 5.5"/><path d="M3.5 9.5a2.6 2.6 0 0 0 5.1.6 2.6 2.6 0 0 0 5 0 2.6 2.6 0 0 0 5 0 2.6 2.6 0 0 0 5.1-.6"/><path d="M5 10v9.5h14V10"/><path d="M9.5 19.5V14h5v5.5"/></svg></div>
         <div><span>Emprendimientos</span><span class="drawer-link-sub">Negocios locales aliados</span></div>
       </a>
       <a href="index.html#conecta" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:#E8D0F8">🤝</div>
+        <div class="drawer-link-icon" style="background:#E8D0F8"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12.5 6 9l3 2 3-2.3L15.5 11l3-2.7 3 3"/><path d="M6 9l4 6.5 2-1.5 2 2 2-1.7 2 1.7"/><path d="M9.2 14.8 8 17l2 1.6"/></svg></div>
         <div><span>Red Conecta</span><span class="drawer-link-sub">Cómo funciona</span></div>
       </a>
     </div>
@@ -316,16 +384,16 @@ footer p{font-size:.8rem;line-height:1.65}
   <div class="drawer-section">
     <div class="drawer-links">
       <a href="faq_conectatumundo.html" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:var(--lila-light)">❓</div>
+        <div class="drawer-link-icon" style="background:var(--lila-light)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.3 9.4a2.7 2.7 0 1 1 3.9 2.4c-.9.5-1.2 1-1.2 2"/><circle cx="12" cy="17" r="0.15" fill="currentColor"/></svg></div>
         <div><span>Preguntas frecuentes</span></div>
       </a>
       <a href="index.html#sobre" class="drawer-link" onclick="closeDrawer()">
-        <div class="drawer-link-icon" style="background:var(--tierra-dark)">👤</div>
+        <div class="drawer-link-icon" style="background:var(--tierra-dark)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.6"/><path d="M5 20c1-3.6 4-5.4 7-5.4s6 1.8 7 5.4"/></svg></div>
         <div><span>Sobre mí</span></div>
       </a>
     </div>
   </div>
-  <a href="index.html#contacto" class="drawer-cta" onclick="closeDrawer()">Hablemos 💬</a>
+  <a href="index.html#contacto" class="drawer-cta" onclick="closeDrawer()">Hablemos</a>
 </div>
 
 <!-- HERO -->
@@ -333,28 +401,28 @@ footer p{font-size:.8rem;line-height:1.65}
   <div class="hero-inner">
     <div>
       <div class="hero-tag">Durazno, Uruguay · Servicios digitales</div>
-      <h1>Tu negocio merece<br><em>presencia digital</em><br>de verdad.</h1>
-      <p class="hero-sub">Desarrollo web, asesoría y conexión de talento pensados para el interior. Cercanos, accesibles, con raíces locales.</p>
+      <h1 class="highlight"><span class="highlight r1">Tu negocio merece</span><br><em class="highlight r2">presencia digital</em><br>de verdad.</h1>
+      <p class="hero-sub accent" style="color:var(--lila-dark);">Desarrollo web, asesoría y conexión de talento pensados para el interior. Cercanos, accesibles, con raíces locales.</span></p>
       <div class="hero-btns">
         <a href="#servicios" class="btn-primary">Ver servicios</a>
-        <a href="#conecta" class="btn-outline">Red Conecta →</a>
+        <a href="#conecta" class="btn-primary" style="background:var(--btnsec); border-color:var(--btnsec);">Red Conecta →</a>
       </div>
     </div>
     <div class="hero-pills">
       <div class="hero-pill">
-        <div class="pill-icon lila">🌐</div>
+        <div class="pill-icon lila"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.6 4 5.8 4 9s-1.4 6.4-4 9c-2.6-2.6-4-5.8-4-9s1.4-6.4 4-9Z"/></svg></div>
         <div class="pill-text">Sitio web profesional<span>Desde el diseño hasta el lanzamiento</span></div>
       </div>
       <div class="hero-pill">
-        <div class="pill-icon verde">🤝</div>
+        <div class="pill-icon verde"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12.5 6 9l3 2 3-2.3L15.5 11l3-2.7 3 3"/><path d="M6 9l4 6.5 2-1.5 2 2 2-1.7 2 1.7"/><path d="M9.2 14.8 8 17l2 1.6"/></svg></div>
         <div class="pill-text">Talento accesible — Red Conecta<span>Estudiantes calificados, precio justo</span></div>
       </div>
       <div class="hero-pill">
-        <div class="pill-icon tierra">📡</div>
+        <div class="pill-icon tierra"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12a9 9 0 0 1 14 0"/><path d="M8.5 15a5 5 0 0 1 7 0"/><circle cx="12" cy="18.5" r="1.4" fill="currentColor" stroke="none"/></svg></div>
         <div class="pill-text">Asesoría y soporte digital<span>Acompañamiento continuo</span></div>
       </div>
       <div class="hero-pill">
-        <div class="pill-icon lila">🏫</div>
+        <div class="pill-icon lila"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V9.5L12 5l7 4.5V21"/><path d="M9.5 21v-6h5v6"/><path d="M12 5V2.7"/></svg></div>
         <div class="pill-text">Talleres de educación digital<span>Liceos, clubes y comunidades</span></div>
       </div>
     </div>
@@ -369,37 +437,37 @@ footer p{font-size:.8rem;line-height:1.65}
     <p class="section-sub">Todo lo que tu negocio necesita en el mundo digital, con precios pensados para el interior.</p>
     <div class="servicios-grid">
       <div class="serv-card">
-        <div class="serv-icon">🖥️</div>
+        <div class="serv-icon"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg></div>
         <div class="serv-title">Desarrollo web</div>
         <p class="serv-desc">Sitios modernos y rápidos. Desde una landing hasta tiendas online completas, con dominio y soporte.</p>
         <span class="serv-badge">Desde $250 USD</span>
       </div>
       <div class="serv-card">
-        <div class="serv-icon">🔍</div>
+        <div class="serv-icon"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M19.5 19.5 15.3 15.3"/></svg></div>
         <div class="serv-title">Auditoría digital</div>
         <p class="serv-desc">Analizamos tu presencia online y te entregamos un informe con qué mejorar primero.</p>
         <span class="serv-badge">Diagnóstico gratis</span>
       </div>
       <div class="serv-card">
-        <div class="serv-icon">💡</div>
+        <div class="serv-icon"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18.3h6"/><path d="M9.5 21h5"/><path d="M12 3a6.3 6.3 0 0 0-3.6 11.5c.6.45 1.1 1.2 1.1 2h5c0-.8.5-1.55 1.1-2A6.3 6.3 0 0 0 12 3Z"/></svg></div>
         <div class="serv-title">Asesoría 1:1</div>
         <p class="serv-desc">Sesiones personalizadas de estrategia digital, redes y herramientas para crecer.</p>
         <span class="serv-badge">Por sesión o mensual</span>
       </div>
       <div class="serv-card">
-        <div class="serv-icon">🔧</div>
+        <div class="serv-icon"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M15.3 4.2a4.7 4.7 0 0 0-6 5.8L3.5 15.7a1.8 1.8 0 0 0 2.5 2.5L11.7 12a4.7 4.7 0 0 0 5.8-6l-2.9 2.9-2.3-2.3 2.9-2.9Z"/></svg></div>
         <div class="serv-title">Soporte IT</div>
         <p class="serv-desc">Computadoras, redes o software. Atención rápida para que tu negocio no se detenga.</p>
         <span class="serv-badge">Remoto y presencial</span>
       </div>
       <div class="serv-card">
-        <div class="serv-icon">📱</div>
+        <div class="serv-icon"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="6.5" y="2.5" width="11" height="19" rx="2"/><path d="M10.3 18.3h3.4"/></svg></div>
         <div class="serv-title">Redes sociales</div>
         <p class="serv-desc">Estrategia y acompañamiento para Instagram, Facebook y Google Mi Negocio.</p>
         <span class="serv-badge">Pack mensual</span>
       </div>
       <div class="serv-card">
-        <div class="serv-icon">🎯</div>
+        <div class="serv-icon"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/></svg></div>
         <div class="serv-title">Identidad digital</div>
         <p class="serv-desc">Logo, colores y materiales para que tu marca tenga coherencia en todos lados.</p>
         <span class="serv-badge">Pack completo</span>
@@ -417,10 +485,10 @@ footer p{font-size:.8rem;line-height:1.65}
     <div class="comunidad-cards">
       <a href="comunidad_estudiantes.html" class="com-card tutores">
         <div class="com-card-head">
-          <div class="com-icon">🎓</div>
+          <div class="com-icon"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5 12 5l10 4.5-10 4.5L2 9.5Z"/><path d="M6.5 11.6V16c0 1.4 2.5 2.6 5.5 2.6s5.5-1.2 5.5-2.6v-4.4"/><path d="M20.5 9.5v5.2"/></svg></div>
           <div>
             <div class="com-title">Tutores & clases</div>
-            <div class="com-sub">8 tutores activos</div>
+           
           </div>
         </div>
         <p class="com-desc">Estudiantes avanzados del interior que dan clases particulares a precio accesible. Matemática, contabilidad, inglés, informática y más.</p>
@@ -428,10 +496,10 @@ footer p{font-size:.8rem;line-height:1.65}
       </a>
       <a href="vitrina_emprendimientos.html" class="com-card emprendimientos">
         <div class="com-card-head">
-          <div class="com-icon">🏪</div>
+          <div class="com-icon"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5 4.7 4h14.6l1.2 5.5"/><path d="M3.5 9.5a2.6 2.6 0 0 0 5.1.6 2.6 2.6 0 0 0 5 0 2.6 2.6 0 0 0 5 0 2.6 2.6 0 0 0 5.1-.6"/><path d="M5 10v9.5h14V10"/><path d="M9.5 19.5V14h5v5.5"/></svg></div>
           <div>
             <div class="com-title">Emprendimientos</div>
-            <div class="com-sub">8 negocios aliados</div>
+            
           </div>
         </div>
         <p class="com-desc">Negocios locales de Durazno y la región que trabajan con ConectaTuMundo. Apoyalos, son de acá.</p>
@@ -454,15 +522,15 @@ footer p{font-size:.8rem;line-height:1.65}
     </div>
     <div class="conecta-cards">
       <div class="cc-card">
-        <div class="cc-dot a">🏪</div>
+        <div class="cc-dot a"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 9.5 4.7 4h14.6l1.2 5.5"/><path d="M3.5 9.5a2.6 2.6 0 0 0 5.1.6 2.6 2.6 0 0 0 5 0 2.6 2.6 0 0 0 5 0 2.6 2.6 0 0 0 5.1-.6"/><path d="M5 10v9.5h14V10"/><path d="M9.5 19.5V14h5v5.5"/></svg></div>
         <div><div class="cc-title">Para tu emprendimiento</div><div class="cc-desc">Talento calificado por una fracción del costo de un profesional. Sin burocracia.</div></div>
       </div>
       <div class="cc-card">
-        <div class="cc-dot b">🎓</div>
+        <div class="cc-dot b"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9.5 12 5l10 4.5-10 4.5L2 9.5Z"/><path d="M6.5 11.6V16c0 1.4 2.5 2.6 5.5 2.6s5.5-1.2 5.5-2.6v-4.4"/><path d="M20.5 9.5v5.2"/></svg></div>
         <div><div class="cc-title">Para estudiantes</div><div class="cc-desc">Experiencia práctica real antes de graduarte. Contactos con empresarios locales.</div></div>
       </div>
       <div class="cc-card">
-        <div class="cc-dot a">🤝</div>
+        <div class="cc-dot a"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="var(--lila-dark)" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12.5 6 9l3 2 3-2.3L15.5 11l3-2.7 3 3"/><path d="M6 9l4 6.5 2-1.5 2 2 2-1.7 2 1.7"/><path d="M9.2 14.8 8 17l2 1.6"/></svg></div>
         <div><div class="cc-title">Con garantía de calidad</div><div class="cc-desc">Validamos cada perfil y acompañamos el proceso de principio a fin.</div></div>
       </div>
     </div>
@@ -584,7 +652,7 @@ footer p{font-size:.8rem;line-height:1.65}
             <input type="checkbox" id="terminos" name="terminos" required> Acepto la <a href="privacy.html" target="_blank">política de privacidad</a> *
           </label>
         </div>
-        <button type="submit" class="form-submit">Enviar mensaje ✉️</button>
+        <button type="submit" class="form-submit">Enviar mensaje</button>
       </form>
     </div>
   </div>
@@ -620,21 +688,21 @@ emailjs.send("service_u1td04m", "template_th43thh", {
     time:     new Date().toLocaleString('es-UY')
   })
   .then(() => {
-    btn.textContent = '¡Mensaje enviado! ✅';
+    btn.textContent = '¡Mensaje enviado!';
     btn.style.background = 'var(--verde)';
     document.getElementById('contact-form').reset();
     setTimeout(() => {
-      btn.textContent = 'Enviar mensaje ✉️';
+      btn.textContent = 'Enviar mensaje';
       btn.style.background = '';
       btn.disabled = false;
     }, 4000);
   })
   .catch(() => {
-    btn.textContent = 'Error al enviar ❌';
+    btn.textContent = 'Error al enviar';
     btn.style.background = '#e74c3c';
     btn.disabled = false;
     setTimeout(() => {
-      btn.textContent = 'Enviar mensaje ✉️';
+      btn.textContent = 'Enviar mensaje';
       btn.style.background = '';
     }, 3000);
   });
@@ -686,7 +754,7 @@ window.toggleFaq = toggleFaq;
    onmouseover="this.style.transform='scale(1.12)'"
    onmouseout="this.style.transform='scale(1)'"
    title="Escribime por WhatsApp"
-   target="_blank">💬</a>
+   target="_blank"><svg viewBox="0 0 24 24" width="56%" height="56%" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5.5h16v10.5H9.5L5.5 19v-3H4Z" fill="#fff" stroke="none"/><path d="M8.3 9.2a3.6 3.6 0 0 0 3.9 3.9l1-1.4-2-.7-.5.6a2.4 2.4 0 0 1-1.9-1.9l.6-.5-.7-2Z" fill="#25D366" stroke="none"/></svg></a>
 
 </body>
 </html>

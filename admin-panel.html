@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Panel Admin · ConectaTuMundo</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="shortcut icon" href="/favicon.png">
 <style>
   :root{
     --purple-1:#7c5cbf;
@@ -158,7 +161,7 @@
 <!-- APP -->
 <div id="app">
   <header>
-    <h1>🟣 Panel Admin · ConectaTuMundo</h1>
+    <h1>Panel Admin · ConectaTuMundo</h1>
     <div class="user-info">
       <span id="userEmail"></span>
       <button class="btn btn-secondary btn-small" id="btnLogout">Cerrar sesión</button>
@@ -278,6 +281,13 @@
       <input type="text" id="empImagenUrl" placeholder="https://i.imgur.com/xxxxx.jpg">
       <div id="empImagenPreviewWrap" style="display:none;margin-top:10px;">
         <img id="empImagenPreview" src="" alt="Vista previa" style="width:60px;height:60px;border-radius:14px;object-fit:cover;border:2px solid var(--border);">
+      </div>
+    </div>
+    <div class="field">
+      <label>URL de portada <span class="hint">(opcional — foto ancha para la cabecera de la tarjeta, ej. Imgur)</span></label>
+      <input type="text" id="empPortadaUrl" placeholder="https://i.imgur.com/yyyyy.jpg">
+      <div id="empPortadaPreviewWrap" style="display:none;margin-top:10px;">
+        <img id="empPortadaPreview" src="" alt="Vista previa de portada" style="width:100%;max-width:280px;height:90px;border-radius:12px;object-fit:cover;border:2px solid var(--border);display:block;">
       </div>
     </div>
 
@@ -460,7 +470,7 @@ function renderEmprendimientos(filter=''){
       <td data-label="Color"><span class="swatch" style="background:${e.bannerColor||'#ccc'}"></span></td>
       <td data-label="Acciones" class="actions-cell">
         <button class="icon-btn" onclick="window.editEmp('${e.id}')">✎</button>
-        <button class="icon-btn del" onclick="window.deleteEmp('${e.id}')">🗑</button>
+        <button class="icon-btn del" onclick="window.deleteEmp('${e.id}')"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15"/><path d="M9 6.5V4.3h6v2.2"/><path d="M6.5 6.5 7.3 20a1.5 1.5 0 0 0 1.5 1.4h6.4a1.5 1.5 0 0 0 1.5-1.4l.8-13.5"/><path d="M10.2 10.5v7M13.8 10.5v7"/></svg></button>
       </td>
     </tr>`;
   });
@@ -474,6 +484,18 @@ document.getElementById('empImagenUrl').addEventListener('input', e => {
   const url = e.target.value.trim();
   const wrap = document.getElementById('empImagenPreviewWrap');
   const img = document.getElementById('empImagenPreview');
+  if(url){
+    img.src = url;
+    wrap.style.display = 'block';
+  } else {
+    wrap.style.display = 'none';
+  }
+});
+
+document.getElementById('empPortadaUrl').addEventListener('input', e => {
+  const url = e.target.value.trim();
+  const wrap = document.getElementById('empPortadaPreviewWrap');
+  const img = document.getElementById('empPortadaPreview');
   if(url){
     img.src = url;
     wrap.style.display = 'block';
@@ -515,6 +537,10 @@ window.editEmp = function(id){
   const wrap = document.getElementById('empImagenPreviewWrap');
   const img = document.getElementById('empImagenPreview');
   if(e.imagenUrl){ img.src = e.imagenUrl; wrap.style.display='block'; } else { wrap.style.display='none'; }
+  document.getElementById('empPortadaUrl').value = e.portadaUrl||'';
+  const pwrap = document.getElementById('empPortadaPreviewWrap');
+  const pimg = document.getElementById('empPortadaPreview');
+  if(e.portadaUrl){ pimg.src = e.portadaUrl; pwrap.style.display='block'; } else { pwrap.style.display='none'; }
   document.getElementById('modalEmprendimiento').classList.add('active');
 }
 
@@ -543,6 +569,7 @@ document.getElementById('btnSaveEmp').addEventListener('click', async () => {
     bannerColor: document.getElementById('empBannerColor').value,
     logoColor: document.getElementById('empLogoColor').value,
     imagenUrl: document.getElementById('empImagenUrl').value.trim(),
+    portadaUrl: document.getElementById('empPortadaUrl').value.trim(),
     logo: nombre.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('')
   };
   if(!data.nombre){ showToast('El nombre es obligatorio'); return; }
@@ -594,7 +621,7 @@ function renderTutores(filter=''){
       <td data-label="Contacto">${escapeHtml(t.contacto||'-')}</td>
       <td data-label="Acciones" class="actions-cell">
         <button class="icon-btn" onclick="window.editTut('${t.id}')">✎</button>
-        <button class="icon-btn del" onclick="window.deleteTut('${t.id}')">🗑</button>
+        <button class="icon-btn del" onclick="window.deleteTut('${t.id}')"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15"/><path d="M9 6.5V4.3h6v2.2"/><path d="M6.5 6.5 7.3 20a1.5 1.5 0 0 0 1.5 1.4h6.4a1.5 1.5 0 0 0 1.5-1.4l.8-13.5"/><path d="M10.2 10.5v7M13.8 10.5v7"/></svg></button>
       </td>
     </tr>`;
   });
@@ -674,6 +701,8 @@ document.getElementById('fabAdd').addEventListener('click', () => {
     document.getElementById('empLogoColor').value = '#7A58AC';
     document.getElementById('empImagenUrl').value = '';
     document.getElementById('empImagenPreviewWrap').style.display = 'none';
+    document.getElementById('empPortadaUrl').value = '';
+    document.getElementById('empPortadaPreviewWrap').style.display = 'none';
     document.getElementById('modalEmprendimiento').classList.add('active');
   } else {
     document.getElementById('modalTutTitle').textContent = 'Nuevo tutor';
