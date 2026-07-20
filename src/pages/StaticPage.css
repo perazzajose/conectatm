@@ -1,0 +1,11 @@
+.content-wrap{max-width:800px;margin:0 auto;padding:2rem 1.2rem 3rem;line-height:1.6}
+.content-section{margin-bottom:2rem}
+.content-section h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--texto);margin:1.5rem 0 .7rem}
+.content-section h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--texto);margin:1.2rem 0 .6rem}
+.content-section p{margin-bottom:.8rem;color:var(--texto)}
+.content-section ul{margin:.5rem 0 .5rem 1.2rem;display:flex;flex-direction:column;gap:.3rem}
+.content-section li{list-style:disc}
+
+@media(min-width:600px){
+  .content-wrap{padding:3rem 2rem 4rem}
+}

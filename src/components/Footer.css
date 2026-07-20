@@ -1,0 +1,7 @@
+footer{background:var(--texto);color:rgba(255,255,255,.55);padding:2rem 1.2rem;text-align:center}
+.footer-logo{font-family:'Playfair Display',serif;font-size:1.1rem;color:#fff;margin-bottom:.4rem}
+.footer-logo span{color:var(--lila)}
+footer p{font-size:.8rem;line-height:1.65}
+.footer-links{display:flex;justify-content:center;flex-wrap:wrap;gap:1rem;margin:.9rem 0;list-style:none}
+.footer-links a{color:rgba(255,255,255,.45);font-size:.78rem;text-decoration:none;transition:color .2s}
+.footer-links a:hover{color:var(--lila)}

@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Panel Admin · ConectaTuMundo</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="shortcut icon" href="/favicon.png">
+<style>
+  :root{
+    --purple-1:#7c5cbf;
+    --purple-2:#9b7fd4;
+    --purple-light:#f3effa;
+    --purple-dark:#5b3f96;
+    --bg:#faf8fd;
+    --card:#ffffff;
+    --text:#2e2740;
+    --muted:#857f99;
+    --border:#e8e1f5;
+    --danger:#e0566b;
+    --success:#4caf82;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Segoe UI',system-ui,-apple-system,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+
+  /* LOGIN */
+  #loginScreen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,var(--purple-1),var(--purple-dark));
+    padding:20px;
+  }
+  .login-box{
+    background:var(--card);
+    border-radius:16px;
+    padding:40px 32px;
+    width:100%;
+    max-width:380px;
+    box-shadow:0 20px 50px rgba(91,63,150,0.3);
+  }
+  .login-box h1{font-size:22px;margin:0 0 4px;color:var(--purple-dark);}
+  .login-box p{color:var(--muted);font-size:14px;margin:0 0 24px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text);}
+  .field .hint{font-weight:400;color:var(--muted);font-size:12px;margin-left:4px;}
+  .field input,.field textarea{
+    width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;
+    font-size:14px;outline:none;transition:border-color .2s;font-family:inherit;
+  }
+  .field textarea{resize:vertical;min-height:70px;}
+  .field input:focus,.field textarea:focus{border-color:var(--purple-1);}
+  .field input[type=color]{padding:4px;height:42px;cursor:pointer;}
+  .field-row{display:flex;gap:12px;}
+  .field-row .field{flex:1;}
+  .btn{
+    width:100%;padding:12px;border:none;border-radius:10px;background:var(--purple-1);
+    color:#fff;font-size:15px;font-weight:600;cursor:pointer;transition:background .2s;
+  }
+  .btn:hover{background:var(--purple-dark);}
+  .btn-secondary{background:transparent;color:var(--purple-1);border:1.5px solid var(--purple-1);}
+  .btn-secondary:hover{background:var(--purple-light);}
+  .btn-small{width:auto;padding:7px 14px;font-size:13px;}
+  #loginError{color:var(--danger);font-size:13px;margin-top:10px;min-height:16px;}
+
+  /* APP SHELL */
+  #app{display:none;min-height:100vh;}
+  header{
+    background:var(--card);border-bottom:1px solid var(--border);padding:16px 24px;
+    display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10;
+  }
+  header h1{font-size:18px;margin:0;color:var(--purple-dark);}
+  header .user-info{display:flex;align-items:center;gap:12px;font-size:13px;color:var(--muted);}
+  main{max-width:1100px;margin:0 auto;padding:24px;}
+  .tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:2px solid var(--border);}
+  .tab{
+    padding:10px 20px;cursor:pointer;font-weight:600;font-size:14px;color:var(--muted);
+    border-bottom:2px solid transparent;margin-bottom:-2px;transition:color .2s;
+  }
+  .tab.active{color:var(--purple-1);border-bottom-color:var(--purple-1);}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .panel-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:12px;}
+  .panel-header input[type=text]{padding:9px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:14px;min-width:220px;}
+
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(91,63,150,0.08);}
+  thead th{background:var(--purple-light);color:var(--purple-dark);text-align:left;padding:12px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.4px;}
+  tbody td{padding:12px 14px;font-size:14px;border-top:1px solid var(--border);}
+  tbody tr:hover{background:#fbfaff;}
+  .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;}
+  .badge-sinweb{background:#fde8ea;color:var(--danger);}
+  .badge-conweb{background:#e3f6ec;color:var(--success);}
+  .swatch{display:inline-block;width:14px;height:14px;border-radius:4px;vertical-align:middle;margin-right:6px;border:1px solid rgba(0,0,0,.1);}
+  .actions-cell{display:flex;gap:6px;}
+  .icon-btn{
+    border:none;background:var(--purple-light);color:var(--purple-1);width:30px;height:30px;
+    border-radius:7px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;
+  }
+  .icon-btn:hover{background:var(--purple-2);color:#fff;}
+  .icon-btn.del:hover{background:var(--danger);color:#fff;}
+  .empty-state{text-align:center;padding:50px 20px;color:var(--muted);background:var(--card);border-radius:12px;}
+
+  /* MODAL */
+  .modal-overlay{display:none;position:fixed;inset:0;background:rgba(46,39,64,0.5);align-items:center;justify-content:center;z-index:100;padding:20px;}
+  .modal-overlay.active{display:flex;}
+  .modal{background:#fff;border-radius:14px;width:100%;max-width:520px;padding:28px;max-height:90vh;overflow-y:auto;}
+  .modal h2{margin:0 0 4px;font-size:18px;color:var(--purple-dark);}
+  .modal-sub{font-size:12px;color:var(--muted);margin-bottom:18px;}
+  .section-label{font-size:12px;font-weight:700;color:var(--purple-1);text-transform:uppercase;letter-spacing:.4px;margin:18px 0 10px;}
+  .section-label:first-of-type{margin-top:0;}
+  .modal-actions{display:flex;gap:10px;margin-top:24px;}
+  select{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;background:#fff;}
+  .fab{
+    position:fixed;bottom:28px;right:28px;width:54px;height:54px;border-radius:50%;
+    background:var(--purple-1);color:#fff;border:none;font-size:26px;cursor:pointer;box-shadow:0 6px 18px rgba(91,63,150,0.4);
+  }
+  .fab:hover{background:var(--purple-dark);}
+  .toast{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);
+    background:var(--purple-dark);color:#fff;padding:12px 22px;border-radius:10px;font-size:14px;transition:transform .3s;z-index:200;
+  }
+  .toast.show{transform:translateX(-50%) translateY(0);}
+  .loading{text-align:center;padding:40px;color:var(--muted);}
+  @media(max-width:600px){
+    table, thead, tbody, th, td, tr{display:block;}
+    thead{display:none;}
+    tbody tr{margin-bottom:12px;border-radius:10px;border:1px solid var(--border);padding:10px;}
+    tbody td{border:none;padding:6px 8px;display:flex;justify-content:space-between;gap:10px;}
+    tbody td::before{content:attr(data-label);font-weight:600;color:var(--muted);font-size:12px;}
+    .field-row{flex-direction:column;gap:0;}
+  }
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen">
+  <div class="login-box">
+    <h1>Panel Admin</h1>
+    <p>ConectaTuMundo · acceso restringido</p>
+    <div class="field">
+      <label>Email</label>
+      <input type="email" id="loginEmail" placeholder="tu@email.com" autocomplete="username">
+    </div>
+    <div class="field">
+      <label>Contraseña</label>
+      <input type="password" id="loginPass" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="btn" id="btnLogin">Iniciar sesión</button>
+    <div id="loginError"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <header>
+    <h1>Panel Admin · ConectaTuMundo</h1>
+    <div class="user-info">
+      <span id="userEmail"></span>
+      <button class="btn btn-secondary btn-small" id="btnLogout">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="tabs">
+      <div class="tab active" data-tab="emprendimientos">Emprendimientos</div>
+      <div class="tab" data-tab="tutores">Tutores</div>
+    </div>
+
+    <!-- EMPRENDIMIENTOS -->
+    <div class="panel active" id="panel-emprendimientos">
+      <div class="panel-header">
+        <input type="text" id="searchEmprendimientos" placeholder="Buscar por nombre o rubro...">
+      </div>
+      <div id="emprendimientosContainer"><div class="loading">Cargando...</div></div>
+    </div>
+
+    <!-- TUTORES -->
+    <div class="panel" id="panel-tutores">
+      <div class="panel-header">
+        <input type="text" id="searchTutores" placeholder="Buscar por nombre...">
+      </div>
+      <div id="tutoresContainer"><div class="loading">Cargando...</div></div>
+    </div>
+  </main>
+
+  <button class="fab" id="fabAdd" title="Agregar">+</button>
+</div>
+
+<!-- MODAL EMPRENDIMIENTO -->
+<div class="modal-overlay" id="modalEmprendimiento">
+  <div class="modal">
+    <h2 id="modalEmpTitle">Nuevo emprendimiento</h2>
+    <div class="modal-sub">Así se va a ver en la vitrina pública del sitio.</div>
+    <input type="hidden" id="empId">
+
+    <div class="section-label">Datos básicos</div>
+    <div class="field">
+      <label>Nombre</label>
+      <input type="text" id="empNombre" placeholder="Ej: Panadería Don José">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Rubro <span class="hint">(texto a mostrar)</span></label>
+        <input type="text" id="empRubro" placeholder="Ej: Panadería & Cafetería">
+      </div>
+      <div class="field">
+        <label>Categoría <span class="hint">(para filtros)</span></label>
+        <select id="empCategoria">
+          <option value="gastronomia">Gastronomía</option>
+          <option value="comercio">Comercio</option>
+          <option value="servicios">Servicios</option>
+          <option value="artesanal">Artesanal</option>
+          <option value="salud">Salud y bienestar</option>
+          <option value="educacion">Educación</option>
+        </select>
+      </div>
+    </div>
+    <div class="field">
+      <label>Descripción</label>
+      <textarea id="empDesc" placeholder="Breve descripción del negocio (1-2 líneas)"></textarea>
+    </div>
+    <div class="field">
+      <label>Contacto <span class="hint">(uso interno, no se muestra público)</span></label>
+      <input type="text" id="empContacto" placeholder="Ej: 099123456">
+    </div>
+    <div class="field">
+      <label>Estado del proyecto digital</label>
+      <select id="empEstado">
+        <option value="sin_web">Sin web</option>
+        <option value="con_web">Con web</option>
+      </select>
+    </div>
+
+    <div class="section-label">Vitrina pública</div>
+    <div class="field">
+      <label>Servicios <span class="hint">(separados por coma)</span></label>
+      <input type="text" id="empServicios" placeholder="Ej: Pedidos online, Sitio web, Redes sociales">
+    </div>
+    <div class="field">
+      <label>Datos visibles <span class="hint">(separados por coma, ej. dirección y horario)</span></label>
+      <input type="text" id="empDatos" placeholder="Ej: 📍 Centro Durazno, 🕐 Lun–Sáb 7–13h">
+    </div>
+    <div class="field">
+      <label>Sitio web <span class="hint">(URL del emprendimiento, ej. https://ejemplo.com)</span></label>
+      <input type="url" id="empSitio" placeholder="https://...">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Insignia</label>
+        <select id="empBadge">
+          <option value="aliado">✦ Aliado</option>
+          <option value="nuevo">★ Nuevo</option>
+          <option value="destacado">⬡ Destacado</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Emoji</label>
+        <input type="text" id="empEmoji" placeholder="☕" maxlength="4">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Color banner</label>
+        <input type="color" id="empBannerColor" value="#9E78CC">
+      </div>
+      <div class="field">
+        <label>Color logo <span class="hint">(si no hay imagen)</span></label>
+        <input type="color" id="empLogoColor" value="#7A58AC">
+      </div>
+    </div>
+    <div class="field">
+      <label>URL de imagen / avatar <span class="hint">(opcional, ej. Imgur)</span></label>
+      <input type="text" id="empImagenUrl" placeholder="https://i.imgur.com/xxxxx.jpg">
+      <div id="empImagenPreviewWrap" style="display:none;margin-top:10px;">
+        <img id="empImagenPreview" src="" alt="Vista previa" style="width:60px;height:60px;border-radius:14px;object-fit:cover;border:2px solid var(--border);">
+      </div>
+    </div>
+    <div class="field">
+      <label>URL de portada <span class="hint">(opcional — foto ancha para la cabecera de la tarjeta, ej. Imgur)</span></label>
+      <input type="text" id="empPortadaUrl" placeholder="https://i.imgur.com/yyyyy.jpg">
+      <div id="empPortadaPreviewWrap" style="display:none;margin-top:10px;">
+        <img id="empPortadaPreview" src="" alt="Vista previa de portada" style="width:100%;max-width:280px;height:90px;border-radius:12px;object-fit:cover;border:2px solid var(--border);display:block;">
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="btnCancelEmp">Cancelar</button>
+      <button class="btn" id="btnSaveEmp">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL TUTOR -->
+<div class="modal-overlay" id="modalTutor">
+  <div class="modal">
+    <h2 id="modalTutTitle">Nuevo tutor</h2>
+    <div class="modal-sub">Así se va a ver en la sección de Tutores del sitio.</div>
+    <input type="hidden" id="tutId">
+
+    <div class="field">
+      <label>Nombre</label>
+      <input type="text" id="tutNombre" placeholder="Ej: María Pérez">
+    </div>
+    <div class="field">
+      <label>Institución / Nivel <span class="hint">(texto libre)</span></label>
+      <input type="text" id="tutInstitucion" placeholder="Ej: UTU Durazno · 3er año Contabilidad">
+    </div>
+    <div class="field">
+      <label>Materias / Área <span class="hint">(separadas por coma)</span></label>
+      <input type="text" id="tutArea" placeholder="Ej: Matemática, Física, Programación">
+    </div>
+    <div class="field">
+      <label>Contacto</label>
+      <input type="text" id="tutContacto" placeholder="Ej: maria@email.com">
+    </div>
+    <div class="field">
+      <label>URL de imagen / avatar <span class="hint">(opcional, ej. Imgur)</span></label>
+      <input type="text" id="tutImagenUrl" placeholder="https://i.imgur.com/xxxxx.jpg">
+      <div id="tutImagenPreviewWrap" style="display:none;margin-top:10px;">
+        <img id="tutImagenPreview" src="" alt="Vista previa" style="width:60px;height:60px;border-radius:14px;object-fit:cover;border:2px solid var(--border);">
+      </div>
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label>Color avatar <span class="hint">(si no hay imagen)</span></label>
+        <input type="color" id="tutColor" value="#5C3D8A">
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-secondary" id="btnCancelTut">Cancelar</button>
+      <button class="btn" id="btnSaveTut">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {
+  getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {
+  getFirestore, collection, addDoc, getDocs, doc, updateDoc, deleteDoc, query, orderBy
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA3A2l9qydi-Ro1Cdd5aoD7pWxJUil6chU",
+  authDomain: "conectatumundo-admin.firebaseapp.com",
+  projectId: "conectatumundo-admin",
+  storageBucket: "conectatumundo-admin.firebasestorage.app",
+  messagingSenderId: "204768677691",
+  appId: "1:204768677691:web:05e3e333f7efcef736711e"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// ---------- STATE ----------
+let emprendimientos = [];
+let tutores = [];
+
+// ---------- AUTH ----------
+const loginScreen = document.getElementById('loginScreen');
+const appEl = document.getElementById('app');
+const loginError = document.getElementById('loginError');
+
+document.getElementById('btnLogin').addEventListener('click', login);
+document.getElementById('loginPass').addEventListener('keydown', e => { if(e.key==='Enter') login(); });
+
+function login(){
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  loginError.textContent = '';
+  signInWithEmailAndPassword(auth, email, pass)
+    .catch(err => {
+      loginError.textContent = 'Email o contraseña incorrectos.';
+      console.error(err);
+    });
+}
+
+document.getElementById('btnLogout').addEventListener('click', () => signOut(auth));
+
+onAuthStateChanged(auth, (user) => {
+  if(user){
+    loginScreen.style.display = 'none';
+    appEl.style.display = 'block';
+    document.getElementById('userEmail').textContent = user.email;
+    loadEmprendimientos();
+    loadTutores();
+  } else {
+    loginScreen.style.display = 'flex';
+    appEl.style.display = 'none';
+  }
+});
+
+// ---------- TABS ----------
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-'+tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ---------- TOAST ----------
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2200);
+}
+
+// ---------- helpers ----------
+function csvToArray(str){
+  return (str||'').split(',').map(s=>s.trim()).filter(Boolean);
+}
+function arrayToCsv(arr){
+  return (arr||[]).join(', ');
+}
+
+// ---------- EMPRENDIMIENTOS ----------
+async function loadEmprendimientos(){
+  const container = document.getElementById('emprendimientosContainer');
+  container.innerHTML = '<div class="loading">Cargando...</div>';
+  try{
+    const q = query(collection(db,'emprendimientos'), orderBy('nombre'));
+    const snap = await getDocs(q);
+    emprendimientos = snap.docs.map(d => ({id:d.id, ...d.data()}));
+    renderEmprendimientos();
+  }catch(e){
+    container.innerHTML = '<div class="empty-state">Error al cargar: '+e.message+'</div>';
+  }
+}
+
+function renderEmprendimientos(filter=''){
+  const container = document.getElementById('emprendimientosContainer');
+  const f = filter.toLowerCase();
+  const list = emprendimientos.filter(x =>
+    (x.nombre||'').toLowerCase().includes(f) || (x.rubro||'').toLowerCase().includes(f)
+  );
+  if(list.length===0){
+    container.innerHTML = '<div class="empty-state">No hay emprendimientos cargados todavía.</div>';
+    return;
+  }
+  let html = '<table><thead><tr><th>Img</th><th>Nombre</th><th>Rubro</th><th>Categoría</th><th>Estado</th><th>Color</th><th>Acciones</th></tr></thead><tbody>';
+  list.forEach(e => {
+    const badgeClass = e.estado === 'con_web' ? 'badge-conweb' : 'badge-sinweb';
+    const badgeText = e.estado === 'con_web' ? 'Con web' : 'Sin web';
+    const thumb = e.imagenUrl
+      ? `<img src="${escapeHtml(e.imagenUrl)}" style="width:32px;height:32px;border-radius:8px;object-fit:cover;display:block;" onerror="this.style.display='none'">`
+      : `<span class="swatch" style="background:${e.logoColor||'#ccc'};width:32px;height:32px;border-radius:8px;"></span>`;
+    html += `<tr>
+      <td data-label="Img">${thumb}</td>
+      <td data-label="Nombre"><strong>${escapeHtml(e.nombre)}</strong></td>
+      <td data-label="Rubro">${escapeHtml(e.rubro||'-')}</td>
+      <td data-label="Categoría">${escapeHtml(e.categoria||'-')}</td>
+      <td data-label="Estado"><span class="badge ${badgeClass}">${badgeText}</span></td>
+      <td data-label="Color"><span class="swatch" style="background:${e.bannerColor||'#ccc'}"></span></td>
+      <td data-label="Acciones" class="actions-cell">
+        <button class="icon-btn" onclick="window.editEmp('${e.id}')">✎</button>
+        <button class="icon-btn del" onclick="window.deleteEmp('${e.id}')"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15"/><path d="M9 6.5V4.3h6v2.2"/><path d="M6.5 6.5 7.3 20a1.5 1.5 0 0 0 1.5 1.4h6.4a1.5 1.5 0 0 0 1.5-1.4l.8-13.5"/><path d="M10.2 10.5v7M13.8 10.5v7"/></svg></button>
+      </td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+document.getElementById('searchEmprendimientos').addEventListener('input', e => renderEmprendimientos(e.target.value));
+
+document.getElementById('empImagenUrl').addEventListener('input', e => {
+  const url = e.target.value.trim();
+  const wrap = document.getElementById('empImagenPreviewWrap');
+  const img = document.getElementById('empImagenPreview');
+  if(url){
+    img.src = url;
+    wrap.style.display = 'block';
+  } else {
+    wrap.style.display = 'none';
+  }
+});
+
+document.getElementById('empPortadaUrl').addEventListener('input', e => {
+  const url = e.target.value.trim();
+  const wrap = document.getElementById('empPortadaPreviewWrap');
+  const img = document.getElementById('empPortadaPreview');
+  if(url){
+    img.src = url;
+    wrap.style.display = 'block';
+  } else {
+    wrap.style.display = 'none';
+  }
+});
+
+document.getElementById('tutImagenUrl').addEventListener('input', e => {
+  const url = e.target.value.trim();
+  const wrap = document.getElementById('tutImagenPreviewWrap');
+  const img = document.getElementById('tutImagenPreview');
+  if(url){
+    img.src = url;
+    wrap.style.display = 'block';
+  } else {
+    wrap.style.display = 'none';
+  }
+});
+
+window.editEmp = function(id){
+  const e = emprendimientos.find(x=>x.id===id);
+  document.getElementById('modalEmpTitle').textContent = 'Editar emprendimiento';
+  document.getElementById('empId').value = e.id;
+  document.getElementById('empNombre').value = e.nombre||'';
+  document.getElementById('empRubro').value = e.rubro||'';
+  document.getElementById('empCategoria').value = e.categoria||'servicios';
+  document.getElementById('empDesc').value = e.desc||'';
+  document.getElementById('empContacto').value = e.contacto||'';
+  document.getElementById('empEstado').value = e.estado||'sin_web';
+  document.getElementById('empServicios').value = arrayToCsv(e.servicios);
+  document.getElementById('empDatos').value = arrayToCsv(e.datos);
+  document.getElementById('empSitio').value = e.sitio||'';
+  document.getElementById('empBadge').value = e.badge||'aliado';
+  document.getElementById('empEmoji').value = e.emoji||'';
+  document.getElementById('empBannerColor').value = e.bannerColor||'#9E78CC';
+  document.getElementById('empLogoColor').value = e.logoColor||'#7A58AC';
+  document.getElementById('empImagenUrl').value = e.imagenUrl||'';
+  const wrap = document.getElementById('empImagenPreviewWrap');
+  const img = document.getElementById('empImagenPreview');
+  if(e.imagenUrl){ img.src = e.imagenUrl; wrap.style.display='block'; } else { wrap.style.display='none'; }
+  document.getElementById('empPortadaUrl').value = e.portadaUrl||'';
+  const pwrap = document.getElementById('empPortadaPreviewWrap');
+  const pimg = document.getElementById('empPortadaPreview');
+  if(e.portadaUrl){ pimg.src = e.portadaUrl; pwrap.style.display='block'; } else { pwrap.style.display='none'; }
+  document.getElementById('modalEmprendimiento').classList.add('active');
+}
+
+window.deleteEmp = async function(id){
+  if(!confirm('¿Eliminar este emprendimiento?')) return;
+  await deleteDoc(doc(db,'emprendimientos',id));
+  showToast('Emprendimiento eliminado');
+  loadEmprendimientos();
+}
+
+document.getElementById('btnSaveEmp').addEventListener('click', async () => {
+  const id = document.getElementById('empId').value;
+  const nombre = document.getElementById('empNombre').value.trim();
+  const data = {
+    nombre,
+    rubro: document.getElementById('empRubro').value.trim(),
+    categoria: document.getElementById('empCategoria').value,
+    desc: document.getElementById('empDesc').value.trim(),
+    contacto: document.getElementById('empContacto').value.trim(),
+    estado: document.getElementById('empEstado').value,
+    servicios: csvToArray(document.getElementById('empServicios').value),
+    datos: csvToArray(document.getElementById('empDatos').value),
+    sitio: document.getElementById('empSitio').value.trim(),
+    badge: document.getElementById('empBadge').value,
+    emoji: document.getElementById('empEmoji').value.trim() || '🏪',
+    bannerColor: document.getElementById('empBannerColor').value,
+    logoColor: document.getElementById('empLogoColor').value,
+    imagenUrl: document.getElementById('empImagenUrl').value.trim(),
+    portadaUrl: document.getElementById('empPortadaUrl').value.trim(),
+    logo: nombre.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('')
+  };
+  if(!data.nombre){ showToast('El nombre es obligatorio'); return; }
+  if(id){
+    await updateDoc(doc(db,'emprendimientos',id), data);
+    showToast('Emprendimiento actualizado');
+  } else {
+    await addDoc(collection(db,'emprendimientos'), data);
+    showToast('Emprendimiento creado');
+  }
+  closeModal('modalEmprendimiento');
+  loadEmprendimientos();
+});
+
+document.getElementById('btnCancelEmp').addEventListener('click', () => closeModal('modalEmprendimiento'));
+
+// ---------- TUTORES ----------
+async function loadTutores(){
+  const container = document.getElementById('tutoresContainer');
+  container.innerHTML = '<div class="loading">Cargando...</div>';
+  try{
+    const q = query(collection(db,'tutores'), orderBy('nombre'));
+    const snap = await getDocs(q);
+    tutores = snap.docs.map(d => ({id:d.id, ...d.data()}));
+    renderTutores();
+  }catch(e){
+    container.innerHTML = '<div class="empty-state">Error al cargar: '+e.message+'</div>';
+  }
+}
+
+function renderTutores(filter=''){
+  const container = document.getElementById('tutoresContainer');
+  const f = filter.toLowerCase();
+  const list = tutores.filter(x => (x.nombre||'').toLowerCase().includes(f));
+  if(list.length===0){
+    container.innerHTML = '<div class="empty-state">No hay tutores cargados todavía.</div>';
+    return;
+  }
+  let html = '<table><thead><tr><th>Img</th><th>Nombre</th><th>Institución</th><th>Materias</th><th>Contacto</th><th>Acciones</th></tr></thead><tbody>';
+  list.forEach(t => {
+    const thumb = t.imagenUrl
+      ? `<img src="${escapeHtml(t.imagenUrl)}" style="width:32px;height:32px;border-radius:8px;object-fit:cover;display:block;" onerror="this.style.display='none'">`
+      : `<span class="swatch" style="background:${t.color||'#ccc'};width:32px;height:32px;border-radius:8px;"></span>`;
+    html += `<tr>
+      <td data-label="Img">${thumb}</td>
+      <td data-label="Nombre"><strong>${escapeHtml(t.nombre)}</strong></td>
+      <td data-label="Institución">${escapeHtml(t.institucion||'-')}</td>
+      <td data-label="Materias">${escapeHtml(arrayToCsv(t.materias))}</td>
+      <td data-label="Contacto">${escapeHtml(t.contacto||'-')}</td>
+      <td data-label="Acciones" class="actions-cell">
+        <button class="icon-btn" onclick="window.editTut('${t.id}')">✎</button>
+        <button class="icon-btn del" onclick="window.deleteTut('${t.id}')"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15"/><path d="M9 6.5V4.3h6v2.2"/><path d="M6.5 6.5 7.3 20a1.5 1.5 0 0 0 1.5 1.4h6.4a1.5 1.5 0 0 0 1.5-1.4l.8-13.5"/><path d="M10.2 10.5v7M13.8 10.5v7"/></svg></button>
+      </td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  container.innerHTML = html;
+}
+
+document.getElementById('searchTutores').addEventListener('input', e => renderTutores(e.target.value));
+
+window.editTut = function(id){
+  const t = tutores.find(x=>x.id===id);
+  document.getElementById('modalTutTitle').textContent = 'Editar tutor';
+  document.getElementById('tutId').value = t.id;
+  document.getElementById('tutNombre').value = t.nombre||'';
+  document.getElementById('tutInstitucion').value = t.institucion||'';
+  document.getElementById('tutArea').value = arrayToCsv(t.materias);
+  document.getElementById('tutContacto').value = t.contacto||'';
+  document.getElementById('tutImagenUrl').value = t.imagenUrl||'';
+  document.getElementById('tutColor').value = t.color||'#5C3D8A';
+  const wrap = document.getElementById('tutImagenPreviewWrap');
+  const img = document.getElementById('tutImagenPreview');
+  if(t.imagenUrl){ img.src = t.imagenUrl; wrap.style.display='block'; } else { wrap.style.display='none'; }
+  document.getElementById('modalTutor').classList.add('active');
+}
+
+window.deleteTut = async function(id){
+  if(!confirm('¿Eliminar este tutor?')) return;
+  await deleteDoc(doc(db,'tutores',id));
+  showToast('Tutor eliminado');
+  loadTutores();
+}
+
+document.getElementById('btnSaveTut').addEventListener('click', async () => {
+  const id = document.getElementById('tutId').value;
+  const nombre = document.getElementById('tutNombre').value.trim();
+  const data = {
+    nombre,
+    institucion: document.getElementById('tutInstitucion').value.trim(),
+    materias: csvToArray(document.getElementById('tutArea').value),
+    contacto: document.getElementById('tutContacto').value.trim(),
+    imagenUrl: document.getElementById('tutImagenUrl').value.trim(),
+    color: document.getElementById('tutColor').value,
+    avatar: nombre.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('')
+  };
+  if(!data.nombre){ showToast('El nombre es obligatorio'); return; }
+  if(id){
+    await updateDoc(doc(db,'tutores',id), data);
+    showToast('Tutor actualizado');
+  } else {
+    await addDoc(collection(db,'tutores'), data);
+    showToast('Tutor creado');
+  }
+  closeModal('modalTutor');
+  loadTutores();
+});
+
+document.getElementById('btnCancelTut').addEventListener('click', () => closeModal('modalTutor'));
+
+// ---------- FAB (botón flotante +) ----------
+document.getElementById('fabAdd').addEventListener('click', () => {
+  const activeTab = document.querySelector('.tab.active').dataset.tab;
+  if(activeTab === 'emprendimientos'){
+    document.getElementById('modalEmpTitle').textContent = 'Nuevo emprendimiento';
+    document.getElementById('empId').value = '';
+    document.getElementById('empNombre').value = '';
+    document.getElementById('empRubro').value = '';
+    document.getElementById('empCategoria').value = 'servicios';
+    document.getElementById('empDesc').value = '';
+    document.getElementById('empContacto').value = '';
+    document.getElementById('empEstado').value = 'sin_web';
+    document.getElementById('empServicios').value = '';
+    document.getElementById('empDatos').value = '';
+    document.getElementById('empSitio').value = '';
+    document.getElementById('empBadge').value = 'aliado';
+    document.getElementById('empEmoji').value = '';
+    document.getElementById('empBannerColor').value = '#9E78CC';
+    document.getElementById('empLogoColor').value = '#7A58AC';
+    document.getElementById('empImagenUrl').value = '';
+    document.getElementById('empImagenPreviewWrap').style.display = 'none';
+    document.getElementById('empPortadaUrl').value = '';
+    document.getElementById('empPortadaPreviewWrap').style.display = 'none';
+    document.getElementById('modalEmprendimiento').classList.add('active');
+  } else {
+    document.getElementById('modalTutTitle').textContent = 'Nuevo tutor';
+    document.getElementById('tutId').value = '';
+    document.getElementById('tutNombre').value = '';
+    document.getElementById('tutInstitucion').value = '';
+    document.getElementById('tutArea').value = '';
+    document.getElementById('tutContacto').value = '';
+    document.getElementById('tutImagenUrl').value = '';
+    document.getElementById('tutColor').value = '#5C3D8A';
+    document.getElementById('tutImagenPreviewWrap').style.display = 'none';
+    document.getElementById('modalTutor').classList.add('active');
+  }
+});
+
+function closeModal(id){
+  document.getElementById(id).classList.remove('active');
+}
+
+document.querySelectorAll('.modal-overlay').forEach(overlay => {
+  overlay.addEventListener('click', (e) => {
+    if(e.target === overlay) overlay.classList.remove('active');
+  });
+});
+
+function escapeHtml(str){
+  if(!str) return '';
+  return str.replace(/[&<>"']/g, m => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[m]));
+}
+</script>
+</body>
+</html>

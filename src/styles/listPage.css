@@ -1,0 +1,51 @@
+/* ── HEADER ── */
+.page-header{padding:3rem 1.2rem 2.5rem;text-align:center;position:relative;overflow:hidden;margin-top:58px}
+.page-header::before{content:'';position:absolute;top:-60px;right:-40px;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,var(--lila) 0%,transparent 70%);opacity:.3}
+.page-header::after{content:'';position:absolute;bottom:-40px;left:-30px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,var(--verde) 0%,transparent 70%);opacity:.2}
+.page-header h1{font-family:'Playfair Display',serif;font-size:2rem;color:var(--texto);margin-bottom:.7rem;line-height:1.2}
+.page-header h1 em{color:var(--lila-dark);font-style:normal}
+.page-header p{color:var(--texto-suave);font-size:.92rem;line-height:1.7;max-width:480px;margin:0 auto 1.5rem}
+.header-stats{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap}
+.hstat{background:#fff;border:1px solid var(--lila-light);border-radius:12px;padding:.6rem 1.1rem;font-size:.82rem;color:var(--texto);font-weight:500;display:inline-flex;align-items:center;gap:.35rem}
+.hstat span{color:var(--lila-dark);font-weight:700}
+
+/* ── FILTROS ── */
+.filtros-wrap{padding:1.2rem 1.2rem .5rem;position:sticky;top:58px;background:rgba(253,251,255,.96);backdrop-filter:blur(10px);z-index:10;border-bottom:1px solid var(--lila-light);margin-top:-58px}
+.filtros-scroll{display:flex;gap:.6rem;overflow-x:auto;padding-bottom:.3rem;scrollbar-width:none}
+.filtros-scroll::-webkit-scrollbar{display:none}
+.filtro-btn{flex-shrink:0;border:1.5px solid var(--lila-light);background:#fff;color:var(--texto-suave);padding:.38rem .9rem;border-radius:50px;font-size:.8rem;font-weight:500;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .2s;white-space:nowrap}
+.filtro-btn.active,.filtro-btn:hover{background:var(--lila-dark);color:#fff;border-color:var(--lila-dark)}
+
+/* ── BUSCADOR ── */
+.search-wrap{padding:.8rem 1.2rem 1rem}
+.search-box{display:flex;align-items:center;gap:.7rem;background:#fff;border:1.5px solid var(--lila-light);border-radius:12px;padding:.6rem 1rem;transition:border-color .2s}
+.search-box:focus-within{border-color:var(--lila-mid)}
+.search-box input{border:none;outline:none;font-size:.9rem;font-family:'DM Sans',sans-serif;color:var(--texto);background:transparent;width:100%}
+.search-box input::placeholder{color:var(--texto-suave)}
+.search-icon{flex-shrink:0;display:flex}
+
+/* ── GRID / ESTADOS ── */
+.grid-wrap{padding:0 1.2rem 3rem}
+.no-results{text-align:center;padding:3rem 1rem;color:var(--texto-suave);font-size:.92rem}
+.no-results span{display:block;font-size:2rem;margin-bottom:.8rem}
+.skeleton{background:linear-gradient(90deg,var(--lila-light) 25%,#fff 37%,var(--lila-light) 63%);background-size:400% 100%;animation:shimmer 1.4s ease infinite;border-radius:18px;height:180px}
+@keyframes shimmer{0%{background-position:100% 50%}100%{background-position:0 50%}}
+
+/* ── BANNER "SUMATE" ── */
+.sumate-banner{margin:0 1.2rem 2rem;background:linear-gradient(135deg,var(--lila-dark),#3A2260);border-radius:18px;padding:1.8rem 1.4rem;color:#fff;text-align:center}
+.sumate-banner h3{font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:.6rem}
+.sumate-banner p{font-size:.85rem;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:1.2rem}
+.sumate-btn{background:var(--lila);color:var(--lila-dark);border:none;padding:.7rem 1.5rem;border-radius:50px;font-size:.88rem;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;transition:background .2s}
+.sumate-btn:hover{background:#fff}
+
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+@media(min-width:560px){
+  .page-header h1{font-size:2.4rem}
+}
+@media(min-width:900px){
+  .page-header{padding:4rem 2rem 3rem}
+  .filtros-wrap,.search-wrap,.grid-wrap{padding-left:2rem;padding-right:2rem}
+  .sumate-banner{margin-left:2rem;margin-right:2rem}
+  .page-header h1{font-size:2.8rem}
+}
