@@ -1,4 +1,5 @@
 import Hero from './Hero';
+import Consulta from './Consulta';  
 import Servicios from './Servicios';
 import Cobertura from './Cobertura';
 import Comunidad from './Comunidad';
@@ -14,6 +15,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <Consulta />        
       <Servicios />
       <Cobertura />
       <Comunidad />
