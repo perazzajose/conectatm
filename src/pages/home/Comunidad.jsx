@@ -5,15 +5,12 @@ export default function Comunidad() {
   return (
     <section id="comunidad">
       <div className="section-inner">
-        <div className="section-tag">Red Conecta · Comunidad</div>
-        <h2>Explorá la comunidad</h2>
-        <p className="section-sub">Tutores que enseñan y emprendimientos que crecen — todos parte de la misma red.</p>
+        <div className="section-tag">Comunidad local</div>
+        <h2>Emprendimientos de la región</h2>
+        <p className="section-sub">Negocios reales de Durazno y alrededores. Vecinos que ya están en la red — apoyalos, son de acá.</p>
         <div className="comunidad-cards">
-          <ComCard to="/tutores" variant="tutores" icon={icons.tutores} title="Tutores & clases"
-            desc="Estudiantes avanzados del interior que dan clases particulares a precio accesible. Matemática, contabilidad, inglés, informática y más."
-            linkLabel="Ver tutores" />
-          <ComCard to="/emprendimientos" variant="emprendimientos" icon={icons.emprendimientos} title="Emprendimientos"
-            desc="Negocios locales de Durazno y la región que trabajan con ConectaTuMundo. Apoyalos, son de acá."
+          <ComCard to="/emprendimientos" variant="emprendimientos" icon={icons.emprendimientos} title="Emprendimientos aliados"
+            desc="Negocios locales de Durazno y la región que trabajan con ConectaTuMundo. Ven su perfil, cómo trabajan y cómo contactárlos."
             linkLabel="Ver emprendimientos" />
         </div>
       </div>

@@ -2,10 +2,22 @@ import { Link } from 'react-router-dom';
 import FaqItem from '../../components/FaqItem';
 
 const faqs = [
-  { q: '¿Qué es ConectaTuMundo exactamente?', a: 'ConectaTuMundo es una plataforma de servicios digitales y conexión de talento con base en Durazno. Desarrollamos sitios web, conectamos negocios con estudiantes calificados y damos talleres de educación digital en el interior.' },
-  { q: '¿Cómo funciona la Red Conecta para mi negocio?', a: 'Nos contás qué necesitás, buscamos al estudiante o profesional adecuado en nuestra red y coordinamos la primera reunión. Acompañamos todo el proceso para que salga bien. Sin burocracia, sin procesos largos.' },
-  { q: '¿Solo operan en Durazno?', a: 'Estamos basados en Durazno pero trabajamos con emprendimientos de toda la región centro. Los talleres los damos presencial en Durazno o virtual para todo el país. La Red Conecta también funciona de forma remota.' },
-  { q: '¿Qué pasa si el estudiante no cumple?', a: 'Validamos cada perfil antes de presentarlo y acompañamos el proceso. Si hay algún problema, lo resolvemos. No dejamos a ningún emprendimiento sin respuesta.' },
+  {
+    q: '¿Para qué me sirve esto si yo no sé nada de tecnología?',
+    a: 'Justamente para eso estamos. No necesitás saber nada. José te explica todo desde cero, sin apuro y sin hacerte sentir que es obvio. Si tenés un negocio o una consulta, con eso alcanza.'
+  },
+  {
+    q: '¿Cuánto cuesta tener un sitio web?',
+    a: 'Un sitio básico para tu negocio arranca en $250 USD. Pero antes de cobrar nada, hacemos una reunión gratis para entender qué necesitás y darte un presupuesto claro. Sin sorpresas.'
+  },
+  {
+    q: '¿Solo atienden en Durazno?',
+    a: 'Estamos en Durazno pero trabajamos con emprendimientos de toda la región centro. Los talleres los damos presencial o por video para todo Uruguay. La Red Conecta también funciona a distancia.'
+  },
+  {
+    q: '¿Y si pago y después no quedo conforme?',
+    a: 'Hablamos antes de arrancar y dejamos todo claro. No cobré nada sin que primero entiendas qué vas a recibir. Y si algo no sale como esperabas, lo arreglamos — no te dejamos tirado.'
+  },
 ];
 
 export default function FaqPreview() {
@@ -13,8 +25,8 @@ export default function FaqPreview() {
     <section id="faq-preview">
       <div className="section-inner">
         <div className="section-tag">Preguntas frecuentes</div>
-        <h2>Las dudas más comunes</h2>
-        <p className="section-sub">Respondemos antes de que tengas que preguntar.</p>
+        <h2>Las dudas que todos tienen</h2>
+        <p className="section-sub">Preguntas reales de vecinos y emprendedores del interior.</p>
         <div className="faq-list">
           {faqs.map((f, i) => <FaqItem key={i} question={f.q} answer={f.a} />)}
         </div>

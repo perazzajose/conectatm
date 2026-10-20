@@ -6,35 +6,26 @@ export default function Hero() {
     <section className="hero" id="inicio">
       <div className="hero-inner">
         <div>
-          <div className="hero-tag">Durazno, Uruguay · Servicios digitales</div>
-          <h1 className="highlight">
-            <span className="highlight r1">Tu negocio merece</span><br />
-            <em className="highlight r2">presencia digital</em><br />
-            de verdad.
+          <div className="hero-tag">📍 Durazno, Uruguay</div>
+          <h1>
+            <span className="highlight r1">¿Tu negocio todavía</span><br />
+            <em className="highlight r2">no está en internet?</em><br />
+            <span style={{ fontSize: '0.75em', fontFamily: "'DM Sans', sans-serif", fontWeight: 400, color: 'var(--texto-suave)' }}>No pasa nada — eso tiene solución.</span>
           </h1>
-          <p className="hero-sub accent" style={{ color: 'var(--lila-dark)' }}>
-            Desarrollo web, asesoría y conexión de talento pensados para el interior. Cercanos, accesibles, con raíces locales.
+          <p className="hero-sub">
+            Soy José, de Durazno. Te explico qué necesita tu negocio en internet, sin tecnicismos, y lo armamos juntos a precio justo.
           </p>
+          <div className="hero-nota">🤝 Sin contratos raros, sin letras chicas. Hablamos primero, presupuestamos después.</div>
           <div className="hero-btns">
-            <a href="#servicios" className="btn-primary">Ver servicios</a>
-         <a
-  href="#conecta"
-  className="btn-primary"
-  style={{
-    background: "#7d2d9c",
-    borderColor: "#D9B7F2",
-    color: "#ffffff"
-  }}
->
-  Red Conecta 
-</a>
+            <a href="#servicios" className="btn-primary">¿Qué hacemos?</a>
+            <a href="#contacto" className="btn-outline">Hablemos sin compromiso</a>
           </div>
         </div>
         <div className="hero-pills">
-          <HeroPill variant="lila" icon={icons.globo} title="Sitio web profesional" sub="Desde el diseño hasta el lanzamiento" />
-          <HeroPill variant="verde" icon={icons.conecta} title="Talento accesible — Red Conecta" sub="Estudiantes calificados, precio justo" />
-          <HeroPill variant="tierra" icon={icons.taller} title="Asesoría y soporte digital" sub="Acompañamiento continuo" />
-          <HeroPill variant="lila" icon={icons.talleres2} title="Talleres de educación digital" sub="Liceos, clubes y comunidades" />
+          <HeroPill variant="lila" icon={icons.globo} title="Tu local en internet" sub="Sitio web desde el diseño hasta el lanzamiento" />
+          <HeroPill variant="verde" icon={icons.conecta} title="Red Conecta" sub="Estudiantes que ayudan a tu negocio, a precio justo" />
+          <HeroPill variant="tierra" icon={icons.taller} title="Soporte IT cercano" sub="Te atendemos sin que tengas que explicar todo dos veces" />
+          <HeroPill variant="lila" icon={icons.talleres2} title="Talleres de tecnología" sub="Para liceos, clubes y vecinos de la región" />
         </div>
       </div>
     </section>

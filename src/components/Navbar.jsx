@@ -14,14 +14,15 @@ const drawerLinks = [
   {
     label: 'Comunidad',
     items: [
-      { to: '/tutores', icon: icons.tutores, bg: 'var(--lila-light)', title: 'Tutores', sub: 'Clases particulares' },
       { to: '/emprendimientos', icon: icons.emprendimientos, bg: 'var(--verde-light)', title: 'Emprendimientos', sub: 'Negocios locales aliados' },
       { to: '/#conecta', icon: icons.conecta, bg: '#E8D0F8', title: 'Red Conecta', sub: 'Cómo funciona' },
+      { to: '/#cobertura', icon: icons.globo, bg: 'var(--lila-light)', title: '¿Hasta dónde llegamos?', sub: 'Durazno y la región' },
     ],
   },
   {
     label: null,
     items: [
+      { to: '/#glosario', icon: icons.faq, bg: 'var(--tierra-dark)', title: '¿Qué significa eso?', sub: 'Glosario en palabras simples' },
       { to: '/faq', icon: icons.faq, bg: 'var(--lila-light)', title: 'Preguntas frecuentes' },
       { to: '/#sobre', icon: icons.sobre, bg: 'var(--tierra-dark)', title: 'Sobre mí' },
     ],
@@ -42,11 +43,10 @@ export default function Navbar() {
         <Link to="/" className="nav-logo"><img src="/logo.png" alt="ConectaTuMundo" /></Link>
         <ul className="nav-links">
           <li><Link to="/">Inicio</Link></li>
-          <li><Link to="/tutores">Tutores</Link></li>
           <li><Link to="/emprendimientos">Emprendimientos</Link></li>
           <li><Link to="/#conecta">Red Conecta</Link></li>
-          <li><Link to="/#formacion">Formación</Link></li>
-          <li><Link to="/faq">FAQ</Link></li>
+          <li><Link to="/#formacion">Talleres</Link></li>
+          <li><Link to="/faq">Preguntas</Link></li>
         </ul>
         <div className="nav-right">
           <Link to="/#contacto" className="nav-cta">Hablemos</Link>
