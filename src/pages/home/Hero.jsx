@@ -4,7 +4,9 @@ export default function Hero() {
   return (
     <section className="hero" aria-labelledby="hero-titulo">
       <img
-        src="/hero.jpg"
+        src="/hero.webp"
+        width="1024"
+        height="768"
         alt="Plaza de Durazno: palmeras, buganvilias y la pérgola al final del camino"
         className="hero-foto"
         fetchPriority="high"

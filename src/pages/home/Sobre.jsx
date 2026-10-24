@@ -2,7 +2,7 @@ export default function Sobre() {
   return (
     <section id="sobre" className="sobre">
       <div className="section-inner sobre-layout">
-        <img src="/avatar.png" alt="Ilustración de José trabajando en su computadora" className="sobre-avatar" loading="lazy" />
+        <img src="/avatar.webp" width="220" height="220" alt="Ilustración de José trabajando en su computadora" className="sobre-avatar" loading="lazy" />
         <div className="sobre-texto">
           <h2>Quién está detrás</h2>
           <p>

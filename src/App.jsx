@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsappFloat from './components/WhatsappFloat';
 import ScrollToHash from './components/ScrollToHash';
+import Seo from './components/Seo';
 import Home from './pages/home/Home';
 import Laboral from './pages/laboral/Laboral';
 import CvEditor from './pages/laboral/cv/CvEditor';
@@ -30,6 +31,7 @@ export default function App() {
     <>
       <Navbar />
       <ScrollToHash />
+      <Seo />
       <main>
         <Suspense fallback={<p className="cargando-pagina">Cargando…</p>}>
         <Routes>

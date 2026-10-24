@@ -1,0 +1,21 @@
+# ConectaTuMundo
+
+> Plataforma de herramientas digitales hecha por José, desarrollador de Durazno (Uruguay). Ayuda a personas a conseguir trabajo y a emprendimientos y pymes de Durazno, Rocha y Montevideo a digitalizarse. Todo en español rioplatense.
+
+## Trabajo
+- [Armá tu CV](https://conectatumundo.net/laboral/cv): editor de currículum gratis y sin registro, con ejemplos con y sin experiencia y descarga en PDF.
+- [Subí tu CV](https://conectatumundo.net/laboral/subir): bolsa de CVs privada; solo la consultan reclutadores autorizados.
+- [Ofertas por departamento](https://conectatumundo.net/laboral#ofertas): las últimas 5 ofertas de LinkedIn, Computrabajo y BuscoJobs para cada departamento de Uruguay, actualizadas cada lunes.
+- [Profes particulares](https://conectatumundo.net/laboral/tutores): estudiantes de la Red Conecta que dan clases a precio accesible.
+
+## Negocios
+- [Comparador de POS](https://conectatumundo.net/negocios/pos): recomendador y comparación de proveedores de POS en Uruguay (Handy, Getnet, Fiserv, Mercado Pago, OCA, TotalNet, Scanntech, Geocom), con fuentes.
+- [Emprendimientos](https://conectatumundo.net/negocios/emprendimientos): vitrina de negocios locales.
+
+## Desarrollo
+- [Desarrollo web y sistemas](https://conectatumundo.net/desarrollo): sitios web, tiendas online, sistemas a medida y soporte técnico.
+
+## Más
+- [Talleres y glosario](https://conectatumundo.net/aprende)
+- [Preguntas frecuentes](https://conectatumundo.net/faq)
+- Contacto: WhatsApp +598 97 154 271
