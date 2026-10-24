@@ -1,0 +1,12 @@
+.perfiles-grid{display:grid;grid-template-columns:1fr;gap:1px;background:var(--baldosa-borde);border:1px solid var(--baldosa-borde)}
+.perfil-card{display:flex;gap:1rem;padding:1.2rem;background:var(--blanco)}
+.avatar{width:56px;height:56px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;overflow:hidden;font-family:var(--font-display);font-weight:700;font-size:1.3rem;color:#fff}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.card-info{min-width:0}
+.card-nombre{font-size:1.1rem}
+.card-inst{font-size:.92rem;color:var(--tinta-suave);margin-top:.1rem}
+.card-materias{list-style:none;display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.7rem}
+.card-materias li{font-size:.85rem;font-weight:700;padding:.15rem .6rem;background:var(--palmera-suave);color:var(--palmera)}
+
+@media(min-width:600px){ .perfiles-grid{grid-template-columns:1fr 1fr} }
+@media(min-width:960px){ .perfiles-grid{grid-template-columns:repeat(3,1fr)} }

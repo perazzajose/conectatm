@@ -7,7 +7,7 @@ export const faqTabs = [
   { value: 'general', label: 'General', icon: icons.globo },
   { value: 'emprendimiento', label: 'Emprendimientos', icon: icons.emprendimientos },
   { value: 'estudiante', label: 'Estudiantes', icon: icons.tutores },
-  { value: 'agencia', label: 'Agencia web', icon: icons.web },
+  { value: 'agencia', label: 'Desarrollo', icon: icons.web },
   { value: 'talleres', label: 'Talleres', icon: icons.taller },
 ];
 
@@ -19,11 +19,11 @@ export const faqGroups = [
     items: [
       {
         q: '¿Qué es ConectaTuMundo exactamente?',
-        a: 'ConectaTuMundo es una plataforma de servicios digitales y conexión de talento con base en Durazno, Uruguay. Hacemos tres cosas: <strong>desarrollamos sitios web y asesoramos emprendimientos</strong>, <strong>conectamos negocios locales con estudiantes calificados</strong> que ofrecen servicios a precio accesible, y <strong>damos talleres de educación digital</strong> en liceos, escuelas y organizaciones.<br><br>En pocas palabras: somos el puente digital del interior.',
+        a: 'Es una plataforma de herramientas digitales hecha por José, desde Durazno. Tiene tres partes: <strong>Trabajo</strong> (armá tu CV gratis y la Red Conecta para estudiantes), <strong>Negocios</strong> (comparador de POS, vitrina de emprendimientos y sistemas de stock y ventas en desarrollo) y <strong>Desarrollo</strong> (sitios web, sistemas a medida y soporte técnico). Además damos talleres de educación digital.',
       },
       {
-        q: '¿Solo operan en Durazno?',
-        a: 'Estamos basados en Durazno y eso es nuestra ventaja — conocemos el territorio. Pero trabajamos con emprendimientos de toda la región centro del Uruguay y los talleres los podemos dar de forma <strong>presencial en Durazno</strong> o <strong>virtual para todo el país</strong>. La Red Conecta también funciona de forma remota.',
+        q: '¿En qué zonas trabajan?',
+        a: 'Trabajo en <strong>Durazno, Rocha y Montevideo</strong>. Las herramientas del sitio (el CV, el comparador de POS) se usan desde cualquier lugar, y los talleres y la asesoría también pueden ser <strong>virtuales para todo el país</strong>.',
       },
       {
         q: '¿ConectaTuMundo es una empresa formal?',

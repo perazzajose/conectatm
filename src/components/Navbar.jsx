@@ -1,37 +1,22 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import Icon, { icons } from './Icon';
+import { CAMINOS } from '../data/caminos';
+import { waLink } from '../data/contacto';
 import './Navbar.css';
 
-const drawerLinks = [
-  {
-    label: 'Servicios',
-    items: [
-      { to: '/#servicios', icon: icons.web, bg: 'var(--lila-light)', title: 'Agencia digital', sub: 'Web, soporte, asesoría' },
-      { to: '/#formacion', icon: icons.taller, bg: 'var(--tierra-dark)', title: 'Talleres', sub: 'Educación digital comunitaria' },
-    ],
-  },
-  {
-    label: 'Comunidad',
-    items: [
-      { to: '/emprendimientos', icon: icons.emprendimientos, bg: 'var(--verde-light)', title: 'Emprendimientos', sub: 'Negocios locales aliados' },
-      { to: '/#conecta', icon: icons.conecta, bg: '#E8D0F8', title: 'Red Conecta', sub: 'Cómo funciona' },
-      { to: '/#cobertura', icon: icons.globo, bg: 'var(--lila-light)', title: '¿Hasta dónde llegamos?', sub: 'Durazno y la región' },
-    ],
-  },
-  {
-    label: null,
-    items: [
-      { to: '/#glosario', icon: icons.faq, bg: 'var(--tierra-dark)', title: '¿Qué significa eso?', sub: 'Glosario en palabras simples' },
-      { to: '/faq', icon: icons.faq, bg: 'var(--lila-light)', title: 'Preguntas frecuentes' },
-      { to: '/#sobre', icon: icons.sobre, bg: 'var(--tierra-dark)', title: 'Sobre mí' },
-    ],
-  },
+const extras = [
+  { to: '/negocios/emprendimientos', label: 'Emprendimientos' },
+  { to: '/aprende', label: 'Aprendé' },
+  { to: '/faq', label: 'Preguntas' },
 ];
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const close = () => setOpen(false);
+  const { pathname } = useLocation();
+
+  // Cerrar el menú al cambiar de página
+  useEffect(() => { setOpen(false); }, [pathname]);
 
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
@@ -39,43 +24,49 @@ export default function Navbar() {
 
   return (
     <>
-      <nav>
-        <Link to="/" className="nav-logo"><img src="/logo.png" alt="ConectaTuMundo" /></Link>
+      <nav className="site-nav" aria-label="Principal">
+        <Link to="/" className="nav-marca"><img src="/logo-ctm.webp" alt="ConectaTuMundo" width="115" height="40" /></Link>
         <ul className="nav-links">
-          <li><Link to="/">Inicio</Link></li>
-          <li><Link to="/emprendimientos">Emprendimientos</Link></li>
-          <li><Link to="/#conecta">Red Conecta</Link></li>
-          <li><Link to="/#formacion">Talleres</Link></li>
-          <li><Link to="/faq">Preguntas</Link></li>
+          {CAMINOS.map(c => (
+            <li key={c.id}>
+              <NavLink to={c.to} end={c.id === 'negocios'} style={{ '--c': c.color }}>{c.nav}</NavLink>
+            </li>
+          ))}
+          {extras.map(e => <li key={e.to}><NavLink to={e.to}>{e.label}</NavLink></li>)}
         </ul>
         <div className="nav-right">
-          <Link to="/#contacto" className="nav-cta">Hablemos</Link>
-          <button className={`nav-hamburger${open ? ' open' : ''}`} aria-label="Menú" onClick={() => setOpen(o => !o)}>
+          <a href={waLink()} className="nav-cta" target="_blank" rel="noopener noreferrer">
+            <Icon size="18">{icons.whatsapp}</Icon> Escribime
+          </a>
+          <button
+            className={`nav-hamburger${open ? ' open' : ''}`}
+            aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+            aria-expanded={open}
+            onClick={() => setOpen(o => !o)}
+          >
             <span></span><span></span><span></span>
           </button>
         </div>
       </nav>
 
-      <div className={`nav-drawer${open ? ' open' : ''}`}>
-        {drawerLinks.map((group, i) => (
-          <div key={i}>
-            <div className="drawer-section">
-              {group.label && <div className="drawer-label">{group.label}</div>}
-              <div className="drawer-links">
-                {group.items.map((item, j) => (
-                  <Link key={j} to={item.to} className="drawer-link" onClick={close}>
-                    <div className="drawer-link-icon" style={{ background: item.bg }}>
-                      <Icon>{item.icon}</Icon>
-                    </div>
-                    <div><span>{item.title}</span>{item.sub && <span className="drawer-link-sub">{item.sub}</span>}</div>
-                  </Link>
-                ))}
-              </div>
-            </div>
-            {i < drawerLinks.length - 1 && <div className="drawer-divider"></div>}
-          </div>
-        ))}
-        <Link to="/#contacto" className="drawer-cta" onClick={close}>Hablemos</Link>
+      <div className={`nav-drawer${open ? ' open' : ''}`} aria-hidden={!open}>
+        <ul className="drawer-caminos">
+          {CAMINOS.map(c => (
+            <li key={c.id}>
+              <Link to={c.to} className="drawer-camino" style={{ '--c': c.color }} tabIndex={open ? 0 : -1}>
+                <strong>{c.pregunta}</strong>
+                <span>{c.resumen}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <ul className="drawer-extras">
+          <li><Link to="/" tabIndex={open ? 0 : -1}>Inicio</Link></li>
+          {extras.map(e => <li key={e.to}><Link to={e.to} tabIndex={open ? 0 : -1}>{e.label}</Link></li>)}
+        </ul>
+        <a href={waLink()} className="btn btn-whatsapp drawer-cta" target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1}>
+          <Icon size="20">{icons.whatsapp}</Icon> Escribime por WhatsApp
+        </a>
       </div>
     </>
   );

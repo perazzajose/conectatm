@@ -1,0 +1,17 @@
+.subir-layout{display:grid;gap:2rem}
+.subir-fila{display:grid;gap:1rem}
+.campo input[type="file"]{padding:.6rem;background:var(--blanco)}
+.subir-info{padding:1.5rem;background:var(--palmera-suave)}
+.subir-info h2{font-size:1.4rem}
+.subir-info ol{margin:1rem 0 1rem 1.2rem;display:flex;flex-direction:column;gap:.5rem}
+
+.subir-listo h2,.subir-borrar h2{margin-bottom:1rem}
+.subir-listo p,.subir-borrar p{margin-bottom:1rem}
+.subir-aviso{background:var(--baldosa);border-left:4px solid var(--camino);padding:.8rem 1rem}
+.subir-enlace{display:flex;flex-direction:column;gap:.7rem;max-width:640px;padding:1.2rem;border:2px solid var(--palmera)}
+.subir-enlace p{margin:0}
+.subir-enlace input{width:100%;min-height:48px;padding:.6rem .8rem;border:2px solid var(--baldosa-borde);border-radius:var(--r-control);font:inherit;font-size:.9rem;background:var(--fondo)}
+.subir-enlace .btn{align-self:flex-start}
+
+@media(min-width:600px){ .subir-fila{grid-template-columns:1fr 1fr} }
+@media(min-width:900px){ .subir-layout{grid-template-columns:1.4fr 1fr;align-items:start} }

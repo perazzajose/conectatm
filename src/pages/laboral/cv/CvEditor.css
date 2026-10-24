@@ -1,0 +1,142 @@
+/* Editor de CV. En pantalla: una columna en celular, dos desde 760px.
+   Al imprimir: siempre A4 a dos columnas y sin controles ni campos vacíos. */
+.cv-pagina{background:var(--baldosa);padding:2rem var(--gutter) 0;min-height:100vh}
+.cv-intro{max-width:210mm;margin:0 auto 1.5rem}
+.cv-intro h1{font-size:clamp(2rem,6vw,2.8rem)}
+.cv-intro p{color:var(--tinta-suave);margin-top:.6rem}
+
+/* Ejemplos para arrancar, con una miniatura de la hoja */
+.cv-ejemplos{margin-top:1.6rem}
+.cv-ejemplos h2{font-size:1.2rem;margin-bottom:.7rem}
+.cv-ejemplos-grid{display:grid;gap:.8rem}
+.cv-ejemplo{display:flex;align-items:center;gap:1rem;padding:.8rem;background:var(--blanco);border:2px solid var(--baldosa-borde);border-radius:var(--r-control);cursor:pointer;text-align:left}
+.cv-ejemplo:hover{border-color:var(--tinta)}
+.cv-ejemplo-texto strong{display:block;font-size:1.05rem}
+.cv-ejemplo-texto span{display:block;color:var(--tinta-suave);font-size:.92rem}
+.cv-mini{flex-shrink:0;width:64px;height:88px;display:grid;grid-template-columns:34% 66%;background:#fff;box-shadow:0 2px 8px rgba(34,22,43,.18)}
+.cv-mini-lateral{background:color-mix(in srgb,var(--ej) 12%,#fff);padding:6px 4px;display:flex;flex-direction:column;gap:4px;align-items:center}
+.cv-mini-principal{padding:7px 5px;display:flex;flex-direction:column;gap:4px}
+.cv-mini i{display:block;width:12px;height:12px;border-radius:50%;background:var(--ej)}
+.cv-mini-principal i{width:80%;height:5px;border-radius:2px;background:var(--tinta)}
+.cv-mini b{display:block;width:100%;height:3px;border-radius:2px;background:#D9D4DD}
+.cv-mini b.largo{height:9px;background:color-mix(in srgb,var(--ej) 30%,#fff)}
+/* El de primer empleo tiene menos bloques de experiencia */
+.cv-ejemplo-sin-experiencia .cv-mini-principal b.largo:last-of-type{display:none}
+
+/* Consejos */
+.cv-consejos{margin-top:1rem;background:var(--blanco);border:1px solid var(--baldosa-borde)}
+.cv-consejos summary{cursor:pointer;padding:1rem 1.1rem;font-weight:700;list-style-position:inside}
+.cv-consejos[open] summary{border-bottom:1px solid var(--baldosa-borde)}
+.cv-consejos-tabs{display:flex;gap:.5rem;padding:1rem 1.1rem 0}
+.cv-consejos-lista{list-style:none;padding:.8rem 1.1rem 1.2rem;display:flex;flex-direction:column;gap:.7rem}
+.cv-consejos-lista li{padding-left:1rem;border-left:3px solid var(--palmera);color:var(--tinta-suave)}
+.cv-consejos-lista strong{color:var(--tinta)}
+
+.cv-hoja{max-width:210mm;margin:0 auto;background:#fff;box-shadow:0 10px 40px rgba(34,22,43,.14);display:grid;grid-template-columns:1fr;color:#2A2430;font-size:13px;line-height:1.45}
+.cv-lateral{background:color-mix(in srgb,var(--cv) 8%,#fff);padding:1.6rem 1.4rem;display:flex;flex-direction:column;gap:1.4rem}
+.cv-principal{padding:1.6rem 1.4rem 2rem;display:flex;flex-direction:column;gap:1.5rem}
+.cv-hoja section.cv-seccion{padding:0}
+
+/* Texto editable */
+.editable-wrap{display:inline-grid;max-width:100%;vertical-align:top}
+.editable-medida,.editable-input{grid-area:1 / 1;font:inherit;color:inherit;letter-spacing:inherit;padding:0 2px}
+.editable-medida{visibility:hidden;white-space:pre;overflow:hidden}
+.editable-input,.editable-multi{width:100%;min-width:2ch;border:none;background:transparent;border-radius:4px;outline:none}
+.editable-multi{display:block;font:inherit;color:inherit;resize:none;overflow:hidden;padding:0 2px}
+.editable-input:hover,.editable-multi:hover{background:color-mix(in srgb,var(--cv) 7%,transparent)}
+.editable-input:focus,.editable-multi:focus{background:color-mix(in srgb,var(--cv) 12%,transparent);box-shadow:0 0 0 2px color-mix(in srgb,var(--cv) 45%,transparent)}
+.editable-input::placeholder,.editable-multi::placeholder{color:#9A929F}
+
+/* Foto */
+.cv-foto{display:flex;flex-direction:column;align-items:center;gap:.5rem;text-align:center}
+.cv-foto img{width:120px;height:120px;object-fit:cover;border-radius:50%;border:3px solid var(--cv)}
+.cv-foto-subir{width:120px;height:120px;border-radius:50%;border:2px dashed color-mix(in srgb,var(--cv) 50%,#fff);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.3rem;text-align:center;font-size:11px;color:var(--cv);cursor:pointer;padding:.6rem}
+.cv-foto-subir:focus-within{outline:3px solid var(--cielo);outline-offset:2px}
+.cv-error{color:var(--camino);font-size:12px}
+
+/* Títulos de sección */
+.cv-titulo{display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem;padding-bottom:.35rem;border-bottom:2px solid color-mix(in srgb,var(--cv) 25%,#fff);font-family:var(--font-display);font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--cv)}
+.cv-titulo .editable-wrap{flex:1}
+.cv-titulo-icono{width:24px;height:24px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:var(--cv);color:#fff;border-radius:4px}
+
+/* Controles de edición (no se imprimen) */
+.cv-control{background:none;border:none;cursor:pointer;color:var(--tinta-suave);display:inline-flex;align-items:center;justify-content:center}
+.cv-agregar{width:32px;height:32px;border-radius:50%;background:var(--cv);color:#fff;margin-left:auto;flex-shrink:0}
+.cv-quitar{width:28px;height:28px;border-radius:50%;flex-shrink:0}
+.cv-quitar:hover{background:#F6E3E0;color:var(--camino)}
+.cv-agregar-texto{font-size:12px;font-weight:700;color:var(--cv);padding:.3rem 0}
+.cv-foto-quitar{font-size:12px;text-decoration:underline}
+.cv-ayuda{color:var(--tinta-suave);font-style:italic}
+
+/* Ítems */
+.cv-item{position:relative;padding-right:30px;margin-bottom:.8rem;display:flex;flex-direction:column}
+.cv-item > .cv-quitar{position:absolute;top:-2px;right:0}
+.cv-item-titulo{font-weight:700}
+.cv-item-sub{color:#5E5466}
+.cv-item-fecha{color:#857C8B;font-size:12px}
+.cv-contacto{list-style:none;display:flex;flex-direction:column;gap:.45rem}
+.cv-contacto li{display:flex;align-items:center;gap:.5rem;min-width:0}
+.cv-contacto svg{color:var(--cv);flex-shrink:0}
+.cv-idioma-fila{display:flex;justify-content:space-between;align-items:baseline;gap:.5rem}
+.cv-nivel{display:flex;gap:5px;margin-top:.3rem}
+.cv-nivel button{width:12px;height:12px;border-radius:50%;border:none;background:#E2DDE5;cursor:pointer;padding:0}
+.cv-nivel button.on{background:var(--cv)}
+.cv-habilidades{list-style:none;display:flex;flex-direction:column;gap:.3rem}
+.cv-habilidades li{display:flex;align-items:center;justify-content:space-between;gap:.3rem}
+
+/* Cabecera y columna principal */
+.cv-cabecera{display:flex;flex-direction:column;align-items:flex-start;gap:.7rem}
+.cv-nombre{font-family:var(--font-display);font-size:32px;font-weight:700;letter-spacing:-.03em;line-height:1.05;color:#22162B}
+.cv-cargo{background:var(--cv);color:#fff;padding:.35rem .9rem;border-radius:999px;font-weight:700;font-size:13px}
+.cv-cargo .editable-input::placeholder{color:rgba(255,255,255,.75)}
+.cv-perfil{font-size:13.5px;color:#4A4250}
+.cv-exp{margin-bottom:1.2rem}
+.cv-exp-fila{display:flex;justify-content:space-between;align-items:baseline;gap:.6rem;flex-wrap:wrap}
+.cv-exp-empresa{font-weight:700;font-size:15px}
+.cv-exp-puesto{color:var(--cv);font-weight:700;margin:.1rem 0 .4rem}
+.cv-tareas{list-style:none;display:flex;flex-direction:column;gap:.25rem}
+.cv-tareas li{display:flex;align-items:flex-start;gap:.3rem;padding-left:.9rem;position:relative}
+.cv-tareas li::before{content:'';position:absolute;left:.15rem;top:.55em;width:5px;height:5px;border-radius:50%;background:var(--cv)}
+.cv-tareas .editable-multi{flex:1}
+
+/* Barra de acciones */
+.cv-barra{position:sticky;bottom:0;z-index:20;max-width:210mm;margin:1.2rem auto 0;background:var(--tinta);padding:.8rem;display:flex;flex-wrap:wrap;align-items:center;gap:.7rem}
+.cv-colores{display:flex;gap:.45rem;width:100%}
+.cv-barra .btn{flex:1;min-height:44px;padding:.6rem .9rem;white-space:nowrap}
+.cv-colores button{width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,.35);cursor:pointer}
+.cv-colores button[aria-checked="true"]{border-color:#fff;box-shadow:0 0 0 2px var(--tinta),0 0 0 4px #fff}
+.cv-barra .btn-primary{background:#fff;color:var(--tinta)}
+.cv-barra .btn-primary:hover{background:var(--palmera-suave)}
+.cv-barra .cv-borrar{color:#fff;border-color:rgba(255,255,255,.5)}
+.cv-barra .cv-borrar:hover{background:rgba(255,255,255,.12)}
+.cv-pdf-ayuda{max-width:210mm;margin:0 auto;padding:.8rem 0 2.5rem;color:var(--tinta-suave);font-size:.92rem}
+.cv-pagina section.cv-ofertas{max-width:210mm;margin:0 auto;padding:2rem 0 3.5rem;border-top:1px solid var(--baldosa-borde)}
+
+@media(min-width:600px){ .cv-ejemplos-grid{grid-template-columns:1fr 1fr} }
+@media(min-width:760px){
+  .cv-colores{width:auto;margin-right:auto}
+  .cv-barra .btn{flex:none}
+  .cv-hoja{grid-template-columns:34% 66%;min-height:297mm}
+  .cv-lateral{padding:2rem 1.5rem}
+  .cv-principal{padding:2.4rem 2.2rem}
+  .cv-nombre{font-size:38px}
+}
+
+@media print{
+  @page{size:A4;margin:0}
+  html,body{background:#fff!important}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  .site-nav,.site-footer,.whatsapp-float,.cv-intro,.cv-barra,.cv-pdf-ayuda,.cv-ofertas,.cv-control,.cv-ayuda,.cv-foto-subir,.vacio{display:none!important}
+  main{padding:0!important}
+  .cv-pagina{padding:0;background:#fff;min-height:0}
+  .cv-hoja{display:grid;grid-template-columns:34% 66%;width:210mm;min-height:297mm;max-width:none;margin:0;box-shadow:none}
+  .cv-lateral{padding:12mm 7mm 12mm 10mm}
+  .cv-principal{padding:14mm 10mm 12mm 9mm}
+  .cv-item{padding-right:0}
+  .cv-nombre{font-size:34px}
+  .editable-input::placeholder,.editable-multi::placeholder{color:transparent}
+  /* Un input no hace salto de línea: al imprimir mostramos el texto medido, que sí lo hace */
+  .editable-input{display:none}
+  .editable-medida{visibility:visible;white-space:pre-wrap;overflow:visible;overflow-wrap:anywhere}
+  .cv-exp{break-inside:avoid}
+}

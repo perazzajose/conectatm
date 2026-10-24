@@ -1,0 +1,22 @@
+.ofertas-selector{max-width:420px;margin-bottom:1.5rem}
+.ofertas-nota{color:var(--tinta-suave);margin-bottom:1rem}
+
+.ofertas-lista{list-style:none;border-top:1px solid var(--baldosa-borde);margin-bottom:1.2rem}
+.oferta{display:flex;flex-direction:column;gap:.8rem;padding:1.1rem 0;border-bottom:1px solid var(--baldosa-borde)}
+.oferta h3{font-size:1.15rem}
+.oferta-texto p{color:var(--tinta-suave);margin-top:.15rem}
+.oferta-meta{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .8rem;font-size:.9rem}
+.oferta-portal{font-weight:700;font-size:.82rem;padding:.1rem .55rem;border-radius:999px;color:#fff}
+/* Colores de marca de cada portal, solo como etiqueta de origen */
+.portal-linkedin{background:#0A66C2}
+.portal-computrabajo{background:#0D3878}
+.portal-buscojobs{background:#E8641B}
+.oferta-ver{align-self:flex-start;min-height:44px}
+
+.ofertas-portales{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.1rem;color:var(--tinta-suave)}
+.ofertas-fuente{margin-top:1rem;font-size:.85rem;color:var(--tinta-suave)}
+
+@media(min-width:700px){
+  .oferta{flex-direction:row;align-items:center;justify-content:space-between;gap:1.5rem}
+  .oferta-ver{align-self:center;flex-shrink:0}
+}

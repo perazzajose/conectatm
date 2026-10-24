@@ -32,6 +32,24 @@ const secciones = [
     ),
   },
   {
+    h: 'Editor de CV',
+    body: <p>Lo que escribís en “Armá tu CV” se guarda únicamente en tu navegador, en tu dispositivo. No lo recibimos ni lo almacenamos en nuestros servidores. Si borrás los datos del navegador, el CV se borra también.</p>,
+  },
+  {
+    h: 'Bolsa de CVs',
+    body: (
+      <>
+        <p>Si subís tu CV a la bolsa, guardamos el archivo PDF, el texto que contiene y los datos que completás (nombre, contacto, ciudad, puesto y habilidades). Lo hacemos solo con tu consentimiento, que das al marcar la casilla del formulario.</p>
+        <ul>
+          <li>Tu CV no es público: solo pueden buscarlo y abrirlo reclutadores a los que ConectaTuMundo les dio acceso.</li>
+          <li>Los datos se guardan en Supabase, un servicio de base de datos en la nube.</li>
+          <li>Podés borrar tu CV cuando quieras con el enlace que recibís al subirlo, o pidiéndolo por WhatsApp o email.</li>
+          <li>Podés pedir acceso, corrección o eliminación de tus datos en cualquier momento, según la Ley 18.331 de Protección de Datos Personales.</li>
+        </ul>
+      </>
+    ),
+  },
+  {
     h: 'Protección de datos',
     body: <p>Implementamos medidas de seguridad técnicas, administrativas y físicas para proteger tu información contra acceso no autorizado, alteración, divulgación o destrucción. Solo el personal autorizado tiene acceso a tus datos personales.</p>,
   },
@@ -70,8 +88,7 @@ export default function Privacy() {
   return (
     <>
       <PageHeader
-        tag="Transparencia"
-        title={<>Política de<br /><em>Privacidad</em></>}
+        title="Política de privacidad"
         subtitle="En ConectaTuMundo valoramos tu privacidad y nos comprometemos a proteger tus datos personales."
       />
       <div className="content-wrap">

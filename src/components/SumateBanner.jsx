@@ -1,12 +1,15 @@
-import { useNavigate } from 'react-router-dom';
+import { waLink } from '../data/contacto';
 
-export default function SumateBanner({ title, text, buttonLabel }) {
-  const navigate = useNavigate();
+export default function SumateBanner({ title, text, buttonLabel, mensaje }) {
   return (
-    <div className="sumate-banner">
-      <h3>{title}</h3>
-      <p>{text}</p>
-      <button className="sumate-btn" onClick={() => navigate('/#contacto')}>{buttonLabel} →</button>
-    </div>
+    <aside className="sumate">
+      <div className="sumate-inner">
+        <div>
+          <h2>{title}</h2>
+          <p>{text}</p>
+        </div>
+        <a href={waLink(mensaje)} className="btn btn-whatsapp" target="_blank" rel="noopener noreferrer">{buttonLabel}</a>
+      </div>
+    </aside>
   );
 }

@@ -1,53 +1,79 @@
-/* ConectaTuMundo — Design tokens compartidos por toda la app */
+/* ConectaTuMundo — Design tokens compartidos por toda la app.
+   La paleta sale de la foto de la plaza de Durazno (public/hero.jpg):
+   buganvilia, palmeras, cielo, baldosa y el camino rojo que lleva a la pérgola. */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --lila:#C4A8E8;--lila-light:#EDE5F8;--lila-mid:#9E78CC;--lila-dark:#5C3D8A;
-  --tierra:#F5EFE6;--tierra-dark:#E8D8C0;--verde:#7CB98A;--verde-light:#DFF0E3;
-  --texto:#2C1A4A;--texto-suave:#7A6890;--blanco:#FDFBFF;
-  --sombra:rgba(92,61,138,0.10);
-  --btnsec:hsla(283, 97%, 76%, 0.452);
-  --ambar:#D9A441;--ambar-light:#FBF0DA;
+  --buganvilia:#8E3A86;--buganvilia-suave:#F4E8F2;
+  --palmera:#2F5B3A;--palmera-suave:#E4EFE5;
+  --cielo:#245E9E;--cielo-suave:#E3ECF6;
+  --camino:#B04A3C;
+  --baldosa:#EFEBE5;--baldosa-borde:#DAD3C8;
+  --tinta:#22162B;--tinta-suave:#5E5466;
+  --fondo:#FBFAF8;--blanco:#FFFFFF;
+  /* Colores del logo oficial */
+  --marca-azul:#2A8FFE;--marca-celeste:#0CCDD9;--marca-marino:#0B1D3E;
+
+  --font-display:'Bricolage Grotesque',system-ui,sans-serif;
+  --font-texto:'Atkinson Hyperlegible Next','Atkinson Hyperlegible',system-ui,sans-serif;
+
+  /* Redondeo solo en lo que se toca (botones, campos); los bloques van rectos */
+  --r-control:10px;
+  --nav-h:60px;
+  --ancho:1120px;
+  --gutter:1.25rem;
+
+  /* Alias de la paleta anterior: los usa el admin y algún estilo heredado */
+  --lila:var(--buganvilia-suave);--lila-light:var(--buganvilia-suave);--lila-mid:var(--buganvilia);--lila-dark:var(--buganvilia);
+  --tierra:var(--baldosa);--tierra-dark:var(--baldosa-borde);--verde:var(--palmera);--verde-light:var(--palmera-suave);
+  --texto:var(--tinta);--texto-suave:var(--tinta-suave);
 }
 
-html{scroll-behavior:smooth}
-[id]{scroll-margin-top:66px}
-body{font-family:'DM Sans',sans-serif;background:var(--blanco);color:var(--texto);overflow-x:hidden}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+[id]{scroll-margin-top:calc(var(--nav-h) + 12px)}
+body{font-family:var(--font-texto);font-size:1rem;line-height:1.6;background:var(--fondo);color:var(--tinta);overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--cielo);outline-offset:2px}
 
-h1,h2{font-family:'Playfair Display',serif;color:var(--texto)}
-h1{font-size:2.5rem;line-height:1.13;margin:.7rem 0 1rem}
-h1 em{color:var(--lila-dark);font-style:normal}
-h2{font-size:1.85rem;margin-bottom:.8rem;line-height:1.2}
+h1,h2,h3{font-family:var(--font-display);color:var(--tinta);font-weight:700;letter-spacing:-.02em;text-wrap:balance}
+h1{font-size:clamp(2.1rem,7vw,3.6rem);line-height:1.05}
+h2{font-size:clamp(1.6rem,4.6vw,2.3rem);line-height:1.12;margin-bottom:.6rem}
+h3{font-size:1.2rem;line-height:1.25}
+p{max-width:68ch}
 
-section{padding:3.5rem 1.2rem}
-.section-inner{max-width:1100px;margin:0 auto}
-.section-tag{font-size:.74rem;color:var(--lila-mid);font-weight:600;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
-.section-sub{color:var(--texto-suave);font-size:.92rem;line-height:1.7;margin-bottom:2rem}
+main{padding-top:var(--nav-h)}
+section{padding:3.5rem var(--gutter)}
+.section-inner{max-width:var(--ancho);margin:0 auto}
+.section-sub{color:var(--tinta-suave);font-size:1.02rem;margin-bottom:2rem}
 
-/* Botones reutilizables */
-.btn-primary{background:var(--lila-dark);color:#fff;padding:.82rem 1.4rem;border-radius:50px;font-size:.92rem;font-weight:600;text-decoration:none;text-align:center;display:block;transition:background .2s;border:none;cursor:pointer;font-family:'DM Sans',sans-serif}
-.btn-primary:hover{background:var(--lila-mid)}
-.btn-outline{background:transparent;color:var(--lila-dark);border:1.5px solid var(--lila);padding:.8rem 1.4rem;border-radius:50px;font-size:.92rem;font-weight:500;text-decoration:none;text-align:center;display:block;transition:background .2s}
-.btn-outline:hover{background:var(--lila-light)}
+/* Botones */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:48px;padding:.75rem 1.3rem;border-radius:var(--r-control);font-family:var(--font-texto);font-size:1rem;font-weight:700;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:background-color .15s,color .15s,border-color .15s;text-align:center}
+.btn-primary{background:var(--tinta);color:#fff}
+.btn-primary:hover{background:var(--buganvilia)}
+.btn-outline{background:transparent;color:var(--tinta);border-color:var(--tinta)}
+.btn-outline:hover{background:var(--tinta);color:#fff}
+.btn-whatsapp{background:#1F8F4E;color:#fff}
+.btn-whatsapp:hover{background:#17703C}
+.btn[disabled]{opacity:.6;cursor:default}
 
-@media(min-width:600px){
-  .hero{padding:7rem 2rem 4rem}
-  h1{font-size:3rem}
-  section{padding:5rem 2rem}
-  h2{font-size:2.1rem}
-  .btn-primary,.btn-outline{display:inline-block;width:auto}
+/* Enlace de texto con subrayado */
+.link{color:var(--tinta);font-weight:700;text-decoration:underline;text-decoration-thickness:2px;text-underline-offset:4px}
+.link:hover{color:var(--buganvilia)}
+
+/* Etiqueta "próximamente" — un dato real, no decoración */
+.estado{display:inline-block;font-size:.8rem;font-weight:700;padding:.15rem .55rem;border-radius:999px;background:var(--baldosa);color:var(--tinta-suave);border:1px solid var(--baldosa-borde)}
+.estado.listo{background:var(--palmera-suave);color:var(--palmera);border-color:#BFD7C3}
+
+.visually-hidden{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+@media(min-width:900px){
+  :root{--gutter:2rem}
+  section{padding:5rem var(--gutter)}
 }
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-
-/* WhatsApp flotante */
-.whatsapp-float{
-  position:fixed;bottom:1.4rem;right:1.4rem;z-index:999;
-  background:#25D366;color:#fff;
-  width:52px;height:52px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.6rem;text-decoration:none;
-  box-shadow:0 4px 16px rgba(37,211,102,0.45);
-  transition:transform .2s, box-shadow .2s;
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
-.whatsapp-float:hover{transform:scale(1.12)}

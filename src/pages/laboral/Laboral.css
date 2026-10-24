@@ -1,0 +1,18 @@
+.cv-opciones-grid{display:grid;gap:1.5rem}
+.cv-opcion{display:flex;flex-direction:column;align-items:flex-start;gap:.8rem;padding:1.6rem;border:1px solid var(--baldosa-borde);background:var(--blanco)}
+.cv-opcion.principal{border:2px solid var(--palmera);color:var(--palmera)}
+.cv-opcion h2{font-size:1.5rem;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem}
+.cv-opcion p{color:var(--tinta-suave)}
+.cv-opcion .btn,.cv-opcion .link{margin-top:auto}
+
+.laboral-ofertas{background:var(--baldosa)}
+.red-conecta{background:var(--palmera-suave)}
+.red-conecta-layout{display:grid;gap:1.5rem}
+.areas{list-style:none;display:flex;flex-wrap:wrap;gap:.5rem}
+.areas li{padding:.3rem .8rem;background:var(--blanco);border:1px solid #BFD7C3;font-weight:700;font-size:.92rem;color:var(--palmera)}
+.red-conecta-acciones{display:flex;flex-direction:column;gap:.7rem}
+
+@media(min-width:760px){
+  .cv-opciones-grid{grid-template-columns:1.15fr 1fr}
+  .red-conecta-layout{grid-template-columns:1.6fr 1fr;align-items:end;gap:3rem}
+}

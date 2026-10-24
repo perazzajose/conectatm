@@ -1,0 +1,31 @@
+.recomendador{display:grid;gap:1.5rem}
+.reco-preguntas{display:flex;flex-direction:column;gap:1.4rem}
+.reco-pregunta{border:none}
+.reco-pregunta legend{font-family:var(--font-display);font-weight:700;font-size:1.2rem;letter-spacing:-.015em;margin-bottom:.6rem}
+.reco-ayuda{color:var(--tinta-suave);font-size:.92rem;margin:-.4rem 0 .6rem}
+.reco-opciones{display:flex;flex-direction:column;gap:.5rem}
+.reco-opcion{display:flex;align-items:center;gap:.7rem;min-height:52px;padding:.7rem 1rem;border:2px solid var(--baldosa-borde);border-radius:var(--r-control);background:var(--blanco);cursor:pointer;font-weight:700}
+.reco-opcion:hover{border-color:var(--tinta)}
+.reco-opcion.marcada{border-color:var(--buganvilia);background:var(--buganvilia-suave)}
+.reco-opcion input{width:20px;height:20px;accent-color:var(--buganvilia);flex-shrink:0}
+.reco-opcion:focus-within{outline:3px solid var(--cielo);outline-offset:2px}
+
+.reco-resultado{background:var(--tinta);color:rgba(255,255,255,.85);padding:1.5rem}
+.reco-resultado h3{color:#fff;font-size:1.4rem;margin-bottom:1rem}
+.reco-espera{color:rgba(255,255,255,.75)}
+.reco-lista{list-style:none;display:flex;flex-direction:column;gap:1.2rem}
+.reco-lista > li{border-left:5px solid var(--marca);padding-left:1rem}
+.reco-nombre strong{display:block;font-family:var(--font-display);font-size:1.5rem;color:#fff;letter-spacing:-.02em}
+.reco-nombre span{font-size:.9rem;color:rgba(255,255,255,.65)}
+.reco-lista ul{margin:.6rem 0 .6rem 1.1rem;display:flex;flex-direction:column;gap:.2rem}
+.reco-resultado .link{color:#fff}
+.reco-resultado .link:hover{color:#E7B8E0}
+.reco-nota{margin-top:1.2rem;font-size:.9rem;color:rgba(255,255,255,.65)}
+
+@media(min-width:900px){
+  .recomendador{grid-template-columns:1.1fr 1fr;align-items:start;gap:2.5rem}
+  .reco-resultado{position:sticky;top:calc(var(--nav-h) + 1.5rem);padding:2rem}
+}
+.reco-resultado p + p{margin-top:.7rem}
+.reco-pendiente{font-size:.92rem;color:#F3D9A6;margin-bottom:.4rem}
+.reco-tambien{margin-top:1.2rem;padding-top:1rem;border-top:1px solid rgba(255,255,255,.18)}

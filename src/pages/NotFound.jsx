@@ -1,31 +1,23 @@
 import { Link } from 'react-router-dom';
-import PageHeader from '../components/PageHeader';
+import { CAMINOS } from '../data/caminos';
 import './NotFound.css';
 
 export default function NotFound() {
   return (
-    <>
-      <PageHeader
-        tag="Error"
-        title={<>Página<br /><em>no encontrada</em></>}
-        subtitle="Lo sentimos, la página que estás buscando no existe o ha sido movida."
-      />
-      <div className="notfound-wrap">
-        <div className="error-code">404</div>
-        <div className="error-message">
-          <p>La página que estás buscando podría haber sido:</p>
-          <ul>
-            <li>Eliminada permanentemente</li>
-            <li>Movida a otra ubicación</li>
-            <li>Cambiada de nombre</li>
-            <li>Temporalmente no disponible</li>
-          </ul>
-        </div>
-        <div className="nav-buttons">
-          <Link to="/" className="btn-primary">Ir a la página principal</Link>
-          <Link to="/faq" className="btn-primary">Ver preguntas frecuentes</Link>
-        </div>
+    <section className="notfound">
+      <div className="section-inner">
+        <p className="error-code">404</p>
+        <h1>Esta página no existe</h1>
+        <p className="notfound-sub">Puede que el enlace esté mal escrito o que la página se haya movido. Elegí por dónde seguir:</p>
+        <ul className="notfound-caminos">
+          {CAMINOS.map(c => (
+            <li key={c.id} style={{ '--c': c.color }}>
+              <Link to={c.to}>{c.pregunta}</Link>
+            </li>
+          ))}
+          <li><Link to="/">Ir al inicio</Link></li>
+        </ul>
       </div>
-    </>
+    </section>
   );
 }

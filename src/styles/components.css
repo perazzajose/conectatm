@@ -1,0 +1,85 @@
+/* Estilos de los componentes compartidos (src/components) */
+
+/* Mientras carga una página diferida */
+.cargando-pagina{max-width:var(--ancho);margin:0 auto;padding:4rem var(--gutter);color:var(--tinta-suave)}
+
+/* ── ENCABEZADO DE PÁGINA ── */
+.page-header{padding:2.5rem var(--gutter) 2.2rem;background:var(--c-suave,var(--baldosa));border-bottom:1px solid var(--baldosa-borde)}
+.page-header.con-camino{border-top:6px solid var(--c)}
+.page-header-inner{max-width:var(--ancho);margin:0 auto;position:relative}
+/* Con foto: la imagen se ve a la derecha y se funde con el color de la sección del lado del texto */
+.page-header.con-fondo{
+  background:
+    linear-gradient(90deg,var(--c-suave,var(--baldosa)) 0%,color-mix(in srgb,var(--c-suave,var(--baldosa)) 94%,transparent) 42%,color-mix(in srgb,var(--c-suave,var(--baldosa)) 35%,transparent) 100%),
+    var(--fondo-img) var(--fondo-pos,center)/cover no-repeat,
+    var(--c-suave,var(--baldosa));
+  padding-top:3.5rem;padding-bottom:3.5rem;
+}
+@media(max-width:699px){
+  .page-header.con-fondo{background:linear-gradient(color-mix(in srgb,var(--c-suave,var(--baldosa)) 88%,transparent),color-mix(in srgb,var(--c-suave,var(--baldosa)) 88%,transparent)),var(--fondo-img) var(--fondo-pos,center)/cover no-repeat}
+}
+.miga{display:flex;flex-wrap:wrap;gap:.45rem;font-size:.9rem;color:var(--tinta-suave);margin-bottom:1rem}
+.miga a{color:var(--tinta-suave)}
+.miga a:hover{color:var(--tinta)}
+.miga [aria-current]{color:var(--tinta);font-weight:700}
+.page-header h1{max-width:18ch}
+.page-header-sub{font-size:1.1rem;color:var(--tinta-suave);margin-top:1rem;max-width:56ch}
+.header-dato{margin-top:1rem;font-weight:700}
+
+/* ── BANNER "SUMATE" ── */
+.sumate{padding:0 var(--gutter) 3.5rem}
+.sumate-inner{max-width:var(--ancho);margin:0 auto;background:var(--tinta);color:#fff;padding:2rem 1.5rem;display:flex;flex-direction:column;gap:1.3rem;align-items:flex-start}
+.sumate h2{color:#fff;font-size:1.5rem}
+.sumate p{color:rgba(255,255,255,.78)}
+
+/* ── WHATSAPP FLOTANTE (solo celular: en pantallas grandes está en la barra) ── */
+.whatsapp-float{position:fixed;right:1rem;bottom:1rem;z-index:150;width:56px;height:56px;border-radius:50%;background:#1F8F4E;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 18px rgba(34,22,43,.28)}
+.whatsapp-float:hover{background:#17703C}
+@media(min-width:600px){ .whatsapp-float{display:none} }
+
+/* ── PREGUNTAS DESPLEGABLES ── */
+.faq-list{display:flex;flex-direction:column;border-top:1px solid var(--baldosa-borde)}
+.faq-item{border-bottom:1px solid var(--baldosa-borde)}
+.faq-item h3{font-family:var(--font-texto);font-size:inherit;letter-spacing:0}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.1rem 0;background:none;border:none;cursor:pointer;font-size:1.05rem;font-weight:700;color:var(--tinta);text-align:left}
+.faq-q:hover{color:var(--buganvilia)}
+.faq-ico{width:30px;height:30px;border:2px solid currentColor;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;transition:transform .2s;line-height:1}
+.faq-item.open .faq-ico{transform:rotate(45deg)}
+.faq-a-inner{padding:0 0 1.2rem;color:var(--tinta-suave);max-width:68ch}
+.faq-a-inner strong{color:var(--tinta)}
+.faq-a-inner ul{margin:.5rem 0 .5rem 1.2rem}
+.faq-a-inner .highlight{display:inline-block;background:var(--palmera-suave);color:var(--palmera);padding:.3rem .7rem;font-weight:700;margin-top:.6rem}
+.faq-a-inner .nota{background:var(--baldosa);border-left:3px solid var(--buganvilia);padding:.6rem .9rem;margin-top:.7rem}
+
+/* ── CONTACTO ── */
+.contacto{background:var(--baldosa)}
+.contacto-layout{display:grid;gap:2rem}
+.contacto-wa{width:100%}
+.contacto-form{background:var(--blanco);border:1px solid var(--baldosa-borde);padding:1.4rem;display:flex;flex-direction:column;gap:1rem}
+.campo{display:flex;flex-direction:column;gap:.35rem}
+.campo label{font-weight:700;font-size:.95rem}
+.campo input,.campo select,.campo textarea{width:100%;min-height:48px;padding:.7rem .85rem;border:2px solid var(--baldosa-borde);border-radius:var(--r-control);font:inherit;color:var(--tinta);background:var(--fondo)}
+.campo input:focus,.campo select:focus,.campo textarea:focus{outline:none;border-color:var(--tinta)}
+.campo textarea{min-height:110px;resize:vertical}
+.campo-check{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem;color:var(--tinta-suave)}
+.campo-check input{width:20px;height:20px;margin-top:.15rem;accent-color:var(--tinta);flex-shrink:0}
+.form-estado{font-weight:700;min-height:1.6em}
+.form-estado.sent{color:var(--palmera)}
+.form-estado.error{color:var(--camino)}
+
+/* ── HERRAMIENTAS EN DESARROLLO ── */
+.proximas{list-style:none;border-top:1px solid var(--baldosa-borde)}
+.proxima{display:grid;grid-template-columns:auto 1fr;gap:.4rem 1rem;padding:1.3rem 0;border-bottom:1px solid var(--baldosa-borde)}
+.proxima-icono{grid-row:span 2;width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--baldosa);color:var(--tinta)}
+.proxima h3{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}
+.proxima p{color:var(--tinta-suave);margin-top:.2rem}
+.proxima .link{grid-column:2;justify-self:start}
+
+@media(min-width:760px){
+  .contacto-layout{grid-template-columns:1fr 1.2fr;gap:3rem;align-items:start}
+  .contacto-wa{width:auto}
+  .sumate-inner{flex-direction:row;align-items:center;justify-content:space-between;padding:2.4rem 2.5rem}
+  .proxima{grid-template-columns:auto 1fr auto;align-items:center}
+  .proxima-icono{grid-row:auto}
+  .proxima .link{grid-column:auto}
+}

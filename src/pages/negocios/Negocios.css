@@ -1,0 +1,11 @@
+.negocios-herramientas{background:var(--buganvilia-suave)}
+.negocios-herramientas .proximas,.negocios-herramientas .proxima{border-color:#E3CCDF}
+.negocios-herramientas .proxima-icono{background:var(--blanco);color:var(--buganvilia)}
+
+.negocios-mas{display:grid;gap:1px;background:var(--baldosa-borde);border:1px solid var(--baldosa-borde)}
+.negocios-enlace{display:flex;flex-direction:column;gap:.25rem;padding:1.4rem;background:var(--blanco);text-decoration:none;color:var(--tinta)}
+.negocios-enlace strong{font-family:var(--font-display);font-size:1.25rem;letter-spacing:-.02em}
+.negocios-enlace span{color:var(--tinta-suave)}
+.negocios-enlace:hover strong{color:var(--buganvilia)}
+
+@media(min-width:760px){ .negocios-mas{grid-template-columns:repeat(3,1fr)} }
