@@ -1,3 +1,5 @@
+import { urlSegura } from '../../../lib/urls';
+
 const avatarColores = ['#2F5B3A', '#245E9E', '#8E3A86', '#B04A3C', '#4A6670', '#6B4E2E'];
 
 export default function TutorCard({ tutor, index }) {
@@ -7,8 +9,8 @@ export default function TutorCard({ tutor, index }) {
   return (
     <article className="perfil-card">
       <div className="avatar" style={{ background: color }}>
-        {tutor.imagenUrl
-          ? <img src={tutor.imagenUrl} alt="" onError={e => { e.target.style.display = 'none'; }} />
+        {urlSegura(tutor.imagenUrl)
+          ? <img src={urlSegura(tutor.imagenUrl)} alt="" onError={e => { e.target.style.display = 'none'; }} />
           : tutor.avatar}
       </div>
       <div className="card-info">

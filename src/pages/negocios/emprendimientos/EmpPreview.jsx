@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import Icon, { icons } from '../../../components/Icon';
+import { urlSegura } from '../../../lib/urls';
 
 // Redes que se reconocen por dominio, para nombrar bien cada botón
 const REDES = [
@@ -32,10 +33,10 @@ export default function EmpPreview({ emp, onClose }) {
     };
   }, []);
 
-  const sitio = emp.sitio?.startsWith('https://') ? emp.sitio : null;
+  const sitio = urlSegura(emp.sitio);
   const mostrarSitio = sitio && !esRed(sitio);
   const redes = [...new Set([...(emp.redes || []), ...(sitio && esRed(sitio) ? [sitio] : [])])]
-    .filter(u => u.startsWith('https://'));
+    .filter(urlSegura);
   const ubicacion = (emp.datos || []).join(', ');
 
   // Se monta fuera de #root: así el desenfoque de la página (clase con-modal) no la alcanza
@@ -51,7 +52,7 @@ export default function EmpPreview({ emp, onClose }) {
       <div className="preview-caja">
         <header className="preview-cabecera">
           <div className="emp-logo preview-logo" style={{ background: emp.logoColor || 'var(--tinta)' }}>
-            {emp.imagenUrl ? <img src={emp.imagenUrl} alt="" /> : (emp.logo || <Icon size="22">{icons.emprendimientos}</Icon>)}
+            {urlSegura(emp.imagenUrl) ? <img src={urlSegura(emp.imagenUrl)} alt="" /> : (emp.logo || <Icon size="22">{icons.emprendimientos}</Icon>)}
           </div>
           <div className="preview-titulos">
             <h2 id="preview-titulo">{emp.nombre}</h2>
@@ -82,7 +83,7 @@ export default function EmpPreview({ emp, onClose }) {
             </div>
           ) : (
             <div className="preview-ficha">
-              {emp.portadaUrl && <img src={emp.portadaUrl} alt="" className="preview-portada" />}
+              {urlSegura(emp.portadaUrl) && <img src={urlSegura(emp.portadaUrl)} alt="" className="preview-portada" />}
               {emp.desc && <p>{emp.desc}</p>}
               {(emp.servicios || []).length > 0 && (
                 <ul className="emp-servicios">{emp.servicios.map((s, i) => <li key={i}>{s}</li>)}</ul>

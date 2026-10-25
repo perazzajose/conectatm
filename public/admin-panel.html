@@ -444,7 +444,7 @@ async function loadEmprendimientos(){
     emprendimientos = snap.docs.map(d => ({id:d.id, ...d.data()}));
     renderEmprendimientos();
   }catch(e){
-    container.innerHTML = '<div class="empty-state">Error al cargar: '+e.message+'</div>';
+    container.innerHTML = '<div class="empty-state">Error al cargar: '+escapeHtml(e.message)+'</div>';
   }
 }
 
@@ -464,17 +464,17 @@ function renderEmprendimientos(filter=''){
     const badgeText = e.estado === 'con_web' ? 'Con web' : 'Sin web';
     const thumb = e.imagenUrl
       ? `<img src="${escapeHtml(e.imagenUrl)}" style="width:32px;height:32px;border-radius:8px;object-fit:cover;display:block;" onerror="this.style.display='none'">`
-      : `<span class="swatch" style="background:${e.logoColor||'#ccc'};width:32px;height:32px;border-radius:8px;"></span>`;
+      : `<span class="swatch" style="background:${colorSeguro(e.logoColor)};width:32px;height:32px;border-radius:8px;"></span>`;
     html += `<tr>
       <td data-label="Img">${thumb}</td>
       <td data-label="Nombre"><strong>${escapeHtml(e.nombre)}</strong></td>
       <td data-label="Rubro">${escapeHtml(e.rubro||'-')}</td>
       <td data-label="Categoría">${escapeHtml(e.categoria||'-')}</td>
       <td data-label="Estado"><span class="badge ${badgeClass}">${badgeText}</span></td>
-      <td data-label="Color"><span class="swatch" style="background:${e.bannerColor||'#ccc'}"></span></td>
+      <td data-label="Color"><span class="swatch" style="background:${colorSeguro(e.bannerColor)}"></span></td>
       <td data-label="Acciones" class="actions-cell">
-        <button class="icon-btn" onclick="window.editEmp('${e.id}')">✎</button>
-        <button class="icon-btn del" onclick="window.deleteEmp('${e.id}')"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15"/><path d="M9 6.5V4.3h6v2.2"/><path d="M6.5 6.5 7.3 20a1.5 1.5 0 0 0 1.5 1.4h6.4a1.5 1.5 0 0 0 1.5-1.4l.8-13.5"/><path d="M10.2 10.5v7M13.8 10.5v7"/></svg></button>
+        <button class="icon-btn" data-id="${escapeHtml(e.id)}" onclick="window.editEmp(this.dataset.id)">✎</button>
+        <button class="icon-btn del" data-id="${escapeHtml(e.id)}" onclick="window.deleteEmp(this.dataset.id)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15"/><path d="M9 6.5V4.3h6v2.2"/><path d="M6.5 6.5 7.3 20a1.5 1.5 0 0 0 1.5 1.4h6.4a1.5 1.5 0 0 0 1.5-1.4l.8-13.5"/><path d="M10.2 10.5v7M13.8 10.5v7"/></svg></button>
       </td>
     </tr>`;
   });
@@ -579,13 +579,17 @@ document.getElementById('btnSaveEmp').addEventListener('click', async () => {
     logo: nombre.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('')
   };
   if(!data.nombre){ showToast('El nombre es obligatorio'); return; }
-  if(id){
-    await updateDoc(doc(db,'emprendimientos',id), data);
-    showToast('Emprendimiento actualizado');
-  } else {
-    await addDoc(collection(db,'emprendimientos'), data);
-    showToast('Emprendimiento creado');
-  }
+  const malUrl = ['sitio','imagenUrl','portadaUrl'].find(k => !urlValida(data[k]));
+  if(malUrl){ showToast('Los enlaces tienen que empezar con https:// ('+malUrl+')'); return; }
+  try {
+    if(id){
+      await updateDoc(doc(db,'emprendimientos',id), data);
+      showToast('Emprendimiento actualizado');
+    } else {
+      await addDoc(collection(db,'emprendimientos'), data);
+      showToast('Emprendimiento creado');
+    }
+  } catch(err) { showToast(mensajeError(err)); return; }
   closeModal('modalEmprendimiento');
   loadEmprendimientos();
 });
@@ -602,7 +606,7 @@ async function loadTutores(){
     tutores = snap.docs.map(d => ({id:d.id, ...d.data()}));
     renderTutores();
   }catch(e){
-    container.innerHTML = '<div class="empty-state">Error al cargar: '+e.message+'</div>';
+    container.innerHTML = '<div class="empty-state">Error al cargar: '+escapeHtml(e.message)+'</div>';
   }
 }
 
@@ -618,7 +622,7 @@ function renderTutores(filter=''){
   list.forEach(t => {
     const thumb = t.imagenUrl
       ? `<img src="${escapeHtml(t.imagenUrl)}" style="width:32px;height:32px;border-radius:8px;object-fit:cover;display:block;" onerror="this.style.display='none'">`
-      : `<span class="swatch" style="background:${t.color||'#ccc'};width:32px;height:32px;border-radius:8px;"></span>`;
+      : `<span class="swatch" style="background:${colorSeguro(t.color)};width:32px;height:32px;border-radius:8px;"></span>`;
     html += `<tr>
       <td data-label="Img">${thumb}</td>
       <td data-label="Nombre"><strong>${escapeHtml(t.nombre)}</strong></td>
@@ -626,8 +630,8 @@ function renderTutores(filter=''){
       <td data-label="Materias">${escapeHtml(arrayToCsv(t.materias))}</td>
       <td data-label="Contacto">${escapeHtml(t.contacto||'-')}</td>
       <td data-label="Acciones" class="actions-cell">
-        <button class="icon-btn" onclick="window.editTut('${t.id}')">✎</button>
-        <button class="icon-btn del" onclick="window.deleteTut('${t.id}')"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15"/><path d="M9 6.5V4.3h6v2.2"/><path d="M6.5 6.5 7.3 20a1.5 1.5 0 0 0 1.5 1.4h6.4a1.5 1.5 0 0 0 1.5-1.4l.8-13.5"/><path d="M10.2 10.5v7M13.8 10.5v7"/></svg></button>
+        <button class="icon-btn" data-id="${escapeHtml(t.id)}" onclick="window.editTut(this.dataset.id)">✎</button>
+        <button class="icon-btn del" data-id="${escapeHtml(t.id)}" onclick="window.deleteTut(this.dataset.id)"><svg viewBox="0 0 24 24" width="60%" height="60%" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 6.5h15"/><path d="M9 6.5V4.3h6v2.2"/><path d="M6.5 6.5 7.3 20a1.5 1.5 0 0 0 1.5 1.4h6.4a1.5 1.5 0 0 0 1.5-1.4l.8-13.5"/><path d="M10.2 10.5v7M13.8 10.5v7"/></svg></button>
       </td>
     </tr>`;
   });
@@ -673,13 +677,16 @@ document.getElementById('btnSaveTut').addEventListener('click', async () => {
     avatar: nombre.split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('')
   };
   if(!data.nombre){ showToast('El nombre es obligatorio'); return; }
-  if(id){
-    await updateDoc(doc(db,'tutores',id), data);
-    showToast('Tutor actualizado');
-  } else {
-    await addDoc(collection(db,'tutores'), data);
-    showToast('Tutor creado');
-  }
+  if(!urlValida(data.imagenUrl)){ showToast('La imagen tiene que empezar con https://'); return; }
+  try {
+    if(id){
+      await updateDoc(doc(db,'tutores',id), data);
+      showToast('Tutor actualizado');
+    } else {
+      await addDoc(collection(db,'tutores'), data);
+      showToast('Tutor creado');
+    }
+  } catch(err) { showToast(mensajeError(err)); return; }
   closeModal('modalTutor');
   loadTutores();
 });
@@ -735,6 +742,15 @@ document.querySelectorAll('.modal-overlay').forEach(overlay => {
   });
 });
 
+// Solo colores #rrggbb dentro de style="": cualquier otra cosa podría inyectar HTML en el panel
+function colorSeguro(c){ return /^#[0-9a-fA-F]{6}$/.test(c || '') ? c : '#cccccc'; }
+// Mismas condiciones que firestore.rules: vacío o https
+function urlValida(u){ return !u || /^https:\/\/[^\s"'<>`]+$/.test(u); }
+function mensajeError(err){
+  return err && err.code === 'permission-denied'
+    ? 'Firebase rechazó el cambio: tu cuenta no es admin o algún dato no es válido.'
+    : 'No se pudo guardar. Revisá tu conexión y volvé a intentar.';
+}
 function escapeHtml(str){
   if(!str) return '';
   return str.replace(/[&<>"']/g, m => ({

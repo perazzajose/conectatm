@@ -4,7 +4,7 @@ export function NoResults({ text }) {
   return (
     <div className="no-results">
       <span><Icon size="40">{icons.auditoria}</Icon></span>
-      <span dangerouslySetInnerHTML={{ __html: text }} />
+      <span className="no-results-texto">{text}</span>
     </div>
   );
 }

@@ -39,8 +39,8 @@ export default function Emprendimientos() {
   const noResultsText = error
     ? 'No se pudieron cargar los emprendimientos. Revisá tu conexión y volvé a intentar.'
     : emps.length
-      ? 'Ningún emprendimiento coincide con esa búsqueda.<br>Probá con otro rubro.'
-      : 'Todavía no hay emprendimientos cargados.<br>Si tenés uno, sumalo con el botón de abajo.';
+      ? 'Ningún emprendimiento coincide con esa búsqueda.\nProbá con otro rubro.'
+      : 'Todavía no hay emprendimientos cargados.\nSi tenés uno, sumalo con el botón de abajo.';
 
   return (
     <>

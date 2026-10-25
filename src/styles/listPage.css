@@ -22,3 +22,4 @@
 .no-results span{display:flex;justify-content:center;margin-bottom:.8rem}
 .skeleton{background:linear-gradient(90deg,var(--baldosa) 25%,var(--fondo) 37%,var(--baldosa) 63%);background-size:400% 100%;animation:shimmer 1.4s ease infinite;height:180px}
 @keyframes shimmer{0%{background-position:100% 50%}100%{background-position:0 50%}}
+.no-results-texto{white-space:pre-line}

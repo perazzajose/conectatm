@@ -4,11 +4,23 @@
 // sin tener que ejecutar JavaScript. Las rutas salen de src/data/seo.js, y con ellas se arma sitemap.xml.
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
-import { createServer } from 'vite';
+import { createServer, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 
 process.env.NODE_ENV = 'production';
 const DIST = 'dist';
+
+// Sin estas claves el sitio se publica "a medias": ni ofertas ni bolsa de CVs, y sin ningún error.
+// En el build de Cloudflare eso tiene que frenar la publicación; en local o en GitHub, solo avisar.
+const FALTAN = ['VITE_SUPABASE_URL', 'VITE_SUPABASE_ANON_KEY']
+  .filter(k => !loadEnv('production', process.cwd(), 'VITE_')[k]);
+if (FALTAN.length) {
+  const aviso = `Faltan ${FALTAN.join(' y ')}: las ofertas de empleo y la bolsa de CVs no van a funcionar.`;
+  if (process.env.WORKERS_CI || process.env.CF_PAGES) {
+    throw new Error(`${aviso}\nCargalas en Cloudflare > Workers & Pages > conectatumundo > Settings > Build > Variables and secrets.`);
+  }
+  console.warn(`  Aviso: ${aviso}`);
+}
 
 const esc = s => String(s).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 const jsonLd = datos => `<script type="application/ld+json">${JSON.stringify(datos).replace(/</g, '\\u003c')}</script>`;

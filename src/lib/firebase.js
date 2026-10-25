@@ -1,9 +1,8 @@
-// Cliente Firebase único para toda la app.
-// Antes esta config estaba duplicada en admin-panel.html, comunidad_estudiantes.html
-// y vitrina_emprendimientos.html — ahora vive en un solo lugar.
+// Cliente Firebase del sitio: solo Firestore, para leer la vitrina y la Red Conecta.
+// (El login de Firebase lo usa únicamente public/admin-panel.html, que tiene su propia config.)
+// Se importa con import() desde useFirestoreCollection: así Firebase no pesa en las páginas que no lo usan.
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyA3A2l9qydi-Ro1Cdd5aoD7pWxJUil6chU',
@@ -16,4 +15,3 @@ const firebaseConfig = {
 
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-export const auth = getAuth(app);

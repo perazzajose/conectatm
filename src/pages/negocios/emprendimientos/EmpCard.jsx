@@ -1,4 +1,5 @@
 import Icon, { icons } from '../../../components/Icon';
+import { urlSegura } from '../../../lib/urls';
 
 const badgeLabels = {
   aliado: 'Aliado',
@@ -11,7 +12,7 @@ export default function EmpCard({ emp, onPreview }) {
   const datos = emp.datos || [];
   const bannerStyle = {
     backgroundColor: emp.bannerColor || 'var(--buganvilia)',
-    ...(emp.portadaUrl ? { backgroundImage: `url('${emp.portadaUrl}')` } : {}),
+    ...(urlSegura(emp.portadaUrl) ? { backgroundImage: `url("${urlSegura(emp.portadaUrl)}")` } : {}),
   };
 
   return (
@@ -21,7 +22,7 @@ export default function EmpCard({ emp, onPreview }) {
       </div>
       <div className="emp-cabecera">
         <div className="emp-logo" style={{ background: emp.logoColor || 'var(--tinta)' }}>
-          {emp.imagenUrl ? <img src={emp.imagenUrl} alt="" /> : (emp.logo || <Icon size="26">{icons.emprendimientos}</Icon>)}
+          {urlSegura(emp.imagenUrl) ? <img src={urlSegura(emp.imagenUrl)} alt="" /> : (emp.logo || <Icon size="26">{icons.emprendimientos}</Icon>)}
         </div>
         <div>
           <h3 className="emp-nombre">{emp.nombre}</h3>

@@ -1,0 +1,64 @@
+rules_version = '2';
+
+// Reglas de Firestore de ConectaTuMundo (proyecto conectatumundo-admin).
+// Se pegan a mano en Firebase > Firestore Database > Rules > Publish.
+//
+// · Leer: público (el sitio muestra la vitrina y la Red Conecta).
+// · Escribir: SOLO las cuentas de ADMINS. No alcanza con tener sesión iniciada, porque Firebase
+//   deja que cualquiera se registre con la clave pública del panel.
+// · Además se validan los datos, por si una cuenta admin cae en malas manos: colores #rrggbb,
+//   enlaces solo https, largos máximos e ids como los que genera Firebase.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // UID de cada admin: Firebase > Authentication > Users > columna "User UID"
+    function esAdmin() {
+      return request.auth != null && request.auth.uid in ['PEGAR-TU-UID-ACA'];
+    }
+
+    function texto(d, campo, max) {
+      return !(campo in d) || (d[campo] is string && d[campo].size() <= max);
+    }
+    function url(d, campo) {
+      return !(campo in d) || (d[campo] is string && d[campo].size() <= 500
+        && (d[campo] == '' || d[campo].matches('https://[^\\s"\'<>`]+')));
+    }
+    function color(d, campo) {
+      return !(campo in d) || (d[campo] is string && d[campo].matches('#[0-9a-fA-F]{6}'));
+    }
+    function lista(d, campo, max) {
+      return !(campo in d) || (d[campo] is list && d[campo].size() <= max);
+    }
+    function idValido(id) {
+      return id.matches('[A-Za-z0-9_-]{1,40}');
+    }
+
+    function emprendimientoValido(d) {
+      return d.nombre is string && d.nombre.size() > 0 && d.nombre.size() <= 120
+        && texto(d, 'rubro', 80) && texto(d, 'categoria', 40) && texto(d, 'desc', 1500)
+        && texto(d, 'contacto', 200) && texto(d, 'estado', 20) && texto(d, 'badge', 40)
+        && texto(d, 'emoji', 16) && texto(d, 'logo', 4)
+        && url(d, 'sitio') && url(d, 'imagenUrl') && url(d, 'portadaUrl')
+        && color(d, 'bannerColor') && color(d, 'logoColor')
+        && lista(d, 'servicios', 30) && lista(d, 'datos', 10) && lista(d, 'redes', 10);
+    }
+
+    function tutorValido(d) {
+      return d.nombre is string && d.nombre.size() > 0 && d.nombre.size() <= 120
+        && texto(d, 'institucion', 120) && texto(d, 'contacto', 200) && texto(d, 'avatar', 4)
+        && url(d, 'imagenUrl') && color(d, 'color') && lista(d, 'materias', 20);
+    }
+
+    match /emprendimientos/{docId} {
+      allow read: if true;
+      allow create, update: if esAdmin() && idValido(docId) && emprendimientoValido(request.resource.data);
+      allow delete: if esAdmin();
+    }
+
+    match /tutores/{docId} {
+      allow read: if true;
+      allow create, update: if esAdmin() && idValido(docId) && tutorValido(request.resource.data);
+      allow delete: if esAdmin();
+    }
+  }
+}

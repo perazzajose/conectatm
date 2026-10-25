@@ -35,8 +35,8 @@ export default function Tutores() {
   const noResultsText = error
     ? 'No se pudieron cargar los profes. Revisá tu conexión y volvé a intentar.'
     : tutores.length
-      ? 'Ningún profe coincide con esa búsqueda.<br>Probá con otra materia.'
-      : 'Todavía no hay profes cargados.<br>Si das clases, sumate con el botón de abajo.';
+      ? 'Ningún profe coincide con esa búsqueda.\nProbá con otra materia.'
+      : 'Todavía no hay profes cargados.\nSi das clases, sumate con el botón de abajo.';
 
   return (
     <>
