@@ -8,6 +8,9 @@
 - [Ofertas por departamento](https://conectatumundo.net/laboral#ofertas): las últimas 5 ofertas de LinkedIn, Computrabajo y BuscoJobs para cada departamento de Uruguay, actualizadas cada lunes.
 - [Profes particulares](https://conectatumundo.net/laboral/tutores): estudiantes de la Red Conecta que dan clases a precio accesible.
 
+## Estudios
+- [Estudiá gratis](https://conectatumundo.net/estudios): opciones gratuitas para estudiar en Durazno, Rocha, Montevideo y online (liceos, UTU, UTEC, Udelar, formación docente, Jóvenes a Programar, INEFOP, becas del Fondo de Solidaridad, 3F y más), con enlace al sitio oficial de cada una.
+
 ## Negocios
 - [Comparador de POS](https://conectatumundo.net/negocios/pos): recomendador y comparación de proveedores de POS en Uruguay (Handy, Getnet, Fiserv, Mercado Pago, OCA, TotalNet, Scanntech, Geocom), con fuentes.
 - [Emprendimientos](https://conectatumundo.net/negocios/emprendimientos): vitrina de negocios locales.

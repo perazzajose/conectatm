@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
 import Icon, { icons } from '../../components/Icon';
 import RedConecta from './RedConecta';
+import { waLink } from '../../data/contacto';
 import './Laboral.css';
 
 // Usa Supabase: se carga aparte para no sumar peso al resto del sitio
@@ -14,28 +15,22 @@ export default function Laboral() {
       <PageHeader
         camino="laboral"
         title="Tu próximo trabajo empieza por un buen CV"
-        subtitle="Armalo acá, gratis y sin registrarte. Si sos estudiante, sumá experiencia con la Red Conecta."
+        subtitle="Gratis y sin registrarte."
       />
 
       <section className="cv-opciones" aria-label="Opciones de CV">
         <div className="section-inner cv-opciones-grid">
           <article className="cv-opcion principal">
             <Icon size="34">{icons.cv}</Icon>
-            <h2>Armá tu CV <span className="estado listo">Disponible</span></h2>
-            <p>
-              Completás tus datos en una hoja con formato profesional y la descargás en PDF.
-              Lo que escribís se guarda solo en tu navegador: nadie más lo ve.
-            </p>
+            <h2>Armá tu CV</h2>
+            <p>Completalo en el celular y descargalo en PDF.</p>
             <Link to="/laboral/cv" className="btn btn-primary">Empezar mi CV</Link>
           </article>
 
           <article className="cv-opcion">
             <Icon size="34">{icons.subir}</Icon>
-            <h2>Subí tu CV para que te encuentren <span className="estado listo">Disponible</span></h2>
-            <p>
-              Una bolsa de CVs para que emprendimientos y pymes de Durazno, Rocha y Montevideo encuentren gente cuando
-              necesiten contratar. Tu CV no queda publicado: solo lo ven reclutadores autorizados que buscan tu perfil.
-            </p>
+            <h2>Subí tu CV</h2>
+            <p>Que te encuentren empresas de la zona. No queda público.</p>
             <Link to="/laboral/subir" className="btn btn-outline">Subir mi CV</Link>
           </article>
         </div>
@@ -52,10 +47,17 @@ export default function Laboral() {
       <RedConecta />
 
       <section className="laboral-reclutadores" aria-labelledby="reclutadores-titulo">
-        <div className="section-inner">
-          <h2 id="reclutadores-titulo">¿Buscás personal?</h2>
-          <p className="section-sub">Si tenés un emprendimiento o una pyme, podés buscar en la bolsa de CVs por palabras clave y ver primero a quienes mejor coinciden.</p>
-          <Link to="/laboral/reclutadores" className="link">Entrar al buscador de CVs</Link>
+        <div className="section-inner laboral-reclutadores-layout">
+          <div>
+            <h2 id="reclutadores-titulo">¿Tenés un negocio y buscás personal?</h2>
+            <p>Buscá en la bolsa de CVs por palabras clave.</p>
+          </div>
+          <div className="laboral-reclutadores-acciones">
+            <Link to="/laboral/reclutadores" className="btn btn-primary">Buscar CVs</Link>
+            <a href={waLink('Hola José, tengo un negocio y quiero acceso al buscador de CVs')} className="link" target="_blank" rel="noopener noreferrer">
+              ¿No tenés acceso? Pedilo
+            </a>
+          </div>
         </div>
       </section>
     </>

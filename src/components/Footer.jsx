@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { CAMINOS } from '../data/caminos';
 import Logo from './Logo';
 import { EMAIL, WHATSAPP_VISIBLE, ZONAS_TEXTO, waLink } from '../data/contacto';
+import { DEPARTAMENTOS } from '../data/departamentos';
 import './Footer.css';
 
 const subpaginas = {
@@ -30,11 +31,18 @@ export default function Footer() {
           <div>
             <span className="footer-col-titulo">Más</span>
             <ul>
+              <li><Link to="/estudios">Estudiá gratis</Link></li>
               <li><Link to="/aprende">Talleres y glosario</Link></li>
               <li><Link to="/faq">Preguntas frecuentes</Link></li>
               <li><Link to="/privacy">Privacidad</Link></li>
             </ul>
           </div>
+        </nav>
+        <nav className="footer-zonas" aria-label="Departamentos">
+          <span>En todo Uruguay:</span>
+          <ul>
+            {DEPARTAMENTOS.map(d => <li key={d.id}><Link to={`/${d.id}`}>{d.nombre}</Link></li>)}
+          </ul>
         </nav>
         <div className="footer-contacto">
           <a href={waLink()} target="_blank" rel="noopener noreferrer">WhatsApp {WHATSAPP_VISIBLE}</a>

@@ -8,11 +8,8 @@ export default function RedConecta() {
     <section id="red-conecta" className="red-conecta">
       <div className="section-inner red-conecta-layout">
         <div>
-          <h2>Red Conecta: experiencia real mientras estudiás</h2>
-          <p className="section-sub">
-            Si estás estudiando, podés dar clases particulares o ayudar a emprendimientos de la zona con lo que ya sabés.
-            Ganás experiencia para tu CV y algo de plata; ellos consiguen ayuda a un precio que pueden pagar.
-          </p>
+          <h2>¿Estudiás? Sumate a la Red Conecta</h2>
+          <p className="section-sub">Dá clases o ayudá a emprendimientos de la zona. Sumás experiencia y algo de plata.</p>
           <ul className="areas" aria-label="Áreas que más se piden">
             {areas.map(a => <li key={a}>{a}</li>)}
           </ul>

@@ -28,11 +28,12 @@ try {
   const seo = await vite.ssrLoadModule('/src/data/seo.js');
   const { SITIO, PAGINAS, NO_ENCONTRADA, DATOS_NEGOCIO, DATOS_SITIO, datosMiga, urlAbsoluta } = seo;
   const plantilla = await readFile(join(DIST, 'index.html'), 'utf8');
+  if (!plantilla.includes('<div id="root"></div>')) throw new Error('dist/index.html ya está pre-renderizado: corré `npm run build` (vite build regenera la plantilla).');
 
   const cabecera = (ruta, p) => {
     const url = urlAbsoluta(ruta);
     const imagen = SITIO.url + SITIO.imagen;
-    const datos = ruta === '/' ? [DATOS_NEGOCIO, DATOS_SITIO] : [datosMiga(ruta)].filter(Boolean);
+    const datos = [...(ruta === '/' ? [DATOS_NEGOCIO, DATOS_SITIO] : [datosMiga(ruta)]), p.esquema].filter(Boolean);
     return [
       `<title>${esc(p.titulo)}</title>`,
       `<meta name="description" content="${esc(p.descripcion)}">`,

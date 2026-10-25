@@ -112,6 +112,28 @@
 .cv-pdf-ayuda{max-width:210mm;margin:0 auto;padding:.8rem 0 2.5rem;color:var(--tinta-suave);font-size:.92rem}
 .cv-pagina section.cv-ofertas{max-width:210mm;margin:0 auto;padding:2rem 0 3.5rem;border-top:1px solid var(--baldosa-borde)}
 
+.cv-pagina section.cv-preguntas{max-width:210mm;margin:0 auto;padding:2.5rem 0 3.5rem;border-top:1px solid var(--baldosa-borde)}
+.cv-preguntas h2{margin-bottom:1rem}
+
+/* Celular: foto, nombre y experiencia primero; el resto de la columna lateral va abajo */
+@media screen and (max-width:759px){
+  .cv-hoja{display:flex;flex-direction:column}
+  .cv-lateral{display:contents}
+  .cv-foto{order:0;padding:1.6rem 1.4rem 0}
+  .cv-principal{order:1;padding-top:1rem}
+  .cv-cabecera{align-items:center;text-align:center}
+  .cv-cabecera .editable-input{text-align:center}
+  .cv-hoja .cv-lateral > section.cv-seccion{order:2;background:color-mix(in srgb,var(--cv) 8%,#fff);padding:.8rem 1.4rem}
+  .cv-hoja .cv-foto + section.cv-seccion{padding-top:1.6rem}
+  .cv-hoja .cv-lateral > section.cv-seccion:last-child{padding-bottom:1.8rem}
+  /* iPhone hace zoom al tocar un campo con letra de menos de 16px */
+  /* (el texto invisible que mide el ancho tiene que ir al mismo tamaño que el campo) */
+  .cv-hoja .editable-medida,.cv-hoja .editable-input,.cv-hoja .editable-multi{font-size:max(16px,1em)}
+  .cv-barra{padding:.6rem;gap:.5rem}
+  .cv-colores button{width:26px;height:26px}
+  .cv-barra .btn{min-height:42px;padding:.5rem .7rem}
+}
+
 @media(min-width:600px){ .cv-ejemplos-grid{grid-template-columns:1fr 1fr} }
 @media(min-width:760px){
   .cv-colores{width:auto;margin-right:auto}

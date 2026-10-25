@@ -1,8 +1,22 @@
-.ofertas-selector{max-width:420px;margin-bottom:1.5rem}
+/* Aviso de actualización semanal */
+.ofertas-aviso{display:inline-flex;align-items:center;gap:.5rem;margin:.6rem 0 1.2rem;padding:.35rem .8rem;background:var(--palmera-suave);color:var(--palmera);font-weight:700;font-size:.9rem;border-radius:999px}
+.ofertas-aviso-punto{width:8px;height:8px;border-radius:50%;background:var(--palmera);flex-shrink:0}
+/* Las tres zonas a un toque; el resto del país en el desplegable */
+.ofertas-elegir{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1.5rem}
+.ofertas-zona,.ofertas-elegir select{min-height:44px;padding:.45rem 1rem;border:2px solid var(--baldosa-borde);border-radius:999px;cursor:pointer;background:var(--blanco);font:inherit;font-weight:700;color:var(--tinta)}
+.ofertas-zona:hover,.ofertas-elegir select:hover{border-color:var(--tinta)}
+.ofertas-zona.active,.ofertas-elegir select.active{background:var(--tinta);color:#fff;border-color:var(--tinta)}
 .ofertas-nota{color:var(--tinta-suave);margin-bottom:1rem}
 
 .ofertas-lista{list-style:none;border-top:1px solid var(--baldosa-borde);margin-bottom:1.2rem}
-.oferta{display:flex;flex-direction:column;gap:.8rem;padding:1.1rem 0;border-bottom:1px solid var(--baldosa-borde)}
+.oferta{position:relative;display:flex;flex-direction:column;gap:.8rem;padding:1.1rem 0;border-bottom:1px solid var(--baldosa-borde)}
+.oferta-link{color:inherit;text-decoration:none}
+.oferta-link::after{content:'';position:absolute;inset:0}
+.oferta:hover h3{text-decoration:underline;text-underline-offset:3px}
+.oferta-link:focus-visible{outline:none}
+.oferta:focus-within{outline:3px solid var(--cielo);outline-offset:2px}
+.oferta-ver-movil{font-weight:700;color:var(--tinta);text-decoration:underline;text-underline-offset:3px}
+.oferta-ver{display:none}
 .oferta h3{font-size:1.15rem}
 .oferta-texto p{color:var(--tinta-suave);margin-top:.15rem}
 .oferta-meta{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .8rem;font-size:.9rem}
@@ -11,12 +25,13 @@
 .portal-linkedin{background:#0A66C2}
 .portal-computrabajo{background:#0D3878}
 .portal-buscojobs{background:#E8641B}
-.oferta-ver{align-self:flex-start;min-height:44px}
 
 .ofertas-portales{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem 1.1rem;color:var(--tinta-suave)}
 .ofertas-fuente{margin-top:1rem;font-size:.85rem;color:var(--tinta-suave)}
 
 @media(min-width:700px){
   .oferta{flex-direction:row;align-items:center;justify-content:space-between;gap:1.5rem}
-  .oferta-ver{align-self:center;flex-shrink:0}
+  .oferta-ver{display:inline-flex;align-self:center;flex-shrink:0;min-height:44px}
+  .oferta-ver-movil{display:none}
 }
+.ofertas-elegir select option{color:var(--tinta);background:#fff}

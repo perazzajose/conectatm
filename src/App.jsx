@@ -16,6 +16,8 @@ import Desarrollo from './pages/desarrollo/Desarrollo';
 import Aprende from './pages/aprende/Aprende';
 import Faq from './pages/faq/Faq';
 import Privacy from './pages/Privacy';
+import Zona from './pages/zona/Zona';
+import Estudios from './pages/estudios/Estudios';
 import NotFound from './pages/NotFound';
 
 // Usan Supabase y pdf.js: se cargan solo cuando alguien entra a esas páginas
@@ -49,6 +51,7 @@ export default function App() {
           <Route path="/negocios/emprendimientos" element={<Emprendimientos />} />
 
           <Route path="/desarrollo" element={<Desarrollo />} />
+          <Route path="/estudios" element={<Estudios />} />
           <Route path="/aprende" element={<Aprende />} />
           <Route path="/faq" element={<Faq />} />
           <Route path="/privacy" element={<Privacy />} />
@@ -58,6 +61,8 @@ export default function App() {
           <Route path="/emprendimientos" element={<Navigate to="/negocios/emprendimientos" replace />} />
           <Route path="/pos" element={<Navigate to="/negocios/pos" replace />} />
 
+          {/* Un departamento por ruta (/durazno, /rocha…); lo que no sea un departamento da 404 */}
+          <Route path="/:depto" element={<Zona />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         </Suspense>

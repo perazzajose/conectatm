@@ -1,0 +1,22 @@
+/* Estudios: filtros por zona y tipo, y una tarjeta por opción */
+.estudios-filtros .filtros-scroll + .filtros-scroll{margin-top:.5rem}
+.estudios{padding-top:1.5rem}
+.estudios-cuenta{color:var(--tinta-suave);font-weight:700;margin-bottom:1rem}
+.estudios-grid{list-style:none;display:grid;gap:1rem}
+.estudio{--c:var(--cielo);display:flex;flex-direction:column;gap:.45rem;padding:1.3rem;background:var(--blanco);border:1px solid var(--baldosa-borde);border-top:5px solid var(--c)}
+.estudio-liceo,.estudio-tecnica{--c:var(--palmera)}
+.estudio-universidad,.estudio-docente{--c:var(--cielo)}
+.estudio-tecnologia,.estudio-trabajo{--c:var(--buganvilia)}
+.estudio-becas{--c:var(--camino)}
+.estudio-tipo{font-size:.82rem;font-weight:700;color:var(--c)}
+.estudio h2{font-size:1.3rem}
+.estudio-org{color:var(--tinta-suave);font-size:.92rem;margin-top:-.3rem}
+.estudio-para{font-size:.92rem;color:var(--tinta-suave)}
+.estudio-para strong{color:var(--tinta)}
+.estudio-zonas{list-style:none;display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.2rem}
+.estudio-zonas li{font-size:.8rem;font-weight:700;padding:.1rem .55rem;border-radius:999px;background:var(--baldosa);color:var(--tinta)}
+.estudio-link{margin-top:auto;padding-top:.5rem;align-self:flex-start;font-weight:700}
+.estudios-nota{margin-top:1.5rem;color:var(--tinta-suave);font-size:.9rem}
+@media(min-width:700px){ .estudios-grid{grid-template-columns:1fr 1fr} }
+@media(min-width:1050px){ .estudios-grid{grid-template-columns:repeat(3,1fr)} }
+@media(max-width:699px){ .estudios-filtros{position:static} }

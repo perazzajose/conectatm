@@ -12,6 +12,11 @@ export async function render(url) {
         <App />
       </StaticRouter>
     </StrictMode>,
+    {
+      // Sin esto, React manda las secciones grandes aparte ("Cargando…" + un script que las reemplaza)
+      progressiveChunkSize: Infinity,
+      onError: e => console.error('[prerender]', url, e?.stack || e),
+    },
   );
   let html = '';
   for await (const parte of prelude) html += parte;

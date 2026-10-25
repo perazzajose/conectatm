@@ -15,14 +15,18 @@ function tiempoDesde(fecha) {
   return dias > -30 ? hace.format(dias, 'day') : 'hace más de un mes';
 }
 
+// "Durazno, Departamento de Durazno" -> "Durazno"
+const limpiarUbicacion = u => u?.replace(/,?\s*Departamento de [^,]+/i, '').trim() || null;
+
 function leerDepto() {
   try { return localStorage.getItem(CLAVE_DEPTO) || ''; } catch { return ''; }
 }
 
 // Las 5 ofertas más recientes de LinkedIn, Computrabajo y BuscoJobs para el departamento elegido.
 // Se actualizan los lunes (Edge Function `actualizar-ofertas`); acá solo se leen.
-export default function OfertasEmpleo({ titulo = 'Ofertas de trabajo en tu departamento' }) {
-  const [depto, setDepto] = useState(leerDepto);
+// `departamento` lo deja elegido de entrada (páginas por departamento); igual se puede cambiar.
+export default function OfertasEmpleo({ titulo = 'Ofertas de trabajo en tu departamento', departamento }) {
+  const [depto, setDepto] = useState(() => departamento || leerDepto());
   const [ofertas, setOfertas] = useState([]);
   const [estado, setEstado] = useState('idle');
 
@@ -51,24 +55,27 @@ export default function OfertasEmpleo({ titulo = 'Ofertas de trabajo en tu depar
 
   const d = DEPARTAMENTOS.find(x => x.id === depto);
   const actualizado = ofertas[0]?.actualizado
-    ? new Date(ofertas[0].actualizado).toLocaleDateString('es-UY', { weekday: 'long', day: 'numeric', month: 'long' })
+    ? new Date(ofertas[0].actualizado).toLocaleDateString('es-UY', { day: 'numeric', month: 'long' })
     : null;
 
   return (
     <div className="ofertas">
       <h2>{titulo}</h2>
-      <p className="section-sub">Las más recientes de LinkedIn, Computrabajo y BuscoJobs. Se actualizan todos los lunes.</p>
+      <p className="ofertas-aviso">
+        <span aria-hidden="true" className="ofertas-aviso-punto" />
+        {actualizado ? `Actualizadas el ${actualizado} · Se renuevan cada lunes` : 'Se actualizan todos los lunes'}
+      </p>
 
-      <div className="campo ofertas-selector">
-        <label htmlFor="ofertas-depto">¿Dónde buscás trabajo?</label>
-        <select id="ofertas-depto" value={depto} onChange={elegir}>
-          <option value="">Elegí tu departamento</option>
-          <optgroup label="Donde trabaja ConectaTuMundo">
-            {DEPARTAMENTOS.slice(0, 3).map(x => <option key={x.id} value={x.id}>{x.nombre}</option>)}
-          </optgroup>
-          <optgroup label="Resto del país">
-            {DEPARTAMENTOS.slice(3).map(x => <option key={x.id} value={x.id}>{x.nombre}</option>)}
-          </optgroup>
+      <div className="ofertas-elegir" role="group" aria-label="¿Dónde buscás trabajo?">
+        {DEPARTAMENTOS.slice(0, 3).map(x => (
+          <button key={x.id} type="button" className={`ofertas-zona${depto === x.id ? ' active' : ''}`} aria-pressed={depto === x.id}
+            onClick={() => elegir({ target: { value: x.id } })}>{x.nombre}</button>
+        ))}
+        <label className="visually-hidden" htmlFor="ofertas-depto">Otro departamento</label>
+        <select id="ofertas-depto" className={DEPARTAMENTOS.slice(3).some(x => x.id === depto) ? 'active' : ''}
+          value={DEPARTAMENTOS.slice(3).some(x => x.id === depto) ? depto : ''} onChange={elegir}>
+          <option value="">Otro departamento</option>
+          {DEPARTAMENTOS.slice(3).map(x => <option key={x.id} value={x.id}>{x.nombre}</option>)}
         </select>
       </div>
 
@@ -85,16 +92,16 @@ export default function OfertasEmpleo({ titulo = 'Ofertas de trabajo en tu depar
               {ofertas.map(o => (
                 <li key={o.id} className="oferta">
                   <div className="oferta-texto">
-                    <h3>{o.titulo}</h3>
-                    <p>{[o.empresa, o.ubicacion].filter(Boolean).join(', ')}</p>
+                    {/* El título es el enlace y cubre toda la oferta: se toca en cualquier parte */}
+                    <h3><a className="oferta-link" href={o.enlace} target="_blank" rel="noopener noreferrer">{o.titulo}</a></h3>
+                    <p>{[o.empresa, limpiarUbicacion(o.ubicacion)].filter(Boolean).join(', ')}</p>
                     <p className="oferta-meta">
                       <span className={`oferta-portal portal-${o.portal.toLowerCase()}`}>{o.portal}</span>
                       {tiempoDesde(o.publicado_aprox) && <span>Publicada {tiempoDesde(o.publicado_aprox)}</span>}
+                      <span className="oferta-ver-movil" aria-hidden="true">Ver en {o.portal}</span>
                     </p>
                   </div>
-                  <a className="btn btn-outline oferta-ver" href={o.enlace} target="_blank" rel="noopener noreferrer">
-                    Ver en {o.portal}<span className="visually-hidden">: {o.titulo}</span>
-                  </a>
+                  <span className="btn btn-outline oferta-ver" aria-hidden="true">Ver en {o.portal}</span>
                 </li>
               ))}
             </ol>
@@ -106,7 +113,7 @@ export default function OfertasEmpleo({ titulo = 'Ofertas de trabajo en tu depar
               <a key={p.portal} className="link" href={p.url} target="_blank" rel="noopener noreferrer">{p.portal}</a>
             ))}
           </div>
-          {actualizado && <p className="ofertas-fuente">Actualizado el {actualizado}. Fuente: Google Empleos. Las ofertas son de cada portal; ConectaTuMundo no las publica ni las verifica.</p>}
+          {ofertas.length > 0 && <p className="ofertas-fuente">Las ofertas son de cada portal; ConectaTuMundo no las publica ni las verifica.</p>}
         </div>
       )}
     </div>

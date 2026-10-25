@@ -6,6 +6,7 @@ import { waLink } from '../data/contacto';
 import './Navbar.css';
 
 const extras = [
+  { to: '/estudios', label: 'Estudios' },
   { to: '/negocios/emprendimientos', label: 'Emprendimientos' },
   { to: '/aprende', label: 'Aprendé' },
   { to: '/faq', label: 'Preguntas' },

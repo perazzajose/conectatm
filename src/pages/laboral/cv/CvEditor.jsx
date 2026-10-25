@@ -1,11 +1,22 @@
 import { lazy, Suspense, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon, { icons } from '../../../components/Icon';
+import FaqItem from '../../../components/FaqItem';
 import Editable from './Editable';
 import useCV, { CV_VACIO } from './useCV';
 import Consejos from './Consejos';
 import { EJEMPLOS } from './ejemplos';
 import './CvEditor.css';
+
+// Responden lo que la gente busca antes de usar el editor (y le dan contexto a Google)
+const PREGUNTAS = [
+  { q: '¿Es gratis?', a: 'Sí. Armás el CV, lo descargás en PDF las veces que quieras y no hay que pagar ni registrarse. El PDF sale sin marcas ni publicidad.' },
+  { q: '¿Puedo hacerlo desde el celular?', a: 'Sí. Tocá cualquier texto de la hoja para escribir. Al tocar “Descargar PDF” se abre la opción de imprimir: en Android elegí “Guardar como PDF”; en iPhone, tocá el botón de compartir y elegí “Guardar en Archivos”.' },
+  { q: '¿Dónde quedan mis datos?', a: 'Solo en tu navegador, en este dispositivo. No se suben a ningún servidor. Si borrás los datos del navegador o cambiás de celular, no vas a encontrarlo: guardá siempre el PDF.' },
+  { q: '¿Qué pasa con las secciones que no completo?', a: 'No salen en el PDF. Si no tenés idiomas o cursos, dejalos vacíos y el CV queda prolijo igual.' },
+  { q: 'No tengo experiencia, ¿qué pongo?', a: 'Tocá el ejemplo “Primer empleo” para ver uno armado. Changas, voluntariados, proyectos de estudio y cursos cortos cuentan; en “Consejos para armar tu CV” hay más ideas.' },
+  { q: '¿Y después de tenerlo listo?', a: 'Abajo de la hoja te mostramos las últimas ofertas de tu departamento en LinkedIn, Computrabajo y BuscoJobs. También podés subir tu CV a la bolsa para que te encuentren empresas de Durazno, Rocha y Montevideo.' },
+];
 
 const OfertasEmpleo = lazy(() => import('../../../components/OfertasEmpleo'));
 
@@ -113,8 +124,8 @@ export default function CvEditor() {
           <Link to="/laboral">Trabajo</Link><span aria-hidden="true">/</span>
           <span aria-current="page">Armá tu CV</span>
         </nav>
-        <h1>Armá tu CV</h1>
-        <p>Tocá cualquier texto de la hoja para escribir. Se guarda solo en este navegador: si borrás los datos del navegador o cambiás de dispositivo, no vas a encontrarlo.</p>
+        <h1>Armá tu CV gratis</h1>
+        <p>Completá tu currículum desde el celular o la compu, sin registrarte y sin pagar, y descargalo en PDF listo para mandar. Tocá cualquier texto de la hoja para escribir: se guarda solo en este navegador.</p>
 
         <div className="cv-ejemplos">
           <h2>Empezá con un ejemplo</h2>
@@ -288,6 +299,13 @@ export default function CvEditor() {
         <Suspense fallback={<p>Cargando ofertas…</p>}>
           <OfertasEmpleo titulo="Con tu CV listo, postulate" />
         </Suspense>
+      </section>
+
+      <section className="cv-preguntas" aria-labelledby="cv-preguntas-titulo">
+        <h2 id="cv-preguntas-titulo">Preguntas sobre el editor de CV</h2>
+        <div className="faq-list">
+          {PREGUNTAS.map(p => <FaqItem key={p.q} question={p.q} answer={p.a} />)}
+        </div>
       </section>
     </div>
   );

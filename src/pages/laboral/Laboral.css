@@ -16,3 +16,14 @@
   .cv-opciones-grid{grid-template-columns:1.15fr 1fr}
   .red-conecta-layout{grid-template-columns:1.6fr 1fr;align-items:end;gap:3rem}
 }
+
+/* Franja para negocios que buscan personal */
+.laboral-reclutadores{background:var(--buganvilia);color:rgba(255,255,255,.88)}
+.laboral-reclutadores h2{color:#fff}
+.laboral-reclutadores p{margin-top:.4rem}
+.laboral-reclutadores-layout{display:grid;gap:1.4rem}
+.laboral-reclutadores-acciones{display:flex;flex-wrap:wrap;align-items:center;gap:.8rem 1.4rem}
+.laboral-reclutadores .btn-primary{background:#fff;color:var(--buganvilia)}
+.laboral-reclutadores .btn-primary:hover{background:var(--buganvilia-suave)}
+.laboral-reclutadores .link{color:#fff}
+@media(min-width:760px){ .laboral-reclutadores-layout{grid-template-columns:1fr auto;align-items:center;gap:3rem} }

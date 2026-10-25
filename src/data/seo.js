@@ -1,4 +1,5 @@
 import { WHATSAPP, EMAIL } from './contacto';
+import { DEPARTAMENTOS } from './departamentos';
 
 // Título y descripción de cada página. Lo usan el componente <Seo> (en el navegador)
 // y scripts/prerender.mjs (que arma un HTML por ruta al compilar, para buscadores y vistas previas
@@ -23,10 +24,23 @@ export const PAGINAS = {
     nombre: 'Trabajo',
   },
   '/laboral/cv': {
-    titulo: 'Armá tu CV gratis y descargalo en PDF',
-    descripcion: 'Editor de currículum online, gratis y sin registro. Ejemplos con y sin experiencia, consejos para el primer empleo y descarga en PDF lista para enviar.',
+    titulo: 'Crear CV gratis online y descargarlo en PDF | Uruguay',
+    descripcion: 'Armá tu currículum gratis, sin registrarte y desde el celular. Ejemplos con y sin experiencia, consejos para el primer empleo y descarga en PDF lista para enviar.',
     padre: '/laboral',
     nombre: 'Armá tu CV',
+    // Datos estructurados extra de esta página
+    esquema: {
+      '@context': 'https://schema.org',
+      '@type': 'WebApplication',
+      name: 'Editor de CV de ConectaTuMundo',
+      url: 'https://conectatumundo.net/laboral/cv',
+      applicationCategory: 'BusinessApplication',
+      operatingSystem: 'Web',
+      inLanguage: 'es-UY',
+      isAccessibleForFree: true,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'UYU' },
+      publisher: { '@id': 'https://conectatumundo.net/#negocio' },
+    },
   },
   '/laboral/subir': {
     titulo: 'Subí tu CV y que te encuentren empresas de tu zona',
@@ -71,6 +85,12 @@ export const PAGINAS = {
     padre: null,
     nombre: 'Desarrollo',
   },
+  '/estudios': {
+    titulo: 'Estudiar gratis en Uruguay: liceo, UTU, universidad y becas',
+    descripcion: 'Opciones gratuitas para estudiar en Durazno, Rocha, Montevideo y online: liceos, UTU, UTEC, Udelar, formación docente, programación, cursos y becas.',
+    padre: null,
+    nombre: 'Estudiá gratis',
+  },
   '/aprende': {
     titulo: 'Talleres de tecnología y glosario digital',
     descripcion: 'Talleres para grupos e instituciones sobre WhatsApp Business, facturación digital y seguridad online, y un glosario de términos explicados sin vueltas.',
@@ -90,6 +110,25 @@ export const PAGINAS = {
     nombre: 'Privacidad',
   },
 };
+
+// Una página por departamento (src/pages/zona/Zona.jsx), misma plantilla
+for (const { id, nombre: n } of DEPARTAMENTOS) {
+  PAGINAS[`/${id}`] = {
+    titulo: `Desarrollo web en ${n} | Páginas web y sistemas`,
+    descripcion: `Páginas web, tiendas online y sistemas para negocios de ${n}. Además: CV gratis, ofertas de trabajo en ${n} y profes particulares.`,
+    padre: null,
+    nombre: n,
+    esquema: {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      name: `Desarrollo web en ${n}`,
+      serviceType: 'Desarrollo web',
+      url: `https://conectatumundo.net/${id}`,
+      areaServed: { '@type': 'AdministrativeArea', name: n, containedInPlace: { '@type': 'Country', name: 'Uruguay' } },
+      provider: { '@id': 'https://conectatumundo.net/#negocio' },
+    },
+  };
+}
 
 export const NO_ENCONTRADA = {
   titulo: 'Página no encontrada | ConectaTuMundo',
