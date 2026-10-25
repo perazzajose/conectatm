@@ -21,9 +21,11 @@ export const TIPOS = [
 ];
 
 // `zonas`: dónde se puede cursar. `sedes`: el nombre del lugar en cada zona, cuando cambia.
+// `logo`: bajado del sitio oficial de cada institución (los blancos de ANEP y UTEC, pasados a oscuro).
 export const ESTUDIOS = [
   {
     id: 'liceos', tipo: 'liceo', nombre: 'Liceos públicos', org: 'Secundaria (ANEP)',
+    logo: '/img/estudios/liceos.webp',
     resumen: 'Ciclo básico y bachillerato. También hay liceos nocturnos para mayores de edad.',
     para: 'Todas las edades',
     zonas: ['durazno', 'rocha', 'montevideo'],
@@ -31,6 +33,7 @@ export const ESTUDIOS = [
   },
   {
     id: '3f', tipo: 'liceo', nombre: 'Becas 3F', org: 'Fundación 3F',
+    logo: '/img/estudios/3f.webp',
     resumen: 'Becas para rendir las materias que te faltan del bachillerato, con tutorías o curso libre asistido.',
     para: 'Jóvenes que deben materias del bachillerato',
     zonas: ['durazno', 'rocha', 'montevideo', 'online'],
@@ -39,6 +42,7 @@ export const ESTUDIOS = [
   },
   {
     id: 'anima', tipo: 'liceo', nombre: 'Ánima', org: 'Ánima (sin fines de lucro)',
+    logo: '/img/estudios/anima.webp',
     resumen: 'Bachillerato tecnológico en formación dual: estudiás y hacés práctica en empresas.',
     para: 'Jóvenes de contextos vulnerables; hay entrevista y sorteo',
     zonas: ['montevideo'],
@@ -46,6 +50,7 @@ export const ESTUDIOS = [
   },
   {
     id: 'utu', tipo: 'tecnica', nombre: 'UTU', org: 'Educación Técnico Profesional (ANEP)',
+    logo: '/img/estudios/utu.webp',
     resumen: 'Cursos técnicos, bachilleratos tecnológicos y carreras terciarias.',
     para: 'Desde los 12 años, según el curso',
     zonas: ['durazno', 'rocha', 'montevideo'],
@@ -53,6 +58,7 @@ export const ESTUDIOS = [
   },
   {
     id: 'utec', tipo: 'universidad', nombre: 'UTEC', org: 'Universidad Tecnológica',
+    logo: '/img/estudios/utec.webp',
     resumen: 'Universidad pública y gratuita del interior: ingenierías, Tecnologías de la Información y tecnólogos.',
     para: 'Con bachillerato terminado',
     zonas: ['durazno'],
@@ -61,6 +67,7 @@ export const ESTUDIOS = [
   },
   {
     id: 'udelar', tipo: 'universidad', nombre: 'Udelar', org: 'Universidad de la República',
+    logo: '/img/estudios/udelar.webp',
     resumen: 'Todas las facultades: medicina, derecho, ingeniería, ciencias económicas y más.',
     para: 'Con bachillerato terminado',
     zonas: ['montevideo'],
@@ -68,6 +75,7 @@ export const ESTUDIOS = [
   },
   {
     id: 'cure', tipo: 'universidad', nombre: 'CURE, Udelar en Rocha', org: 'Centro Universitario Regional del Este',
+    logo: '/img/estudios/cure.webp',
     resumen: 'Carreras de la Udelar en el este. Consultá cuáles se dictan en la sede Rocha.',
     para: 'Con bachillerato terminado',
     zonas: ['rocha'],
@@ -76,6 +84,7 @@ export const ESTUDIOS = [
   },
   {
     id: 'docente', tipo: 'docente', nombre: 'Formación en Educación', org: 'ANEP',
+    logo: '/img/estudios/docente.webp',
     resumen: 'Magisterio, profesorado y maestro de primera infancia.',
     para: 'Con bachillerato terminado',
     zonas: ['durazno', 'rocha', 'montevideo'],
@@ -84,6 +93,7 @@ export const ESTUDIOS = [
   },
   {
     id: 'jap', tipo: 'tecnologia', nombre: 'Jóvenes a Programar', org: 'Ceibal',
+    logo: '/img/estudios/jap.webp',
     resumen: 'Curso de programación de un año, online. La edición 2025 fue solo para el interior.',
     para: '18 a 30 años, con ciclo básico',
     zonas: ['online'],
@@ -91,6 +101,7 @@ export const ESTUDIOS = [
   },
   {
     id: 'forge', tipo: 'trabajo', nombre: 'Tu Futuro', org: 'Fundación Forge',
+    logo: '/img/estudios/forge.webp',
     resumen: 'Entrenamiento online para conseguir tu primer trabajo formal.',
     para: '17 a 24 años, con bachillerato; para Montevideo y otros departamentos del sur',
     zonas: ['montevideo'],
@@ -99,6 +110,7 @@ export const ESTUDIOS = [
   },
   {
     id: 'inefop', tipo: 'trabajo', nombre: 'Cursos de INEFOP', org: 'Instituto Nacional de Empleo y Formación Profesional',
+    logo: '/img/estudios/inefop.webp',
     resumen: 'Capacitación gratuita para personas con y sin trabajo, incluidos cursos de idiomas.',
     para: 'Mayores de 18, según el curso',
     zonas: ['durazno', 'rocha', 'montevideo', 'online'],
@@ -113,6 +125,7 @@ export const ESTUDIOS = [
   },
   {
     id: 'fondo', tipo: 'becas', nombre: 'Beca del Fondo de Solidaridad', org: 'Fondo de Solidaridad',
+    logo: '/img/estudios/fondo.webp',
     resumen: 'Apoyo económico mensual para estudiar en Udelar, UTEC o carreras terciarias de UTU. Se postula de noviembre a febrero.',
     para: 'Estudiantes terciarios de hogares de bajos ingresos',
     zonas: ['durazno', 'rocha', 'montevideo', 'online'],
@@ -120,6 +133,7 @@ export const ESTUDIOS = [
   },
   {
     id: 'aloj-durazno', tipo: 'becas', nombre: 'Beca de alojamiento en Montevideo', org: 'Intendencia de Durazno',
+    logo: '/img/estudios/aloj-durazno.webp',
     resumen: 'Alojamiento en Montevideo para estudiantes de Durazno que siguen estudios terciarios públicos.',
     para: '17 a 23 años, con residencia en Durazno',
     zonas: ['durazno'],
@@ -127,6 +141,7 @@ export const ESTUDIOS = [
   },
   {
     id: 'toco-venir', tipo: 'becas', nombre: 'Hogar Tocó Venir', org: 'Intendencia de Montevideo',
+    logo: '/img/estudios/toco-venir.webp',
     resumen: 'Hogar en Montevideo para estudiantes del interior en estudios terciarios. Consultá si hay convocatoria abierta.',
     para: 'Estudiantes del interior',
     zonas: ['montevideo'],

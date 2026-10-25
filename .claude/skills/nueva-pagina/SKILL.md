@@ -20,7 +20,8 @@ Cada camino va a mudarse a su propio subdominio (laboral.conectatumundo.net, etc
 5. Si lee datos de Firestore, usar `useFirestoreCollection` (`src/hooks/`) y el cliente de `src/lib/firebase.js`.
    Si guarda datos de personas (CVs, formularios con datos personales), usar Supabase vía `src/lib/supabase.js`, con acceso solo por funciones y RLS (ver `supabase/schema.sql`), y cargar la página con `lazy()` en `App.jsx`.
 6. Agregar la ruta en `src/App.jsx` (bajo el prefijo del camino), los enlaces en `Footer.jsx` (objeto `subpaginas`) y la página en `src/data/seo.js` (`PAGINAS`): título de hasta 60 caracteres, descripción de ~150, `padre` y `nombre` para la miga. Con eso el build genera su HTML, la suma al sitemap y le pone las etiquetas para compartir. Si es privada, `noindex: true` y agregarla en `public/robots.txt`. Una ruta que no esté en `PAGINAS` da 404 en producción.
-7. Correr `npm run build` (compila y pre-renderiza cada ruta con `scripts/prerender.mjs`) y `npm run lint`, y revisar que no haya errores. El código que corre al renderizar no puede usar `window`, `document` ni `localStorage` sin `try` o sin estar dentro de un `useEffect`: el prerender lo ejecuta en Node.
+7. Correr `npm test` (unitarios: si falta la página en seo.js, falla), `npm run build` (compila y pre-renderiza cada ruta con `scripts/prerender.mjs`) y `npm run lint`, y revisar que no haya errores. El código que corre al renderizar no puede usar `window`, `document` ni `localStorage` sin `try` o sin estar dentro de un `useEffect`: el prerender lo ejecuta en Node.
+   Si la página tiene un recorrido importante (formulario, filtro), sumar un test en `e2e/` con Playwright (`npm run test:e2e`). Ver la skill `qa`.
 
 ## Diseño (tokens en `src/styles/tokens.css`)
 - Paleta tomada de la foto de la plaza de Durazno: `--buganvilia` (negocios), `--palmera` (laboral), `--cielo` (desarrollo), `--camino` (rojo, solo detalles), `--baldosa`, `--tinta`. No inventar colores nuevos.

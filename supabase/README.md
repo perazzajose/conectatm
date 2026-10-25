@@ -64,9 +64,22 @@ where o.bucket_id = 'cvs' and not exists (select 1 from cvs c where c.archivo = 
 ```
 y borralos desde *Storage* > *cvs*.
 
+## Protección contra robots (Turnstile + límites)
+
+Desde octubre de 2026 la subida pasa por la Edge Function [`subir-cv`](functions/subir-cv/index.ts), que verifica con **Cloudflare Turnstile** que no sea un robot, valida los datos, guarda el PDF y lo registra. El navegador ya no puede subir directo. Además, la base de datos acepta **un CV por email o teléfono cada 24 horas** y **30 CVs por hora** en todo el sitio. **Hacelo en este orden** (si corrés el SQL antes de publicar la función, la subida deja de andar hasta que la publiques):
+
+1. **Crear el widget de Turnstile** (gratis): en Cloudflare, *Turnstile* > *Add widget*. Nombre: `ConectaTuMundo`. Dominios: `conectatumundo.net` y `localhost`. Modo: *Managed*. Te da dos claves: **Site Key** (pública) y **Secret Key** (secreta).
+2. **Publicar la función:** en Supabase, *Edge Functions* > *Deploy a new function* > *Via Editor*. Nombre: `subir-cv`. Pegá el contenido de `functions/subir-cv/index.ts` y tocá *Deploy*.
+3. **Cargar el secreto:** *Edge Functions* > *Secrets* > agregá `TURNSTILE_SECRET` con la **Secret Key**. Nunca la pongas en el repo ni en el `.env`.
+4. **Correr el SQL:** *SQL Editor*, pegá [`proteccion-cvs.sql`](proteccion-cvs.sql) entero y *Run*.
+5. **Clave pública en el sitio:** en Cloudflare, en el Worker, *Settings* > *Build* > *Variables*, agregá `VITE_TURNSTILE_SITE_KEY` con la **Site Key**, y también en tu `.env` local. Hacé un push o *Retry build*.
+6. **Probar:** subí un CV de prueba desde `conectatumundo.net/laboral/subir` (vas a ver el recuadro de Cloudflare arriba del botón) y borralo con el enlace que te da.
+
+Si la función no tiene `TURNSTILE_SECRET`, igual funciona y quedan los límites de la base de datos. Pero con el secreto cargado, nadie puede subir sin pasar la verificación.
+
 ## Cómo funciona por dentro
 
-- Cualquiera puede **subir** un PDF, pero nadie puede listar ni leer la tabla ni los archivos directamente: todo pasa por funciones con permisos controlados (`subir_cv`, `borrar_cv`, `buscar_cvs`).
+- Cualquiera puede **subir** un PDF a través de la Edge Function `subir-cv` (con Turnstile), pero nadie puede listar ni leer la tabla ni los archivos directamente: todo pasa por funciones con permisos controlados (`subir_cv`, `borrar_cv`, `buscar_cvs`).
 - Al subir, el navegador extrae el texto del PDF (con pdf.js) y lo guarda junto con el puesto y las habilidades. Si el PDF es una foto escaneada no hay texto, y el CV solo se encuentra por puesto y habilidades.
 - El buscador separa lo que escribe el reclutador en palabras, ignora tildes y palabras como "de" o "con", reconoce variantes ("vendedor" encuentra "vendedora") y ordena por cuántas palabras coinciden y por relevancia. El puesto y las habilidades pesan más que el resto del texto.
 - Los PDFs se abren con enlaces firmados que vencen a los 5 minutos.

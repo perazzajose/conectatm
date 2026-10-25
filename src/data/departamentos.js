@@ -29,3 +29,6 @@ export const enlacesPortales = (d) => [
   { portal: 'Computrabajo', url: 'https://uy.computrabajo.com/' },
   { portal: 'Google Empleos', url: `https://www.google.com/search?q=${encodeURIComponent(`empleos en ${d.nombre} Uruguay`)}&ibp=htl;jobs` },
 ];
+
+// Google devuelve "Durazno, Departamento de Durazno": nos quedamos con "Durazno"
+export const limpiarUbicacion = u => u?.replace(/,?\s*Departamento de [^,]+/i, '').trim() || null;

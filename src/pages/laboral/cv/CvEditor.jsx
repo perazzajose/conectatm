@@ -5,7 +5,9 @@ import FaqItem from '../../../components/FaqItem';
 import Editable from './Editable';
 import useCV, { CV_VACIO } from './useCV';
 import Consejos from './Consejos';
+import CvPasos from './CvPasos';
 import { EJEMPLOS } from './ejemplos';
+import { lleno, itemLleno, vacio } from './vacios';
 import './CvEditor.css';
 
 // Responden lo que la gente busca antes de usar el editor (y le dan contexto a Google)
@@ -46,10 +48,14 @@ const leerFoto = (file) => new Promise((resolve, reject) => {
   img.src = URL.createObjectURL(file);
 });
 
-// Al imprimir se ocultan las secciones y los ítems sin contenido (clase `vacio`)
-const lleno = v => Boolean(v && String(v).trim());
-const itemLleno = it => [it.titulo, it.subtitulo, it.fecha, ...(it.tareas || [])].some(lleno);
-const vacio = condicion => (condicion ? '' : ' vacio');
+// Paso a paso o sobre la hoja. Se recuerda la elección; si no hay, en celular arranca paso a paso.
+const CLAVE_MODO = 'ctm-cv-modo';
+function modoInicial() {
+  if (typeof window === 'undefined') return 'hoja';
+  try { const m = localStorage.getItem(CLAVE_MODO); if (m === 'pasos' || m === 'hoja') return m; } catch { /* sin almacenamiento */ }
+  return window.matchMedia?.('(max-width: 759px)').matches ? 'pasos' : 'hoja';
+}
+
 const tieneDatos = d => JSON.stringify({ ...d, color: '' }) !== JSON.stringify({ ...CV_VACIO, color: '' });
 
 function Titulo({ icon, value, onChange, onAgregar, agregarLabel }) {
@@ -78,6 +84,15 @@ export default function CvEditor() {
   const cv = useCV();
   const { data } = cv;
   const [errorFoto, setErrorFoto] = useState(false);
+  const [modo, setModoEstado] = useState(modoInicial);
+  const setModo = (m) => {
+    setModoEstado(m);
+    try { localStorage.setItem(CLAVE_MODO, m); } catch { /* solo no se recuerda */ }
+  };
+  const verHoja = () => {
+    setModo('hoja');
+    requestAnimationFrame(() => document.getElementById('cv-hoja')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
 
   const handleFoto = async (e) => {
     const file = e.target.files?.[0];
@@ -125,7 +140,7 @@ export default function CvEditor() {
           <span aria-current="page">Armá tu CV</span>
         </nav>
         <h1>Armá tu CV gratis</h1>
-        <p>Completá tu currículum desde el celular o la compu, sin registrarte y sin pagar, y descargalo en PDF listo para mandar. Tocá cualquier texto de la hoja para escribir: se guarda solo en este navegador.</p>
+        <p>Completá tu currículum desde el celular o la compu, sin registrarte y sin pagar, y descargalo en PDF listo para mandar. Se guarda solo en este navegador.</p>
 
         <div className="cv-ejemplos">
           <h2>Empezá con un ejemplo</h2>
@@ -148,7 +163,17 @@ export default function CvEditor() {
         <Consejos />
       </div>
 
-      <div className="cv-hoja" id="cv-hoja">
+      <div className="cv-modo" role="radiogroup" aria-label="¿Cómo querés completarlo?">
+        <span className="cv-modo-label" aria-hidden="true">¿Cómo querés completarlo?</span>
+        {[['pasos', 'Paso a paso'], ['hoja', 'Sobre la hoja']].map(([m, label]) => (
+          <button key={m} type="button" role="radio" aria-checked={modo === m} className={modo === m ? 'activo' : ''} onClick={() => setModo(m)}>{label}</button>
+        ))}
+      </div>
+
+      {modo === 'pasos' && <CvPasos cv={cv} onFoto={handleFoto} errorFoto={errorFoto} onVerHoja={verHoja} onDescargar={descargar} />}
+
+      {/* En modo paso a paso la hoja no se ve en pantalla, pero sigue ahí para imprimir el PDF */}
+      <div className={`cv-hoja${modo === 'pasos' ? ' cv-hoja-oculta' : ''}`} id="cv-hoja">
         <aside className="cv-lateral">
           <div className="cv-foto">
             {data.foto ? (

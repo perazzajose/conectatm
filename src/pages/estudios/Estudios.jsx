@@ -53,6 +53,8 @@ export default function Estudios() {
             <ul className="estudios-grid">
               {lista.map(e => (
                 <li key={e.id} className={`estudio estudio-${e.tipo}`}>
+                  {/* Sin logo queda el espacio igual, para que los títulos de una fila se alineen */}
+                  <span className="estudio-logo">{e.logo && <img src={e.logo} alt="" loading="lazy" />}</span>
                   <span className="estudio-tipo">{TIPOS.find(t => t.id === e.tipo).nombre}</span>
                   <h2>{e.nombre}</h2>
                   <p className="estudio-org">{e.org}</p>
@@ -73,6 +75,7 @@ export default function Estudios() {
           )}
           <p className="estudios-nota">
             Todas son gratuitas. Las fechas de inscripción cambian cada año: confirmalas en el sitio oficial. Revisado en {REVISADO}.
+            {' '}Los logos son de cada institución; ConectaTuMundo no tiene relación con ellas.
           </p>
         </div>
       </section>

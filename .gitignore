@@ -4,3 +4,7 @@ dist
 
 # Fotos originales en alta (las versiones web están en public/fondos)
 fotos-originales/
+
+# Resultados de tests
+test-results/
+playwright-report/

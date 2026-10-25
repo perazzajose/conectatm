@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { supabase, supabaseConfigurado } from '../lib/supabase';
-import { DEPARTAMENTOS, enlacesPortales } from '../data/departamentos';
+import { DEPARTAMENTOS, enlacesPortales, limpiarUbicacion } from '../data/departamentos';
 import './OfertasEmpleo.css';
 
 const CLAVE_DEPTO = 'ctm-departamento';
@@ -14,9 +14,6 @@ function tiempoDesde(fecha) {
   const dias = Math.round(horas / 24);
   return dias > -30 ? hace.format(dias, 'day') : 'hace más de un mes';
 }
-
-// "Durazno, Departamento de Durazno" -> "Durazno"
-const limpiarUbicacion = u => u?.replace(/,?\s*Departamento de [^,]+/i, '').trim() || null;
 
 function leerDepto() {
   try { return localStorage.getItem(CLAVE_DEPTO) || ''; } catch { return ''; }

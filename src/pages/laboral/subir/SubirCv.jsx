@@ -1,13 +1,29 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import PageHeader from '../../../components/PageHeader';
-import { supabase, supabaseConfigurado, BUCKET_CVS } from '../../../lib/supabase';
+import { supabase, supabaseConfigurado } from '../../../lib/supabase';
+import Turnstile from '../../../components/Turnstile';
+import { TURNSTILE_SITE_KEY } from '../../../lib/turnstile';
 import leerPdf from '../../../lib/leerPdf';
 import { waLink } from '../../../data/contacto';
 import './SubirCv.css';
 
 const MAX_BYTES = 2 * 1024 * 1024;
 const CIUDADES = ['Durazno', 'Rocha', 'Montevideo', 'Otra'];
+// Los códigos de error que devuelve la Edge Function `subir-cv`, en palabras para la persona
+const ERRORES = {
+  verificacion: 'No pudimos verificar que no seas un robot. Esperá unos segundos y volvé a intentar.',
+  repetido: 'Ya subiste un CV con ese email o teléfono hoy. Si querés cambiarlo, borrá el anterior con tu enlace y volvé a subirlo mañana.',
+  cupo: 'Ahora mismo se están subiendo muchos CVs. Probá de nuevo en un rato.',
+  contacto: 'Dejá un email o un teléfono para que te puedan contactar.',
+  email: 'Revisá el email: parece que le falta algo.',
+  telefono: 'Revisá el teléfono: usá solo números, espacios o guiones.',
+  nombre: 'Escribí tu nombre y apellido.',
+  ciudad: 'Elegí dónde vivís.',
+  archivo: 'El archivo no es un PDF válido. Exportalo de nuevo como PDF.',
+  tamano: 'El PDF pesa más de 2 MB. Exportalo de nuevo con menos imágenes.',
+};
+
 const inicial = { nombre: '', email: '', telefono: '', ciudad: '', puesto: '', habilidades: '', acepto: false };
 
 function Borrar({ valor }) {
@@ -49,6 +65,8 @@ export default function SubirCv() {
   const [estado, setEstado] = useState('idle');
   const [error, setError] = useState('');
   const [resultado, setResultado] = useState(null);
+  const [token, setToken] = useState('');
+  const turnstile = useRef(null);
 
   const cambiar = (e) => {
     const { name, value, type, checked } = e.target;
@@ -67,7 +85,8 @@ export default function SubirCv() {
     e.preventDefault();
     setError('');
     if (!archivo) { setError('Elegí tu CV en PDF.'); return; }
-    if (!form.email.trim() && !form.telefono.trim()) { setError('Dejá un email o un teléfono para que te puedan contactar.'); return; }
+    if (!form.email.trim() && !form.telefono.trim()) { setError(ERRORES.contacto); return; }
+    if (TURNSTILE_SITE_KEY && !token) { setError('Esperá a que termine la verificación de abajo.'); return; }
 
     try {
       setEstado('leyendo');
@@ -75,30 +94,24 @@ export default function SubirCv() {
       try { texto = await leerPdf(archivo); } catch { texto = ''; }
 
       setEstado('subiendo');
-      const ruta = `${crypto.randomUUID()}.pdf`;
-      const subida = await supabase.storage.from(BUCKET_CVS).upload(ruta, archivo, { contentType: 'application/pdf', upsert: false });
-      if (subida.error) throw subida.error;
+      const datos = new FormData();
+      for (const k of ['nombre', 'email', 'telefono', 'ciudad', 'puesto', 'habilidades']) datos.append(k, form[k]);
+      datos.append('texto', texto);
+      datos.append('token', token);
+      datos.append('archivo', archivo);
+      // La Edge Function verifica Turnstile, valida, guarda el PDF y lo registra
+      const { data: fila, error: fnError } = await supabase.functions.invoke('subir-cv', { body: datos });
+      if (fnError) {
+        const codigo = await fnError.context?.json?.().then(r => r.error).catch(() => null);
+        throw new Error(codigo || 'red');
+      }
 
-      const { data, error: rpcError } = await supabase.rpc('subir_cv', {
-        p_nombre: form.nombre,
-        p_email: form.email,
-        p_telefono: form.telefono,
-        p_ciudad: form.ciudad,
-        p_puesto: form.puesto,
-        p_habilidades: form.habilidades.split(',').map(h => h.trim()).filter(Boolean),
-        p_texto: texto,
-        p_archivo: ruta,
-      });
-      if (rpcError) throw rpcError;
-
-      const fila = data[0];
       setResultado({ enlace: `${window.location.origin}/laboral/subir?borrar=${fila.id}:${fila.token_borrado}`, sinTexto: texto.length < 40 });
       setEstado('listo');
     } catch (err) {
       setEstado('idle');
-      setError(err?.message?.includes('contacto')
-        ? 'Dejá un email o un teléfono para que te puedan contactar.'
-        : 'No se pudo subir el CV. Revisá tu conexión y volvé a intentar.');
+      setError(ERRORES[err?.message] ?? 'No se pudo subir el CV. Revisá tu conexión y volvé a intentar.');
+      turnstile.current?.reset(); // cada verificación sirve una sola vez
     }
   };
 
@@ -186,6 +199,7 @@ export default function SubirCv() {
                   Puedo borrarlo cuando quiera. Más info en la <Link to="/privacy" target="_blank">política de privacidad</Link>.
                 </span>
               </label>
+              <Turnstile ref={turnstile} onToken={setToken} />
               <button type="submit" className="btn btn-primary" disabled={estado !== 'idle'}>
                 {estado === 'leyendo' ? 'Leyendo tu CV…' : estado === 'subiendo' ? 'Subiendo…' : 'Subir mi CV'}
               </button>

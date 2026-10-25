@@ -2,7 +2,8 @@
 -- Pegar entero en Supabase > SQL Editor > New query > Run. Se puede volver a correr sin romper nada.
 --
 -- Modelo de acceso:
---   · Cualquiera puede SUBIR un CV (PDF) pero nadie puede listarlos ni leerlos directamente.
+--   · Cualquiera puede SUBIR un CV (PDF) a través de la Edge Function `subir-cv` (con Turnstile),
+--     pero nadie puede listarlos ni leerlos directamente.
 --   · Solo los usuarios que estén en la tabla `reclutadores` pueden buscar y abrir CVs.
 --   · Cada persona recibe un código para borrar su CV cuando quiera (Ley 18.331).
 
@@ -96,10 +97,8 @@ values ('cvs', 'cvs', false, 2097152, array['application/pdf'])
 on conflict (id) do update
   set public = false, file_size_limit = 2097152, allowed_mime_types = array['application/pdf'];
 
+-- Nadie sube directo desde el navegador: lo hace la Edge Function `subir-cv` con la service role
 drop policy if exists "cualquiera sube un cv" on storage.objects;
-create policy "cualquiera sube un cv" on storage.objects
-  for insert to anon, authenticated
-  with check (bucket_id = 'cvs' and name ~ '^[0-9a-f-]{36}\.pdf$');
 
 drop policy if exists "reclutadores leen cvs" on storage.objects;
 create policy "reclutadores leen cvs" on storage.objects
@@ -109,7 +108,8 @@ create policy "reclutadores leen cvs" on storage.objects
 
 -- ── FUNCIONES ───────────────────────────────────────────────────────────
 
--- Registra un CV ya subido a Storage. Devuelve el id y el código para borrarlo.
+-- Registra un CV que la Edge Function `subir-cv` ya guardó en Storage. Devuelve el id y el código para borrarlo.
+-- Límites: un CV por contacto cada 24 h ([repetido]) y 30 por hora en todo el sitio ([cupo]).
 create or replace function public.subir_cv(
   p_nombre text, p_email text, p_telefono text, p_ciudad text,
   p_puesto text, p_habilidades text[], p_texto text, p_archivo text
@@ -118,17 +118,35 @@ returns table (id uuid, token_borrado uuid)
 language plpgsql security definer
 set search_path = public
 as $$
+declare
+  v_email text := lower(nullif(btrim(p_email), ''));
+  v_tel text := nullif(regexp_replace(coalesce(p_telefono, ''), '[^0-9]', '', 'g'), '');
 begin
   if not exists (select 1 from storage.objects o where o.bucket_id = 'cvs' and o.name = p_archivo) then
     raise exception 'El archivo no se subió correctamente' using errcode = '22023';
   end if;
-  if coalesce(btrim(p_email), '') = '' and coalesce(btrim(p_telefono), '') = '' then
+  if v_email is null and v_tel is null then
     raise exception 'Hace falta un email o un teléfono de contacto' using errcode = '22023';
+  end if;
+
+  -- Un CV por persona por día (quien quiere cambiarlo, borra el anterior con su enlace)
+  if exists (
+    select 1 from cvs c
+    where c.creado > now() - interval '24 hours'
+      and ((v_email is not null and lower(c.email) = v_email)
+        or (v_tel is not null and regexp_replace(coalesce(c.telefono, ''), '[^0-9]', '', 'g') = v_tel))
+  ) then
+    raise exception '[repetido] Ya hay un CV con ese contacto en las últimas 24 horas' using errcode = 'P0001';
+  end if;
+
+  -- Tope para todo el sitio: si alguien automatiza subidas, el daño queda acotado
+  if (select count(*) from cvs c where c.creado > now() - interval '1 hour') >= 30 then
+    raise exception '[cupo] Demasiados CVs en la última hora' using errcode = 'P0001';
   end if;
 
   return query
     insert into cvs (nombre, email, telefono, ciudad, puesto, habilidades, texto, archivo)
-    values (btrim(p_nombre), nullif(btrim(p_email), ''), nullif(btrim(p_telefono), ''), p_ciudad,
+    values (btrim(p_nombre), v_email, nullif(btrim(p_telefono), ''), p_ciudad,
             nullif(btrim(p_puesto), ''),
             coalesce((select array_agg(distinct btrim(h)) from unnest(p_habilidades) h where btrim(h) <> ''), '{}'),
             left(coalesce(p_texto, ''), 60000), p_archivo)
@@ -217,7 +235,7 @@ revoke all on function public.cv_archivo_activo(text) from public;
 revoke execute on function public.buscar_cvs(text, text) from anon;
 revoke execute on function public.es_reclutador() from anon;
 revoke execute on function public.cv_archivo_activo(text) from anon;
-grant execute on function public.subir_cv(text, text, text, text, text, text[], text, text) to anon, authenticated;
+grant execute on function public.subir_cv(text, text, text, text, text, text[], text, text) to service_role;
 grant execute on function public.borrar_cv(uuid, uuid) to anon, authenticated;
 grant execute on function public.buscar_cvs(text, text) to authenticated;
 grant execute on function public.es_reclutador() to authenticated;

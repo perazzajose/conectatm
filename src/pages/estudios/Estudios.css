@@ -8,6 +8,8 @@
 .estudio-universidad,.estudio-docente{--c:var(--cielo)}
 .estudio-tecnologia,.estudio-trabajo{--c:var(--buganvilia)}
 .estudio-becas{--c:var(--camino)}
+.estudio-logo{display:flex;align-items:center;height:44px;margin-bottom:.4rem}
+.estudio-logo img{max-height:44px;max-width:190px;width:auto;height:auto;object-fit:contain}
 .estudio-tipo{font-size:.82rem;font-weight:700;color:var(--c)}
 .estudio h2{font-size:1.3rem}
 .estudio-org{color:var(--tinta-suave);font-size:.92rem;margin-top:-.3rem}
