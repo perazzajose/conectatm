@@ -154,6 +154,7 @@ export const DATOS_NEGOCIO = {
   address: { '@type': 'PostalAddress', addressLocality: 'Durazno', addressRegion: 'Durazno', addressCountry: 'UY' },
   areaServed: ['Durazno', 'Rocha', 'Montevideo'].map(name => ({ '@type': 'AdministrativeArea', name, containedInPlace: { '@type': 'Country', name: 'Uruguay' } })),
   founder: { '@type': 'Person', name: 'José', jobTitle: 'Desarrollador' },
+  foundingDate: '2024',
   knowsAbout: ['Desarrollo web', 'Sistemas a medida', 'POS', 'Control de stock', 'Currículum vitae'],
 };
 
@@ -164,6 +165,7 @@ export const DATOS_SITIO = {
   name: SITIO.nombre,
   url: `${SITIO.url}/`,
   inLanguage: 'es-UY',
+  copyrightYear: 2024,
   publisher: { '@id': `${SITIO.url}/#negocio` },
 };
 

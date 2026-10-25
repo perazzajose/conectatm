@@ -12,6 +12,7 @@ export default function Hero() {
         fetchPriority="high"
       />
       <div className="hero-texto">
+        <p className="hero-etiqueta">Desde 2024 · {ZONAS_TEXTO}</p>
         <h1 id="hero-titulo">Conseguí trabajo, ordená tu negocio, salí en internet.</h1>
         <p>
           Herramientas simples para arrancar gratis, y un desarrollador cerca para cuando necesitás algo a medida.

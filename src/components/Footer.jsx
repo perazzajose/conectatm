@@ -47,7 +47,7 @@ export default function Footer() {
         <div className="footer-contacto">
           <a href={waLink()} target="_blank" rel="noopener noreferrer">WhatsApp {WHATSAPP_VISIBLE}</a>
           <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
-          <span>© {new Date().getFullYear()} José</span>
+          <span>En línea desde 2024 · © 2024–{new Date().getFullYear()} José</span>
         </div>
       </div>
     </footer>
