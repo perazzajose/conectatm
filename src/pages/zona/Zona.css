@@ -8,3 +8,4 @@
 .zona-ofertas{background:var(--baldosa)}
 .zona-nota{margin-top:1.2rem;color:var(--tinta-suave);font-size:.95rem}
 @media(min-width:760px){ .zona-cards{grid-template-columns:repeat(3,1fr)} }
+.zona-perfil{max-width:68ch;color:var(--tinta-suave);margin-top:.8rem;font-size:1.05rem}

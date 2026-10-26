@@ -47,7 +47,14 @@ export default function Zona() {
     },
   ];
 
+  const lugares = d.localidades.join(', ');
+  const capital = d.capital === n ? n : `${d.capital}, la capital,`;
+
   const preguntas = [
+    {
+      q: `¿Llegás a ${d.localidades.slice(0, 2).join(' o ')}?`,
+      a: `Sí. Trabajo con negocios de ${capital} y de ${lugares}. ${modalidad}`,
+    },
     {
       q: `¿Hacés páginas web en ${n}?`,
       a: `Sí. Hago sitios web, tiendas online y sistemas a medida para emprendimientos y pymes de ${n}. ${modalidad}`,
@@ -92,6 +99,17 @@ export default function Zona() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+
+      <section className="zona-local" aria-labelledby="zona-local-titulo">
+        <div className="section-inner">
+          <h2 id="zona-local-titulo">Negocios y trabajo en {n}</h2>
+          <p className="zona-perfil">{d.perfil}</p>
+          <p className="zona-perfil">
+            Armo sitios web y sistemas para comercios de {capital === n ? n : d.capital} y de {lugares}, y las ofertas de abajo son
+            de todo el departamento.
+          </p>
         </div>
       </section>
 

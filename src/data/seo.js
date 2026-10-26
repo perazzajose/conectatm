@@ -112,10 +112,10 @@ export const PAGINAS = {
 };
 
 // Una página por departamento (src/pages/zona/Zona.jsx), misma plantilla
-for (const { id, nombre: n } of DEPARTAMENTOS) {
+for (const { id, nombre: n, capital, localidades } of DEPARTAMENTOS) {
   PAGINAS[`/${id}`] = {
     titulo: `Desarrollo web en ${n} | Páginas web y sistemas`,
-    descripcion: `Páginas web, tiendas online y sistemas para negocios de ${n}. Además: CV gratis, ofertas de trabajo en ${n} y profes particulares.`,
+    descripcion: `Páginas web y sistemas para negocios de ${capital === n ? n : `${capital} (${n})`}, ${localidades.slice(0, 2).join(' y ')}. Además: CV gratis y ofertas de trabajo en ${n}.`,
     padre: null,
     nombre: n,
     esquema: {
