@@ -2,3 +2,15 @@
 /tutores          /laboral/tutores          301
 /emprendimientos  /negocios/emprendimientos 301
 /pos              /negocios/pos             301
+
+# Páginas del sitio en HTML anterior que Google sigue rastreando (Search Console: Soft 404 y 404)
+/index1.html                     /                          301
+/index1                          /                          301
+/comunidad_estudiantes.html      /laboral/tutores           301
+/comunidad_estudiantes           /laboral/tutores           301
+/vitrina_emprendimientos.html    /negocios/emprendimientos  301
+/vitrina_emprendimientos         /negocios/emprendimientos  301
+/faq_conectatumundo.html         /faq                       301
+/faq_conectatumundo              /faq                       301
+/servicios.html                  /desarrollo                301
+/servicios                       /desarrollo                301
