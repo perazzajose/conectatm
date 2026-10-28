@@ -23,7 +23,8 @@ function leerDepto() {
 // Se actualizan los lunes (Edge Function `actualizar-ofertas`); acá solo se leen.
 // `departamento` lo deja elegido de entrada (páginas por departamento); igual se puede cambiar.
 export default function OfertasEmpleo({ titulo = 'Ofertas de trabajo en tu departamento', departamento }) {
-  const [depto, setDepto] = useState(() => departamento || leerDepto());
+  // Sin departamento guardado arranca en Durazno: si no, la sección quedaba vacía y parecía rota
+  const [depto, setDepto] = useState(() => departamento || leerDepto() || DEPARTAMENTOS[0].id);
   const [ofertas, setOfertas] = useState([]);
   const [estado, setEstado] = useState('idle');
 
