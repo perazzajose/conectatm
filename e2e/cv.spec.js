@@ -55,6 +55,27 @@ test.describe('editor de CV, sobre la hoja', () => {
     expect(tamano).toBeGreaterThanOrEqual(16);
     expect(cargo).toBeGreaterThanOrEqual(16);
   });
+
+  // Los ATS leen el texto del PDF en el orden en que está escrito, no como se ve.
+  // Tiene que arrancar por el nombre y cada ítem tiene que quedar bajo su sección.
+  test('el texto del PDF sale en orden para los ATS', async ({ page, browserName }) => {
+    test.skip(browserName !== 'chromium', 'page.pdf solo existe en Chromium');
+    await page.getByRole('button', { name: /Con experiencia/ }).click();
+    await page.emulateMedia({ media: 'print' });
+    const pdf = await page.pdf({ format: 'A4', printBackground: true, preferCSSPageSize: true });
+
+    const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
+    const doc = await pdfjs.getDocument({ data: new Uint8Array(pdf) }).promise;
+    const { items } = await (await doc.getPage(1)).getTextContent();
+    const texto = items.map(i => i.str).join(' ');
+    const pos = t => texto.indexOf(t);
+
+    expect(texto.trim().startsWith('Lucía Fernández')).toBe(true);
+    const orden = ['EXPERIENCIA', 'Tienda de ropa del centro', 'Manejo de caja', 'Supermercado de barrio',
+      'EDUCACIÓN', 'Bachillerato completo', 'CURSOS', 'Excel básico', 'IDIOMAS', 'Español', 'HABILIDADES'];
+    for (const t of orden) expect(pos(t), t).toBeGreaterThan(-1);
+    expect(orden.map(pos)).toEqual(orden.map(pos).toSorted((a, b) => a - b));
+  });
 });
 
 test.describe('editor de CV, paso a paso', () => {

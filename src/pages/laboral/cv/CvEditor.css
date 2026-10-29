@@ -46,6 +46,8 @@
 .editable-input:hover,.editable-multi:hover{background:color-mix(in srgb,var(--cv) 7%,transparent)}
 .editable-input:focus,.editable-multi:focus{background:color-mix(in srgb,var(--cv) 12%,transparent);box-shadow:0 0 0 2px color-mix(in srgb,var(--cv) 45%,transparent)}
 .editable-input::placeholder,.editable-multi::placeholder{color:#9A929F}
+/* Copia en texto plano de cada textarea: solo se imprime (ver Editable.jsx) */
+.editable-impreso{display:none;padding:0 2px;white-space:pre-wrap;overflow-wrap:anywhere}
 
 /* Foto */
 .cv-foto{display:flex;flex-direction:column;align-items:center;gap:.5rem;text-align:center}
@@ -97,7 +99,7 @@
 .cv-tareas{list-style:none;display:flex;flex-direction:column;gap:.25rem}
 .cv-tareas li{display:flex;align-items:flex-start;gap:.3rem;padding-left:.9rem;position:relative}
 .cv-tareas li::before{content:'';position:absolute;left:.15rem;top:.55em;width:5px;height:5px;border-radius:50%;background:var(--cv)}
-.cv-tareas .editable-multi{flex:1}
+.cv-tareas .editable-multi,.cv-tareas .editable-impreso{flex:1}
 
 /* Barra de acciones */
 .cv-barra{position:sticky;bottom:0;z-index:20;max-width:210mm;margin:1.2rem auto 0;background:var(--tinta);padding:.8rem;display:flex;flex-wrap:wrap;align-items:center;gap:.7rem}
@@ -182,6 +184,9 @@
   .cv-colores{width:auto;margin-right:auto}
   .cv-barra .btn{flex:none}
   .cv-hoja{grid-template-columns:34% 66%;min-height:297mm}
+  /* En el código la columna principal va primero (para los ATS); acá se ubica a la derecha */
+  .cv-lateral{grid-area:1 / 1}
+  .cv-principal{grid-area:1 / 2}
   .cv-lateral{padding:2rem 1.5rem}
   .cv-principal{padding:2.4rem 2.2rem}
   .cv-nombre{font-size:38px}
@@ -195,13 +200,21 @@
   main{padding:0!important}
   .cv-pagina{padding:0;background:#fff;min-height:0}
   .cv-hoja{display:grid;grid-template-columns:34% 66%;width:210mm;min-height:297mm;max-width:none;margin:0;box-shadow:none}
+  .cv-lateral{grid-area:1 / 1}
+  .cv-principal{grid-area:1 / 2}
   .cv-lateral{padding:12mm 7mm 12mm 10mm}
   .cv-principal{padding:14mm 10mm 12mm 9mm}
-  .cv-item{padding-right:0}
+  /* Sin position: Chrome escribe en el PDF los elementos posicionados después del resto, y los ATS los leen fuera de su sección */
+  .cv-item{padding-right:0;position:static}
   .cv-nombre{font-size:34px}
   .editable-input::placeholder,.editable-multi::placeholder{color:transparent}
   /* Un input no hace salto de línea: al imprimir mostramos el texto medido, que sí lo hace */
   .editable-input{display:none}
   .editable-medida{visibility:visible;white-space:pre-wrap;overflow:visible;overflow-wrap:anywhere}
+  .editable-multi{display:none}
+  .editable-impreso{display:block}
   .cv-exp{break-inside:avoid}
+  /* La viñeta pasa a ser parte de la fila (mismo lugar) para que la tarea no quede posicionada */
+  .cv-tareas li{position:static;padding-left:.15rem}
+  .cv-tareas li::before{position:static;flex-shrink:0;margin:.55em calc(.45rem - 5px) 0 0}
 }

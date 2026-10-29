@@ -23,8 +23,15 @@ export default function Editable({ value, onChange, placeholder, multiline, clas
     style,
   };
 
+  // Chrome imprime el texto de los textarea aparte del resto, y en el PDF queda desordenado
+  // (los ATS leen la educación lejos de su título). Al imprimir se usa una copia en texto plano.
   if (multiline) {
-    return <textarea ref={ref} rows={1} className={`${cls} editable-multi`} {...comunes} />;
+    return (
+      <>
+        <textarea ref={ref} rows={1} className={`${cls} editable-multi`} {...comunes} />
+        <div className={`${cls} editable-impreso`} aria-hidden="true">{value}</div>
+      </>
+    );
   }
 
   return (

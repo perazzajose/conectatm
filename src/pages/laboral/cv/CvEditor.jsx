@@ -174,6 +174,48 @@ export default function CvEditor() {
 
       {/* En modo paso a paso la hoja no se ve en pantalla, pero sigue ahí para imprimir el PDF */}
       <div className={`cv-hoja${modo === 'pasos' ? ' cv-hoja-oculta' : ''}`} id="cv-hoja">
+        {/* La columna principal va primero en el código: así el PDF arranca por el nombre y los ATS lo leen en orden.
+            Se ve a la derecha por la ubicación en la grilla (CvEditor.css). */}
+        <div className="cv-principal">
+          <header className="cv-cabecera">
+            <Editable value={data.nombre} onChange={v => cv.set('nombre', v)} placeholder="Tu nombre y apellido" className="cv-nombre" />
+            <Editable value={data.cargo} onChange={v => cv.set('cargo', v)} placeholder="A qué te dedicás o qué buscás" className="cv-cargo" />
+          </header>
+
+          <section className={`cv-seccion${vacio(lleno(data.perfil))}`}>
+            <Titulo icon={icons.sobre} value={data.titulos.perfil} onChange={v => cv.setTitulo('perfil', v)} />
+            <Editable multiline value={data.perfil} onChange={v => cv.set('perfil', v)} className="cv-perfil"
+              placeholder="Dos o tres frases sobre vos: qué sabés hacer, qué te interesa y qué tipo de trabajo buscás." />
+          </section>
+
+          <section className={`cv-seccion${vacio(data.experiencia.some(itemLleno))}`}>
+            <Titulo icon={icons.emprendimientos} value={data.titulos.experiencia} onChange={v => cv.setTitulo('experiencia', v)}
+              onAgregar={() => cv.agregar('experiencia')} agregarLabel="Agregar experiencia" />
+            {data.experiencia.length === 0 && (
+              <p className="cv-ayuda">Tocá el + para agregar un trabajo. Si es tu primer empleo, sumá changas, voluntariados o proyectos de estudio.</p>
+            )}
+            {data.experiencia.map(it => (
+              <div key={it.id} className={`cv-item cv-exp${vacio(itemLleno(it))}`}>
+                <Quitar onClick={() => cv.quitar('experiencia', it.id)} label="Quitar experiencia" />
+                <div className="cv-exp-fila">
+                  <Editable value={it.titulo} onChange={v => cv.editar('experiencia', it.id, { titulo: v })} placeholder="Empresa o lugar" className="cv-exp-empresa" />
+                  <Editable value={it.fecha} onChange={v => cv.editar('experiencia', it.id, { fecha: v })} placeholder="Desde – hasta" className="cv-item-fecha" />
+                </div>
+                <Editable value={it.subtitulo} onChange={v => cv.editar('experiencia', it.id, { subtitulo: v })} placeholder="Puesto" className="cv-exp-puesto" multiline />
+                <ul className="cv-tareas">
+                  {it.tareas.map((t, n) => (
+                    <li key={n} className={t ? '' : 'vacio'}>
+                      <Editable multiline value={t} onChange={v => cv.editarTarea(it.id, n, v)} placeholder="Qué hacías o qué lograste" />
+                      <Quitar onClick={() => cv.quitarTarea(it.id, n)} label="Quitar tarea" />
+                    </li>
+                  ))}
+                </ul>
+                <button type="button" className="cv-control cv-agregar-texto" onClick={() => cv.agregarTarea(it.id)}>+ Agregar tarea</button>
+              </div>
+            ))}
+          </section>
+        </div>
+
         <aside className="cv-lateral">
           <div className="cv-foto">
             {data.foto ? (
@@ -261,46 +303,6 @@ export default function CvEditor() {
             </ul>
           </section>
         </aside>
-
-        <div className="cv-principal">
-          <header className="cv-cabecera">
-            <Editable value={data.nombre} onChange={v => cv.set('nombre', v)} placeholder="Tu nombre y apellido" className="cv-nombre" />
-            <Editable value={data.cargo} onChange={v => cv.set('cargo', v)} placeholder="A qué te dedicás o qué buscás" className="cv-cargo" />
-          </header>
-
-          <section className={`cv-seccion${vacio(lleno(data.perfil))}`}>
-            <Titulo icon={icons.sobre} value={data.titulos.perfil} onChange={v => cv.setTitulo('perfil', v)} />
-            <Editable multiline value={data.perfil} onChange={v => cv.set('perfil', v)} className="cv-perfil"
-              placeholder="Dos o tres frases sobre vos: qué sabés hacer, qué te interesa y qué tipo de trabajo buscás." />
-          </section>
-
-          <section className={`cv-seccion${vacio(data.experiencia.some(itemLleno))}`}>
-            <Titulo icon={icons.emprendimientos} value={data.titulos.experiencia} onChange={v => cv.setTitulo('experiencia', v)}
-              onAgregar={() => cv.agregar('experiencia')} agregarLabel="Agregar experiencia" />
-            {data.experiencia.length === 0 && (
-              <p className="cv-ayuda">Tocá el + para agregar un trabajo. Si es tu primer empleo, sumá changas, voluntariados o proyectos de estudio.</p>
-            )}
-            {data.experiencia.map(it => (
-              <div key={it.id} className={`cv-item cv-exp${vacio(itemLleno(it))}`}>
-                <Quitar onClick={() => cv.quitar('experiencia', it.id)} label="Quitar experiencia" />
-                <div className="cv-exp-fila">
-                  <Editable value={it.titulo} onChange={v => cv.editar('experiencia', it.id, { titulo: v })} placeholder="Empresa o lugar" className="cv-exp-empresa" />
-                  <Editable value={it.fecha} onChange={v => cv.editar('experiencia', it.id, { fecha: v })} placeholder="Desde – hasta" className="cv-item-fecha" />
-                </div>
-                <Editable value={it.subtitulo} onChange={v => cv.editar('experiencia', it.id, { subtitulo: v })} placeholder="Puesto" className="cv-exp-puesto" multiline />
-                <ul className="cv-tareas">
-                  {it.tareas.map((t, n) => (
-                    <li key={n} className={t ? '' : 'vacio'}>
-                      <Editable multiline value={t} onChange={v => cv.editarTarea(it.id, n, v)} placeholder="Qué hacías o qué lograste" />
-                      <Quitar onClick={() => cv.quitarTarea(it.id, n)} label="Quitar tarea" />
-                    </li>
-                  ))}
-                </ul>
-                <button type="button" className="cv-control cv-agregar-texto" onClick={() => cv.agregarTarea(it.id)}>+ Agregar tarea</button>
-              </div>
-            ))}
-          </section>
-        </div>
       </div>
 
       <div className="cv-barra" role="toolbar" aria-label="Acciones del CV">
