@@ -7,6 +7,15 @@ import './Reclutadores.css';
 const CIUDADES = ['Durazno', 'Rocha', 'Montevideo', 'Otra'];
 const EJEMPLOS = ['ventas atención al público', 'Excel administración', 'depósito stock', 'inglés'];
 
+// Códigos que devuelve la función solicitar_acceso_reclutador, en palabras para la persona
+const ERRORES_SOLICITUD = {
+  nombre: 'Escribí tu nombre y apellido.',
+  empresa: 'Escribí el nombre de tu negocio o empresa.',
+  email: 'Revisá el email: parece que le falta algo.',
+  repetido: 'Ya recibimos una solicitud con ese email. Te vamos a responder a la brevedad.',
+  cupo: 'Se recibieron muchas solicitudes ahora mismo. Probá de nuevo en un rato.',
+};
+
 // ts_headline marca las coincidencias con [[ ]]: las convertimos a <mark> sin usar HTML crudo
 function Fragmento({ texto }) {
   if (!texto) return null;
@@ -15,6 +24,78 @@ function Fragmento({ texto }) {
     <p className="rec-fragmento">
       {partes.map((p, i) => (p.startsWith('[[') ? <mark key={i}>{p.slice(2, -2)}</mark> : p))}
     </p>
+  );
+}
+
+function PedirAcceso() {
+  const inicial = { nombre: '', empresa: '', email: '', telefono: '', motivo: '' };
+  const [form, setForm] = useState(inicial);
+  const [estado, setEstado] = useState('idle'); // idle | enviando | listo
+  const [error, setError] = useState('');
+
+  const cambiar = (e) => setForm(f => ({ ...f, [e.target.name]: e.target.value }));
+
+  const enviar = async (e) => {
+    e.preventDefault();
+    setError('');
+    setEstado('enviando');
+    const { error: err } = await supabase.rpc('solicitar_acceso_reclutador', {
+      p_nombre: form.nombre, p_empresa: form.empresa, p_email: form.email,
+      p_telefono: form.telefono, p_motivo: form.motivo,
+    });
+    if (err) {
+      const codigo = Object.keys(ERRORES_SOLICITUD).find(c => err.message?.includes(`[${c}]`));
+      setError(codigo ? ERRORES_SOLICITUD[codigo] : 'No se pudo enviar la solicitud. Revisá tu conexión y volvé a intentar.');
+      setEstado('idle');
+      return;
+    }
+    setEstado('listo');
+  };
+
+  if (estado === 'listo') {
+    return (
+      <div className="rec-pedir rec-pedir-ok">
+        <h2>¡Solicitud enviada!</h2>
+        <p>La recibimos. Cuando aprobemos tu acceso, te mandamos tu usuario y contraseña para entrar al buscador.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form className="contacto-form rec-pedir" onSubmit={enviar}>
+      <h2>¿Buscás personal?</h2>
+      <p>El buscador es para emprendimientos y pymes de la zona. Pedí tu acceso y te lo activamos.</p>
+      <div className="campo">
+        <label htmlFor="sol-nombre">Tu nombre</label>
+        <input id="sol-nombre" name="nombre" autoComplete="name" required minLength={2} maxLength={120} value={form.nombre} onChange={cambiar} />
+      </div>
+      <div className="campo">
+        <label htmlFor="sol-empresa">Negocio o empresa</label>
+        <input id="sol-empresa" name="empresa" required minLength={2} maxLength={120} value={form.empresa} onChange={cambiar} />
+      </div>
+      <div className="campo">
+        <label htmlFor="sol-email">Email</label>
+        <input id="sol-email" name="email" type="email" autoComplete="email" required maxLength={200} value={form.email} onChange={cambiar} />
+      </div>
+      <div className="campo">
+        <label htmlFor="sol-telefono">Teléfono <span className="rec-opcional">(opcional)</span></label>
+        <input id="sol-telefono" name="telefono" type="tel" autoComplete="tel" maxLength={40} value={form.telefono} onChange={cambiar} />
+      </div>
+      <div className="campo">
+        <label htmlFor="sol-motivo">¿Qué perfiles buscás? <span className="rec-opcional">(opcional)</span></label>
+        <textarea id="sol-motivo" name="motivo" rows={2} maxLength={1000} placeholder="Ej. vendedores, administrativos, depósito" value={form.motivo} onChange={cambiar} />
+      </div>
+      <button type="submit" className="btn btn-primary" disabled={estado === 'enviando'}>
+        {estado === 'enviando' ? 'Enviando…' : 'Pedir acceso'}
+      </button>
+      <p className="form-estado error" role="alert">{error}</p>
+      <p className="rec-pedir-wa">
+        ¿Preferís WhatsApp?{' '}
+        <a className="link" href={waLink('Hola José, quiero un usuario de reclutador para buscar CVs')} target="_blank" rel="noopener noreferrer">
+          Escribinos
+        </a>
+      </p>
+    </form>
   );
 }
 
@@ -48,13 +129,7 @@ function Login() {
         <button type="submit" className="btn btn-primary" disabled={enviando}>{enviando ? 'Entrando…' : 'Entrar'}</button>
         <p className="form-estado error" role="alert">{error}</p>
       </form>
-      <div className="rec-pedir">
-        <h2>¿Buscás personal?</h2>
-        <p>El buscador es para emprendimientos y pymes de la zona. Pedí tu usuario y te lo creo.</p>
-        <a className="btn btn-whatsapp" href={waLink('Hola José, quiero un usuario de reclutador para buscar CVs')} target="_blank" rel="noopener noreferrer">
-          Pedir acceso
-        </a>
-      </div>
+      <PedirAcceso />
     </div>
   );
 }

@@ -44,6 +44,22 @@ Dos cosas a tener en cuenta:
 
 Para quitarle el acceso: `delete from reclutadores where user_id = 'UID';`
 
+## Solicitudes de acceso desde el sitio (recomendado)
+
+En vez de crear cada reclutador a mano, el sitio tiene un **formulario** en `/laboral/reclutadores`: el reclutador deja su nombre, negocio, email y qué perfiles busca. La solicitud te queda **pendiente** y la **aprobás desde el panel admin** (pestaña *Reclutadores*). Al aprobar, se crea el usuario y el panel te muestra el email y una **contraseña temporal** para pasarle por WhatsApp. No se crea ninguna cuenta hasta que vos aprobás.
+
+Para activarlo (una sola vez):
+
+1. **Crear la tabla.** *SQL Editor* > pegá [`solicitudes-reclutador.sql`](solicitudes-reclutador.sql) > *Run*. (Necesita que `schema.sql` ya esté corrido.)
+2. **Publicar la función.** *Edge Functions* > *Deploy a new function* > *Via Editor*. Nombre: `admin-reclutadores`. Pegá [`functions/admin-reclutadores/index.ts`](functions/admin-reclutadores/index.ts) y *Deploy*.
+3. **Desactivar la verificación JWT.** En la función > *Settings* > desactivá *Enforce JWT verification* (o *Verify JWT*) y guardá. La protege la clave de admin del paso siguiente, no un usuario logueado.
+4. **Cargar el secreto.** *Edge Functions* > *Secrets* > agregá `ADMIN_RECLUTADORES_KEY` con una contraseña larga inventada por vos (por ejemplo, 40 letras y números al azar). Guardala.
+5. **En el panel admin** (`conectatumundo.net/admin-panel.html`), entrá a la pestaña *Reclutadores* y pegá esa misma clave una vez. Queda guardada en tu navegador. Desde ahí ves las solicitudes y aprobás/rechazás con un clic.
+
+El flujo manual de arriba (*Dar acceso a un reclutador*) sigue funcionando por si alguna vez lo necesitás; las dos formas conviven.
+
+Para **quitarle el acceso** a un reclutador, ahora también podés hacerlo desde la pestaña *Reclutadores* con el botón *Quitar acceso*.
+
 ## Tareas de mantenimiento
 
 **Ver cuántos CVs hay:**

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import PageHeader from '../../components/PageHeader';
 import Icon, { icons } from '../../components/Icon';
 import RedConecta from './RedConecta';
-import { waLink } from '../../data/contacto';
 import './Laboral.css';
 
 // Usa Supabase: se carga aparte para no sumar peso al resto del sitio
@@ -54,9 +53,7 @@ export default function Laboral() {
           </div>
           <div className="laboral-reclutadores-acciones">
             <Link to="/laboral/reclutadores" className="btn btn-primary">Buscar CVs</Link>
-            <a href={waLink('Hola José, tengo un negocio y quiero acceso al buscador de CVs')} className="link" target="_blank" rel="noopener noreferrer">
-              ¿No tenés acceso? Pedilo
-            </a>
+            <Link to="/laboral/reclutadores" className="link">¿No tenés acceso? Pedilo</Link>
           </div>
         </div>
       </section>

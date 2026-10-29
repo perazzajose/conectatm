@@ -107,6 +107,18 @@
   .icon-btn.del:hover{background:var(--danger);color:#fff;}
   .empty-state{text-align:center;padding:50px 20px;color:var(--muted);background:var(--card);border-radius:12px;}
 
+  /* RECLUTADORES */
+  .rec-admin-h{font-size:15px;color:var(--purple-dark);margin:26px 0 12px;display:flex;align-items:center;gap:8px;}
+  #reclutadoresContainer>.rec-admin-h:first-child{margin-top:0;}
+  .rec-admin-h+table,.rec-admin-h+.empty-state{margin-bottom:6px;}
+  .rec-cred{background:#e3f6ec;border:1px solid #bfe8d1;border-radius:12px;padding:16px 18px;margin-bottom:22px;}
+  .rec-cred>strong{color:var(--success);}
+  .rec-cred-row{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap;}
+  .rec-cred-row span{min-width:84px;font-size:13px;color:var(--muted);}
+  .rec-cred-row code{background:#fff;border:1px solid var(--border);padding:6px 11px;border-radius:7px;font-size:15px;letter-spacing:.3px;}
+  .rec-cred-nota{font-size:12px;color:var(--muted);margin:12px 0;}
+  .btn.btn-small{width:auto;}
+
   /* MODAL */
   .modal-overlay{display:none;position:fixed;inset:0;background:rgba(46,39,64,0.5);align-items:center;justify-content:center;z-index:100;padding:20px;}
   .modal-overlay.active{display:flex;}
@@ -172,6 +184,7 @@
     <div class="tabs">
       <div class="tab active" data-tab="emprendimientos">Emprendimientos</div>
       <div class="tab" data-tab="tutores">Tutores</div>
+      <div class="tab" data-tab="reclutadores">Reclutadores</div>
     </div>
 
     <!-- EMPRENDIMIENTOS -->
@@ -188,6 +201,11 @@
         <input type="text" id="searchTutores" placeholder="Buscar por nombre...">
       </div>
       <div id="tutoresContainer"><div class="loading">Cargando...</div></div>
+    </div>
+
+    <!-- RECLUTADORES -->
+    <div class="panel" id="panel-reclutadores">
+      <div id="reclutadoresContainer"><div class="loading">Cargando...</div></div>
     </div>
   </main>
 
@@ -402,6 +420,7 @@ onAuthStateChanged(auth, (user) => {
     document.getElementById('userEmail').textContent = user.email;
     loadEmprendimientos();
     loadTutores();
+    loadReclutadores();
   } else {
     loginScreen.style.display = 'flex';
     appEl.style.display = 'none';
@@ -692,6 +711,172 @@ document.getElementById('btnSaveTut').addEventListener('click', async () => {
 });
 
 document.getElementById('btnCancelTut').addEventListener('click', () => closeModal('modalTutor'));
+
+// ---------- RECLUTADORES (Supabase, vía Edge Function admin-reclutadores) ----------
+// Los CVs y reclutadores viven en Supabase, no en Firebase. La función usa la service role y
+// está protegida por una clave de admin que se guarda en este navegador (no viaja al repo).
+const SUPABASE_URL = 'https://jsmfkzegsevznmflaqyk.supabase.co';
+const SUPABASE_ANON = 'sb_publishable_svOGh39SoZFI6ua8cNpZAA_jBCrXsg3'; // clave pública (publishable)
+const FN_RECLUTADORES = SUPABASE_URL + '/functions/v1/admin-reclutadores';
+const REC_KEY = 'ctm_rec_admin_key';
+
+let ultimaCredencial = null;
+
+async function callRec(accion, extra = {}){
+  const clave = localStorage.getItem(REC_KEY) || '';
+  const r = await fetch(FN_RECLUTADORES, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      apikey: SUPABASE_ANON,
+      Authorization: 'Bearer ' + SUPABASE_ANON,
+      'x-admin-key': clave,
+    },
+    body: JSON.stringify({ accion, ...extra }),
+  });
+  const data = await r.json().catch(() => ({ error: 'red' }));
+  if(r.status === 401) throw { codigo: 'no-autorizado' };
+  if(!r.ok || data.error) throw { codigo: data.error || 'red', detalle: data.detalle };
+  return data;
+}
+
+function fechaCorta(iso){ try { return new Date(iso).toLocaleDateString('es-UY'); } catch { return ''; } }
+
+async function loadReclutadores(){
+  const c = document.getElementById('reclutadoresContainer');
+  if(!localStorage.getItem(REC_KEY)){ renderClaveRec(); return; }
+  c.innerHTML = '<div class="loading">Cargando...</div>';
+  try {
+    renderReclutadores(await callRec('listar'));
+  } catch(err) {
+    if(err.codigo === 'no-autorizado'){ localStorage.removeItem(REC_KEY); renderClaveRec('La clave de admin no es correcta.'); return; }
+    if(err.codigo === 'sin-configurar'){ c.innerHTML = '<div class="empty-state">Falta cargar el secreto <code>ADMIN_RECLUTADORES_KEY</code> en la función de Supabase.</div>'; return; }
+    c.innerHTML = '<div class="empty-state">No se pudo cargar: ' + escapeHtml(err.detalle || err.codigo || 'error') + '</div>';
+  }
+}
+
+function renderClaveRec(msg){
+  document.getElementById('reclutadoresContainer').innerHTML = `
+    <div class="empty-state" style="text-align:left;max-width:460px;margin:30px auto;">
+      <h3 style="margin-top:0;color:var(--purple-dark)">Clave de admin</h3>
+      <p>Para gestionar reclutadores, ingresá la clave <code>ADMIN_RECLUTADORES_KEY</code> que cargaste en Supabase. Queda guardada en este navegador.</p>
+      ${msg ? `<p style="color:var(--danger)">${escapeHtml(msg)}</p>` : ''}
+      <input type="password" id="recKeyInput" placeholder="clave de admin" style="width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;margin-bottom:12px;font-size:14px;">
+      <button class="btn" onclick="window.guardarClaveRec()">Guardar y entrar</button>
+    </div>`;
+}
+
+window.guardarClaveRec = function(){
+  const v = document.getElementById('recKeyInput').value.trim();
+  if(!v) return;
+  localStorage.setItem(REC_KEY, v);
+  loadReclutadores();
+};
+
+function renderReclutadores(data){
+  const sols = data.solicitudes || [];
+  const pend = sols.filter(s => s.estado === 'pendiente');
+  const hist = sols.filter(s => s.estado !== 'pendiente');
+  const recs = data.reclutadores || [];
+  let html = '';
+
+  if(ultimaCredencial){
+    const em = escapeHtml(ultimaCredencial.email), pw = escapeHtml(ultimaCredencial.password);
+    html += `<div class="rec-cred">
+      <strong>✓ Acceso listo.</strong> Pasale estos datos al reclutador (ej. por WhatsApp):
+      <div class="rec-cred-row"><span>Email</span><code>${em}</code><button class="btn btn-small" onclick="navigator.clipboard&&navigator.clipboard.writeText('${em}');showToast('Email copiado')">Copiar</button></div>
+      <div class="rec-cred-row"><span>Contraseña</span><code>${pw}</code><button class="btn btn-small" onclick="navigator.clipboard&&navigator.clipboard.writeText('${pw}');showToast('Contraseña copiada')">Copiar</button></div>
+      <p class="rec-cred-nota">Entra en conectatumundo.net/laboral/reclutadores. Puede cambiar la contraseña más adelante.</p>
+      <button class="btn btn-small btn-secondary" onclick="window.cerrarCred()">Ocultar</button>
+    </div>`;
+  }
+
+  html += `<h3 class="rec-admin-h">Solicitudes pendientes${pend.length ? ` <span class="badge badge-sinweb">${pend.length}</span>` : ''}</h3>`;
+  if(!pend.length){
+    html += '<div class="empty-state">No hay solicitudes pendientes.</div>';
+  } else {
+    html += '<table><thead><tr><th>Fecha</th><th>Nombre</th><th>Empresa</th><th>Contacto</th><th>Busca</th><th>Acciones</th></tr></thead><tbody>';
+    pend.forEach(s => {
+      html += `<tr>
+        <td data-label="Fecha">${escapeHtml(fechaCorta(s.creado))}</td>
+        <td data-label="Nombre"><strong>${escapeHtml(s.nombre)}</strong></td>
+        <td data-label="Empresa">${escapeHtml(s.empresa)}</td>
+        <td data-label="Contacto">${escapeHtml(s.email)}${s.telefono ? '<br>' + escapeHtml(s.telefono) : ''}</td>
+        <td data-label="Busca">${escapeHtml(s.motivo || '-')}</td>
+        <td data-label="Acciones" class="actions-cell">
+          <button class="btn btn-small" data-id="${escapeHtml(s.id)}" onclick="window.aprobarSol(this.dataset.id)">Aprobar</button>
+          <button class="btn btn-small btn-secondary" data-id="${escapeHtml(s.id)}" onclick="window.rechazarSol(this.dataset.id)">Rechazar</button>
+        </td></tr>`;
+    });
+    html += '</tbody></table>';
+  }
+
+  html += `<h3 class="rec-admin-h">Reclutadores con acceso${recs.length ? ` <span class="badge badge-conweb">${recs.length}</span>` : ''}</h3>`;
+  if(!recs.length){
+    html += '<div class="empty-state">Todavía no hay reclutadores con acceso.</div>';
+  } else {
+    html += '<table><thead><tr><th>Nombre</th><th>Empresa</th><th>Email</th><th>Desde</th><th>Acciones</th></tr></thead><tbody>';
+    recs.forEach(r => {
+      html += `<tr>
+        <td data-label="Nombre"><strong>${escapeHtml(r.nombre || '-')}</strong></td>
+        <td data-label="Empresa">${escapeHtml(r.empresa || '-')}</td>
+        <td data-label="Email">${escapeHtml(r.email || '-')}</td>
+        <td data-label="Desde">${escapeHtml(fechaCorta(r.creado))}</td>
+        <td data-label="Acciones" class="actions-cell">
+          <button class="btn btn-small btn-secondary" data-id="${escapeHtml(r.user_id)}" onclick="window.quitarRec(this.dataset.id)">Quitar acceso</button>
+        </td></tr>`;
+    });
+    html += '</tbody></table>';
+  }
+
+  if(hist.length){
+    html += '<h3 class="rec-admin-h">Historial</h3>';
+    html += '<table><thead><tr><th>Fecha</th><th>Nombre</th><th>Empresa</th><th>Estado</th></tr></thead><tbody>';
+    hist.slice(0, 50).forEach(s => {
+      const badge = s.estado === 'aprobada' ? 'badge-conweb' : 'badge-sinweb';
+      html += `<tr>
+        <td data-label="Fecha">${escapeHtml(fechaCorta(s.procesado || s.creado))}</td>
+        <td data-label="Nombre">${escapeHtml(s.nombre)}</td>
+        <td data-label="Empresa">${escapeHtml(s.empresa)}</td>
+        <td data-label="Estado"><span class="badge ${badge}">${escapeHtml(s.estado)}</span></td></tr>`;
+    });
+    html += '</tbody></table>';
+  }
+
+  document.getElementById('reclutadoresContainer').innerHTML = html;
+}
+
+window.cerrarCred = function(){ ultimaCredencial = null; loadReclutadores(); };
+
+window.aprobarSol = async function(id){
+  if(!confirm('¿Aprobar esta solicitud? Se va a crear el acceso del reclutador.')) return;
+  try {
+    const r = await callRec('aprobar', { id });
+    ultimaCredencial = { email: r.email, password: r.password };
+    showToast(r.nuevo ? 'Acceso creado' : 'Acceso actualizado');
+    loadReclutadores();
+  } catch(err) {
+    if(err.codigo === 'no-autorizado'){ localStorage.removeItem(REC_KEY); loadReclutadores(); showToast('Clave de admin incorrecta'); return; }
+    showToast('No se pudo aprobar (' + (err.codigo || 'error') + ')');
+  }
+};
+
+window.rechazarSol = async function(id){
+  if(!confirm('¿Rechazar esta solicitud?')) return;
+  try { await callRec('rechazar', { id }); showToast('Solicitud rechazada'); loadReclutadores(); }
+  catch(err) { showToast('No se pudo rechazar'); }
+};
+
+window.quitarRec = async function(userId){
+  if(!confirm('¿Quitarle el acceso a este reclutador? No va a poder seguir buscando CVs.')) return;
+  try { await callRec('quitar', { user_id: userId }); showToast('Acceso quitado'); loadReclutadores(); }
+  catch(err) { showToast('No se pudo quitar'); }
+};
+
+// El botón flotante + solo sirve para emprendimientos y tutores
+document.querySelectorAll('.tab').forEach(tab => tab.addEventListener('click', () => {
+  document.getElementById('fabAdd').style.display = tab.dataset.tab === 'reclutadores' ? 'none' : '';
+}));
 
 // ---------- FAB (botón flotante +) ----------
 document.getElementById('fabAdd').addEventListener('click', () => {
