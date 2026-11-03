@@ -1,4 +1,4 @@
-import { lazy, Suspense, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon, { icons } from '../../../components/Icon';
 import FaqItem from '../../../components/FaqItem';
@@ -8,12 +8,35 @@ import Consejos from './Consejos';
 import CvPasos from './CvPasos';
 import { EJEMPLOS } from './ejemplos';
 import { lleno, itemLleno, vacio } from './vacios';
+import { nombreArchivo } from './archivo';
 import './CvEditor.css';
+
+// El generador de PDF (jsPDF) se baja recién cuando alguien va a descargar o compartir
+const moduloPdf = () => import('./pdfCv');
+
+async function armarPdf(data) {
+  const { crearPdf, fotoEnCirculo } = await moduloPdf();
+  const fotoRedonda = data.foto ? await fotoEnCirculo(data.foto, data.color) : null;
+  return new File([crearPdf(data, { fotoRedonda })], nombreArchivo(data.nombre), { type: 'application/pdf' });
+}
+
+function bajar(file) {
+  const url = URL.createObjectURL(file);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = file.name;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 60000);
+}
+
+const WHATSAPP_SIN_NUMERO = 'https://wa.me/';
 
 // Responden lo que la gente busca antes de usar el editor (y le dan contexto a Google)
 const PREGUNTAS = [
   { q: '¿Es gratis?', a: 'Sí. Armás el CV, lo descargás en PDF las veces que quieras y no hay que pagar ni registrarse. El PDF sale sin marcas ni publicidad.' },
-  { q: '¿Puedo hacerlo desde el celular?', a: 'Sí. Tocá cualquier texto de la hoja para escribir. Al tocar “Descargar PDF” se abre la opción de imprimir: en Android elegí “Guardar como PDF”; en iPhone, tocá el botón de compartir y elegí “Guardar en Archivos”.' },
+  { q: '¿Puedo hacerlo desde el celular?', a: 'Sí. Completalo paso a paso o tocando cualquier texto de la hoja. “Descargar PDF” lo guarda en el celular con tu nombre (por ejemplo, CV_Ana_Perez.pdf) y “Mandar por WhatsApp” te deja elegir el chat para mandarlo.' },
   { q: '¿Dónde quedan mis datos?', a: 'Solo en tu navegador, en este dispositivo. No se suben a ningún servidor. Si borrás los datos del navegador o cambiás de celular, no vas a encontrarlo: guardá siempre el PDF.' },
   { q: '¿Qué pasa con las secciones que no completo?', a: 'No salen en el PDF. Si no tenés idiomas o cursos, dejalos vacíos y el CV queda prolijo igual.' },
   { q: 'No tengo experiencia, ¿qué pongo?', a: 'Tocá el ejemplo “Primer empleo” para ver uno armado. Changas, voluntariados, proyectos de estudio y cursos cortos cuentan; en “Consejos para armar tu CV” hay más ideas.' },
@@ -84,6 +107,14 @@ export default function CvEditor() {
   const cv = useCV();
   const { data } = cv;
   const [errorFoto, setErrorFoto] = useState(false);
+  const [aviso, setAviso] = useState(null);
+  const [pendiente, setPendiente] = useState(null);
+  // El aviso agranda la barra fija y tapa la hoja: se va solo
+  useEffect(() => {
+    if (!aviso) return undefined;
+    const t = setTimeout(() => setAviso(null), 15000);
+    return () => clearTimeout(t);
+  }, [aviso]);
   const [modo, setModoEstado] = useState(modoInicial);
   const setModo = (m) => {
     setModoEstado(m);
@@ -114,15 +145,63 @@ export default function CvEditor() {
     cv.cargar(ej.data);
   };
 
-  // El título de la página es el nombre que el navegador propone al guardar el PDF
-  const descargar = () => {
+  // Plan B si no se pudo armar el PDF: imprimir la hoja. El título de la página es el nombre
+  // que el navegador propone al guardar; se devuelve al cerrar la impresión (en celular no espera).
+  const imprimir = () => {
     const anterior = document.title;
-    document.title = lleno(data.nombre) ? `CV ${data.nombre.trim()}` : 'Mi CV';
+    document.title = nombreArchivo(data.nombre).replace(/\.pdf$/, '');
+    const volver = () => { document.title = anterior; window.removeEventListener('afterprint', volver); };
+    window.addEventListener('afterprint', volver);
     window.print();
-    document.title = anterior;
+  };
+
+  const descargar = async () => {
+    setAviso(null);
+    setPendiente(null);
+    try {
+      const file = await armarPdf(data);
+      bajar(file);
+      setAviso({ texto: `Listo: se descargó ${file.name}.` });
+    } catch {
+      imprimir();
+    }
     // Con el CV listo, el siguiente paso es postularse
     document.getElementById('cv-ofertas')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
+
+  // Abre el menú de compartir del celular con el PDF, para elegir WhatsApp y el chat.
+  // Donde no se puede compartir archivos (algunas compus), lo descarga y explica cómo adjuntarlo.
+  const mandar = async (file) => {
+    setPendiente(null);
+    if (navigator.canShare?.({ files: [file] })) {
+      try {
+        // Solo el archivo: si va con texto, WhatsApp en iPhone a veces manda el texto y no el PDF
+        await navigator.share({ files: [file] });
+        return;
+      } catch (e) {
+        if (e?.name === 'AbortError') return; // cerró el menú sin elegir
+        // Armar el PDF tardó y el navegador ya no lo toma como respuesta al toque: pedimos otro
+        if (e?.name === 'NotAllowedError') { setPendiente(file); return; }
+      }
+    }
+    bajar(file);
+    setAviso({ texto: `Se descargó ${file.name}. En WhatsApp, abrí el chat, tocá el clip y elegí ese archivo.`, whatsapp: true });
+  };
+
+  const compartir = async () => {
+    setAviso(null);
+    setPendiente(null);
+    let file;
+    try {
+      file = await armarPdf(data);
+    } catch {
+      setAviso({ texto: 'No se pudo armar el PDF. Probá con “Descargar PDF”.' });
+      return;
+    }
+    await mandar(file);
+  };
+
+  const acciones = { onDescargar: descargar, onCompartir: compartir, onPrecargar: () => { moduloPdf().catch(() => {}); } };
 
   const contactos = [
     { campo: 'telefono', icon: icons.telefono, ph: 'Teléfono' },
@@ -170,7 +249,7 @@ export default function CvEditor() {
         ))}
       </div>
 
-      {modo === 'pasos' && <CvPasos cv={cv} onFoto={handleFoto} errorFoto={errorFoto} onVerHoja={verHoja} onDescargar={descargar} />}
+      {modo === 'pasos' && <CvPasos cv={cv} onFoto={handleFoto} errorFoto={errorFoto} onVerHoja={verHoja} {...acciones} />}
 
       {/* En modo paso a paso la hoja no se ve en pantalla, pero sigue ahí para imprimir el PDF */}
       <div className={`cv-hoja${modo === 'pasos' ? ' cv-hoja-oculta' : ''}`} id="cv-hoja">
@@ -313,12 +392,29 @@ export default function CvEditor() {
           ))}
         </div>
         <button type="button" className="btn btn-outline cv-borrar" onClick={reiniciar}>Borrar todo</button>
-        <button type="button" className="btn btn-primary" onClick={descargar}>
+        <button type="button" className="btn btn-primary" onPointerDown={acciones.onPrecargar} onClick={descargar}>
           <Icon size="20">{icons.descarga}</Icon> Descargar PDF
         </button>
+        <button type="button" className="btn btn-whatsapp" onPointerDown={acciones.onPrecargar} onClick={compartir}>
+          <Icon size="20">{icons.whatsapp}</Icon> Mandar por WhatsApp
+        </button>
+        <div className="cv-aviso" role="status">
+          {pendiente ? (
+            <>
+              <span>El PDF está listo.</span>
+              <button type="button" className="btn btn-whatsapp" onClick={() => mandar(pendiente)}>Tocá acá para mandarlo</button>
+            </>
+          ) : aviso && (
+            <>
+              <span>{aviso.texto}</span>
+              {aviso.whatsapp && <a className="link" href={WHATSAPP_SIN_NUMERO} target="_blank" rel="noopener noreferrer">Abrir WhatsApp</a>}
+            </>
+          )}
+        </div>
       </div>
       <p className="cv-pdf-ayuda">
-        Para descargar: tocá “Descargar PDF” y en la ventana de impresión elegí “Guardar como PDF”. Las secciones que dejes vacías no salen en el PDF.
+        El PDF se guarda con tu nombre (por ejemplo, CV_Ana_Perez.pdf). Las secciones que dejes vacías no salen.
+        {' '}Si no se descarga, <button type="button" className="link" onClick={imprimir}>imprimí la hoja</button> y elegí “Guardar como PDF”.
         {' '}¿Ya lo tenés? <Link to="/laboral/subir" className="link">Subilo a la bolsa de CVs</Link> para que te encuentren.
       </p>
 

@@ -111,6 +111,13 @@
 .cv-barra .btn-primary:hover{background:var(--palmera-suave)}
 .cv-barra .cv-borrar{color:#fff;border-color:rgba(255,255,255,.5)}
 .cv-barra .cv-borrar:hover{background:rgba(255,255,255,.12)}
+.cv-barra .btn-whatsapp{border-color:#1F8F4E}
+/* Aviso después de descargar o compartir: ocupa toda la fila de la barra */
+.cv-aviso{width:100%;display:flex;flex-wrap:wrap;align-items:center;gap:.4rem .9rem;color:#fff;font-size:.95rem}
+.cv-aviso:empty{display:none}
+.cv-aviso .link{color:#fff}
+.cv-barra .cv-aviso .btn{flex:none}
+.cv-pdf-ayuda button.link{font:inherit;background:none;border:none;padding:0;cursor:pointer}
 .cv-pdf-ayuda{max-width:210mm;margin:0 auto;padding:.8rem 0 2.5rem;color:var(--tinta-suave);font-size:.92rem}
 .cv-pagina section.cv-ofertas{max-width:210mm;margin:0 auto;padding:2rem 0 3.5rem;border-top:1px solid var(--baldosa-borde)}
 
@@ -175,8 +182,11 @@
   /* (el texto invisible que mide el ancho tiene que ir al mismo tamaño que el campo) */
   .cv-hoja .editable-medida,.cv-hoja .editable-input,.cv-hoja .editable-multi{font-size:max(16px,1em)}
   .cv-barra{padding:.6rem;gap:.5rem}
+  .cv-colores{width:auto;flex:1}
   .cv-colores button{width:26px;height:26px}
-  .cv-barra .btn{min-height:42px;padding:.5rem .7rem}
+  .cv-barra .btn{min-height:44px;padding:.5rem .7rem;white-space:normal;line-height:1.15}
+  .cv-barra .cv-borrar{flex:none;min-height:36px;padding:.3rem .7rem;font-size:.9rem}
+  .cv-barra .btn-primary,.cv-barra .btn-whatsapp{flex:1 1 40%}
 }
 
 @media(min-width:600px){ .cv-ejemplos-grid{grid-template-columns:1fr 1fr} }

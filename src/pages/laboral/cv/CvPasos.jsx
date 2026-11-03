@@ -36,7 +36,7 @@ function Item({ titulo, onQuitar, children }) {
   );
 }
 
-export default function CvPasos({ cv, onFoto, errorFoto, onVerHoja, onDescargar }) {
+export default function CvPasos({ cv, onFoto, errorFoto, onVerHoja, onDescargar, onCompartir, onPrecargar }) {
   const { data } = cv;
   const [paso, setPaso] = useState(0);
   const titulo = useRef(null);
@@ -168,9 +168,10 @@ export default function CvPasos({ cv, onFoto, errorFoto, onVerHoja, onDescargar 
           ) : (
             <p className="cv-paso-ok">Tu CV está completo.</p>
           )}
-          <p>Las secciones que dejaste vacías no salen en el PDF. Podés ver cómo quedó y retocarlo sobre la hoja.</p>
+          <p>El PDF se guarda con tu nombre y las secciones que dejaste vacías no salen. Podés ver cómo quedó y retocarlo sobre la hoja.</p>
           <div className="cv-paso-final">
-            <button type="button" className="btn btn-primary" onClick={onDescargar}>Descargar PDF</button>
+            <button type="button" className="btn btn-primary" onPointerDown={onPrecargar} onClick={onDescargar}>Descargar PDF</button>
+            <button type="button" className="btn btn-whatsapp" onPointerDown={onPrecargar} onClick={onCompartir}>Mandar por WhatsApp</button>
             <button type="button" className="btn btn-outline" onClick={onVerHoja}>Ver cómo quedó</button>
           </div>
         </Fragment>

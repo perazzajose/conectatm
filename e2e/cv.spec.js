@@ -142,3 +142,61 @@ test.describe('editor de CV, paso a paso', () => {
     await expect(page.locator('.cv-pasos')).toBeHidden();
   });
 });
+
+test.describe('editor de CV, descargar y mandar por WhatsApp', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/laboral/cv');
+    await elegirModo(page, 'Sobre la hoja');
+    await page.getByRole('button', { name: /Con experiencia/ }).click();
+  });
+
+  test('el PDF se descarga con el nombre de la persona y con texto que se puede leer', async ({ page }) => {
+    const [descarga] = await Promise.all([
+      page.waitForEvent('download'),
+      page.getByRole('button', { name: 'Descargar PDF' }).click(),
+    ]);
+    expect(descarga.suggestedFilename()).toBe('CV_Lucia_Fernandez.pdf');
+    await expect(page.getByRole('status')).toContainText('se descargó CV_Lucia_Fernandez.pdf');
+
+    const fs = await import('node:fs/promises');
+    const pdfjs = await import('pdfjs-dist/legacy/build/pdf.mjs');
+    const doc = await pdfjs.getDocument({ data: new Uint8Array(await fs.readFile(await descarga.path())), verbosity: 0 }).promise;
+    const { items } = await (await doc.getPage(1)).getTextContent();
+    expect(items.map(i => i.str).join(' ').trim().startsWith('Lucía Fernández')).toBe(true);
+  });
+
+  test('"Mandar por WhatsApp" abre el menú de compartir con el PDF', async ({ page }) => {
+    await page.evaluate(() => {
+      navigator.canShare = () => true;
+      navigator.share = async ({ files }) => { window.__compartido = files.map(f => `${f.name} ${f.type}`); };
+    });
+    await page.getByRole('button', { name: 'Mandar por WhatsApp' }).click();
+    await expect.poll(() => page.evaluate(() => window.__compartido)).toEqual(['CV_Lucia_Fernandez.pdf application/pdf']);
+  });
+
+  test('donde no se pueden compartir archivos, lo descarga y explica cómo mandarlo', async ({ page }) => {
+    await page.evaluate(() => { navigator.canShare = undefined; });
+    const [descarga] = await Promise.all([
+      page.waitForEvent('download'),
+      page.getByRole('button', { name: 'Mandar por WhatsApp' }).click(),
+    ]);
+    expect(descarga.suggestedFilename()).toBe('CV_Lucia_Fernandez.pdf');
+    await expect(page.getByRole('status')).toContainText('tocá el clip');
+    await expect(page.getByRole('link', { name: 'Abrir WhatsApp' })).toBeVisible();
+  });
+
+  test('si el navegador pide otro toque, aparece el botón para mandarlo', async ({ page }) => {
+    await page.evaluate(() => {
+      navigator.canShare = () => true;
+      let veces = 0;
+      navigator.share = async ({ files }) => {
+        veces += 1;
+        if (veces === 1) throw new DOMException('sin toque', 'NotAllowedError');
+        window.__compartido = files[0].name;
+      };
+    });
+    await page.getByRole('button', { name: 'Mandar por WhatsApp' }).click();
+    await page.getByRole('button', { name: 'Tocá acá para mandarlo' }).click();
+    await expect.poll(() => page.evaluate(() => window.__compartido)).toBe('CV_Lucia_Fernandez.pdf');
+  });
+});
