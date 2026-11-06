@@ -4,16 +4,15 @@ import Sobre from './Sobre';
 import Icon, { icons } from '../../components/Icon';
 import Proximamente from '../../components/Proximamente';
 import ContactoForm from '../../components/ContactoForm';
-import { CAMINOS } from '../../data/caminos';
+import { RAMAS } from '../../data/ramas';
 import { HERRAMIENTAS } from '../../data/herramientas';
 import './Home.css';
 
-// Lo que ya se puede usar hoy, sin hablar con nadie
+// Lo que un comercio ya puede usar hoy, sin hablar con nadie
 const disponibles = [
-  { to: '/laboral/cv', icon: icons.cv, titulo: 'Armá tu CV', desc: 'Completalo en el navegador y descargalo en PDF. Gratis.' },
-  { to: '/negocios/pos', icon: icons.pos, titulo: 'Elegí con qué cobrar', desc: 'Cuatro preguntas y te decimos qué POS le sirve a tu negocio.' },
-  { to: '/negocios/emprendimientos', icon: icons.emprendimientos, titulo: 'Emprendimientos de la zona', desc: 'Negocios locales que ya forman parte de la red.' },
-  { to: '/laboral/tutores', icon: icons.tutores, titulo: 'Profes particulares', desc: 'Estudiantes que dan clases a precio accesible.' },
+  { to: '/negocios/pos#recomendador', icon: icons.pos, titulo: 'Elegí con qué cobrar', desc: 'Cuatro preguntas y te decimos qué POS le sirve a tu comercio.' },
+  { to: '/negocios/emprendimientos', icon: icons.emprendimientos, titulo: 'Mostrá tu comercio', desc: 'Sumalo gratis a la vitrina de negocios locales, con tu web y tus redes.' },
+  { to: '/laboral/cv', icon: icons.cv, titulo: 'CV gratis para quien se postula', desc: 'Se arma desde el celular y se manda en PDF por WhatsApp.' },
 ];
 
 export default function Home() {
@@ -23,15 +22,15 @@ export default function Home() {
 
       <section className="caminos" aria-labelledby="caminos-titulo">
         <div className="section-inner">
-          <h2 id="caminos-titulo">¿Qué venís a buscar?</h2>
+          <h2 id="caminos-titulo">¿En qué te ayudo?</h2>
           <ul className="caminos-lista">
-            {CAMINOS.map(c => (
-              <li key={c.id} style={{ '--c': c.color, '--c-suave': c.suave }}>
-                <Link to={c.to} className="camino">
-                  <span className="camino-icono"><Icon size="28">{c.icon}</Icon></span>
+            {RAMAS.map(r => (
+              <li key={r.id} style={{ '--c': r.color }}>
+                <Link to={r.to} className="camino">
+                  <span className="camino-icono"><Icon size="28">{r.icon}</Icon></span>
                   <span className="camino-texto">
-                    <strong>{c.pregunta}</strong>
-                    <span>{c.resumen}</span>
+                    <strong>{r.titulo}</strong>
+                    <span>{r.resumen}</span>
                   </span>
                   <span className="camino-flecha"><Icon size="26">{icons.flecha}</Icon></span>
                 </Link>

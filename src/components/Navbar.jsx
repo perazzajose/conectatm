@@ -1,16 +1,12 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import Icon, { icons } from './Icon';
-import { CAMINOS } from '../data/caminos';
+import { RAMAS, CONTACTO } from '../data/ramas';
 import { waLink } from '../data/contacto';
 import './Navbar.css';
 
-const extras = [
-  { to: '/estudios', label: 'Estudios' },
-  { to: '/negocios/emprendimientos', label: 'Emprendimientos' },
-  { to: '/aprende', label: 'Aprendé' },
-  { to: '/faq', label: 'Preguntas' },
-];
+// Menú principal: solo las cuatro ramas para comercios y contacto.
+// El resto de las páginas sigue en su dirección y aparece en el pie ("Otras herramientas").
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
@@ -28,12 +24,12 @@ export default function Navbar() {
       <nav className="site-nav" aria-label="Principal">
         <Link to="/" className="nav-marca"><img src="/logo-ctm.webp" alt="ConectaTuMundo" width="115" height="40" /></Link>
         <ul className="nav-links">
-          {CAMINOS.map(c => (
-            <li key={c.id}>
-              <NavLink to={c.to} end={c.id === 'negocios'} style={{ '--c': c.color }}>{c.nav}</NavLink>
+          {RAMAS.map(r => (
+            <li key={r.id}>
+              <NavLink to={r.to} style={{ '--c': r.color }}>{r.nav}</NavLink>
             </li>
           ))}
-          {extras.map(e => <li key={e.to}><NavLink to={e.to}>{e.label}</NavLink></li>)}
+          <li><Link to={CONTACTO.to}>{CONTACTO.label}</Link></li>
         </ul>
         <div className="nav-right">
           <a href={waLink()} className="nav-cta" target="_blank" rel="noopener noreferrer">
@@ -52,18 +48,18 @@ export default function Navbar() {
 
       <div className={`nav-drawer${open ? ' open' : ''}`} aria-hidden={!open}>
         <ul className="drawer-caminos">
-          {CAMINOS.map(c => (
-            <li key={c.id}>
-              <Link to={c.to} className="drawer-camino" style={{ '--c': c.color }} tabIndex={open ? 0 : -1}>
-                <strong>{c.pregunta}</strong>
-                <span>{c.resumen}</span>
+          {RAMAS.map(r => (
+            <li key={r.id}>
+              <Link to={r.to} className="drawer-camino" style={{ '--c': r.color }} tabIndex={open ? 0 : -1}>
+                <strong>{r.titulo}</strong>
+                <span>{r.resumen}</span>
               </Link>
             </li>
           ))}
         </ul>
         <ul className="drawer-extras">
           <li><Link to="/" tabIndex={open ? 0 : -1}>Inicio</Link></li>
-          {extras.map(e => <li key={e.to}><Link to={e.to} tabIndex={open ? 0 : -1}>{e.label}</Link></li>)}
+          <li><Link to={CONTACTO.to} tabIndex={open ? 0 : -1}>{CONTACTO.label}</Link></li>
         </ul>
         <a href={waLink()} className="btn btn-whatsapp drawer-cta" target="_blank" rel="noopener noreferrer" tabIndex={open ? 0 : -1}>
           <Icon size="20">{icons.whatsapp}</Icon> Escribime por WhatsApp

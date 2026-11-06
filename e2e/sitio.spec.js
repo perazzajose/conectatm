@@ -19,9 +19,13 @@ test('las rutas viejas llevan a las nuevas', async ({ page }) => {
 
 test('cada página llega con su título y su H1 en el HTML (sin esperar a JavaScript)', async ({ request }) => {
   const html = await (await request.get('/negocios/pos')).text();
-  expect(html).toContain('<title>¿Qué POS me conviene? Comparador de POS en Uruguay</title>');
+  expect(html).toContain('<title>Mejor POS en Uruguay 2026: comparativa de aranceles y cuotas (Getnet, OCA, Handy y más)</title>');
   expect(html).toMatch(/<h1[^>]*>¿Con qué POS te conviene cobrar\?/);
   expect(html).not.toContain('cargando-pagina');
+  // Las preguntas frecuentes llegan con sus datos estructurados en el HTML
+  const faq = [...html.matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)]
+    .map(m => JSON.parse(m[1])).find(d => d['@type'] === 'FAQPage');
+  expect(faq.mainEntity.map(q => q.name)).toContain('¿Getnet o Handy?');
 });
 
 test('la página de un departamento dice dónde trabaja José', async ({ page }) => {

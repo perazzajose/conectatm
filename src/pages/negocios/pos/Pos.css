@@ -42,3 +42,17 @@ table.comparativa tr:hover td{background:var(--buganvilia-suave)}
 .pos-fuentes summary{cursor:pointer;padding:.9rem 0;font-weight:700}
 .pos-fuentes p{color:var(--tinta-suave);margin-bottom:.7rem}
 .pos-fuentes ul{margin:0 0 1rem 1.1rem;display:flex;flex-direction:column;gap:.35rem}
+
+/* Fecha de actualización, bajo el subtítulo del encabezado */
+.pos-actualizado{margin-top:.9rem;font-size:.95rem;font-weight:700;color:var(--tinta)}
+
+/* Preguntas frecuentes */
+.pos-preguntas .faq-list{margin-top:1.2rem;max-width:72ch}
+
+/* Llamado final para comercios */
+.pos-cta{padding:0 var(--gutter) 2.5rem}
+.pos-cta-inner{max-width:var(--ancho);margin:0 auto;padding:2rem 1.5rem;background:var(--buganvilia-suave);border-top:5px solid var(--buganvilia)}
+.pos-cta h2{font-size:clamp(1.5rem,4.5vw,2.1rem);max-width:24ch;text-wrap:balance}
+.pos-cta p{margin-top:.7rem;color:var(--tinta-suave);max-width:58ch}
+.pos-cta-acciones{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.5rem;margin-top:1.4rem}
+@media(min-width:760px){ .pos-cta-inner{padding:2.6rem 2.5rem} }

@@ -21,7 +21,9 @@ describe('fichas de SEO', () => {
 
   test('títulos de hasta 60 caracteres y descripciones de 50 a 165, para que Google no los corte', () => {
     for (const [ruta, p] of Object.entries(PAGINAS)) {
-      expect(p.titulo.length, `título de ${ruta}`).toBeLessThanOrEqual(60);
+      // `tituloLargo`: excepción pedida a propósito (ver el comentario en seo.js)
+      if (!p.tituloLargo) expect(p.titulo.length, `título de ${ruta}`).toBeLessThanOrEqual(60);
+      else expect(p.titulo.length, `título de ${ruta}`).toBeLessThanOrEqual(90);
       expect(p.descripcion.length, `descripción de ${ruta}`).toBeLessThanOrEqual(165);
       if (!p.noindex) expect(p.descripcion.length, `descripción de ${ruta}`).toBeGreaterThanOrEqual(50);
     }

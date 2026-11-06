@@ -14,13 +14,14 @@
 .footer-contacto{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;font-size:.9rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,.15)}
 .footer-contacto a{color:rgba(255,255,255,.85);text-decoration:none}
 
-/* Los colores de cada camino son oscuros: sobre la tinta usamos versiones claras */
-.footer-cols > div:nth-child(1){--c:#8FC49A}
-.footer-cols > div:nth-child(2){--c:#E7B8E0}
-.footer-cols > div:nth-child(3){--c:#9CC0E8}
+/* Los colores de cada rama son oscuros: sobre la tinta usamos versiones claras (orden de RAMAS) */
+.footer-cols > div:nth-child(1){--c:#E7B8E0}
+.footer-cols > div:nth-child(2){--c:#9CC0E8}
+.footer-cols > div:nth-child(3){--c:rgba(255,255,255,.6)}
+.footer-cols > div:nth-child(4){--c:#8FC49A}
 
 @media(min-width:760px){
   .footer-inner{display:grid;grid-template-columns:1fr 2fr;gap:2.5rem}
-  .footer-cols{grid-template-columns:repeat(4,1fr)}
+  .footer-cols{grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
   .footer-zonas,.footer-contacto{grid-column:1 / -1}
 }

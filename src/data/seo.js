@@ -1,5 +1,6 @@
 import { WHATSAPP, EMAIL } from './contacto';
 import { DEPARTAMENTOS } from './departamentos';
+import { PROVEEDORES } from './posProveedores';
 
 // Título y descripción de cada página. Lo usan el componente <Seo> (en el navegador)
 // y scripts/prerender.mjs (que arma un HTML por ruta al compilar, para buscadores y vistas previas
@@ -14,8 +15,8 @@ export const SITIO = {
 
 export const PAGINAS = {
   '/': {
-    titulo: 'ConectaTuMundo | CV gratis, POS y desarrollo web en Uruguay',
-    descripcion: 'Armá tu CV gratis, elegí con qué POS cobrar y contratá un sitio o sistema para tu negocio. Herramientas digitales para Durazno, Rocha y Montevideo.',
+    titulo: 'ConectaTuMundo | Digitalización para comercios en Uruguay',
+    descripcion: 'Comparador de POS gratis, página web, Google Maps y redes, talleres para tu equipo y ayuda para contratar personal. Para comercios chicos de Uruguay.',
   },
   '/laboral': {
     titulo: 'Trabajo: armá tu CV y mirá ofertas en tu departamento',
@@ -68,8 +69,11 @@ export const PAGINAS = {
     nombre: 'Negocios',
   },
   '/negocios/pos': {
-    titulo: '¿Qué POS me conviene? Comparador de POS en Uruguay',
-    descripcion: 'Compará Handy, Getnet, Fiserv, Mercado Pago, OCA y más: medios de pago, liquidación, factura electrónica y contrato. Respondé cuatro preguntas y te recomendamos.',
+    // Pedido explícito: título largo con las búsquedas que más impresiones traen en Search Console.
+    // Google muestra unos 60 caracteres; lo importante ("Mejor POS en Uruguay 2026") va al principio.
+    titulo: 'Mejor POS en Uruguay 2026: comparativa de aranceles y cuotas (Getnet, OCA, Handy y más)',
+    tituloLargo: true,
+    descripcion: `Tabla con los números de ${PROVEEDORES.length} proveedores: comisiones publicadas, plazo de liquidación, costo de terminal, factura electrónica y contrato. Getnet, OCA, Handy y más.`,
     padre: '/negocios',
     nombre: 'Comparador de POS',
   },

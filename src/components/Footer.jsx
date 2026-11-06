@@ -1,14 +1,16 @@
 import { Link } from 'react-router-dom';
-import { CAMINOS } from '../data/caminos';
+import { RAMAS, OTRAS_HERRAMIENTAS } from '../data/ramas';
 import Logo from './Logo';
-import { EMAIL, WHATSAPP_VISIBLE, ZONAS_TEXTO, waLink } from '../data/contacto';
+import { EMAIL, WHATSAPP_VISIBLE, waLink } from '../data/contacto';
 import { DEPARTAMENTOS } from '../data/departamentos';
 import './Footer.css';
 
+// Una columna por rama (todas para el comercio). Lo que quedó fuera del foco va en "Otras herramientas".
 const subpaginas = {
-  laboral: [{ to: '/laboral/cv', label: 'Armá tu CV' }, { to: '/laboral/subir', label: 'Subí tu CV' }, { to: '/laboral/tutores', label: 'Red Conecta' }, { to: '/laboral/reclutadores', label: 'Buscar personal' }],
-  negocios: [{ to: '/negocios/pos', label: 'Comparador de POS' }, { to: '/negocios/emprendimientos', label: 'Emprendimientos' }],
-  desarrollo: [{ to: '/desarrollo#servicios', label: 'Servicios' }, { to: '/desarrollo#contacto', label: 'Pedí presupuesto' }],
+  comparadores: [{ to: '/negocios/pos', label: 'Comparador de POS' }, { to: '/negocios/pos#recomendador', label: '¿Qué POS me conviene?' }, { to: '/negocios', label: 'Herramientas para negocios' }],
+  servicios: [{ to: '/desarrollo#servicios', label: 'Web, Google Maps y redes' }, { to: '/desarrollo#contacto', label: 'Pedí presupuesto' }],
+  capacitacion: [{ to: '/aprende#talleres', label: 'Talleres para comercios' }, { to: '/aprende#glosario', label: 'Glosario digital' }],
+  contratar: [{ to: '/laboral/cv', label: 'Editor de CV gratis' }, { to: '/laboral/reclutadores', label: 'Buscar personal' }, { to: '/laboral', label: 'Trabajo en tu zona' }],
 };
 
 export default function Footer() {
@@ -17,23 +19,21 @@ export default function Footer() {
       <div className="footer-inner">
         <div className="footer-marca">
           <Link to="/" className="footer-logo" aria-label="ConectaTuMundo, inicio"><Logo size={44} /><span>Conecta<br />Tu Mundo</span></Link>
-          <p>Herramientas digitales para personas, emprendimientos y pymes de {ZONAS_TEXTO}.</p>
+          <p>Ayudo a los comercios chicos de Uruguay a digitalizarse sin complicarse.</p>
         </div>
         <nav className="footer-cols" aria-label="Pie de página">
-          {CAMINOS.map(c => (
-            <div key={c.id}>
-              <Link to={c.to} className="footer-col-titulo">{c.nav}</Link>
+          {RAMAS.map(r => (
+            <div key={r.id}>
+              <Link to={r.to} className="footer-col-titulo">{r.nav}</Link>
               <ul>
-                {subpaginas[c.id].map(s => <li key={s.to}><Link to={s.to}>{s.label}</Link></li>)}
+                {subpaginas[r.id].map(s => <li key={s.to}><Link to={s.to}>{s.label}</Link></li>)}
               </ul>
             </div>
           ))}
           <div>
-            <span className="footer-col-titulo">Más</span>
+            <span className="footer-col-titulo">Otras herramientas</span>
             <ul>
-              <li><Link to="/estudios">Estudiá gratis</Link></li>
-              <li><Link to="/aprende">Talleres y glosario</Link></li>
-              <li><Link to="/faq">Preguntas frecuentes</Link></li>
+              {OTRAS_HERRAMIENTAS.map(o => <li key={o.to}><Link to={o.to}>{o.label}</Link></li>)}
               <li><Link to="/privacy">Privacidad</Link></li>
             </ul>
           </div>

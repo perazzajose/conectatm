@@ -1,7 +1,12 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import PageHeader from '../../../components/PageHeader';
 import SumateBanner from '../../../components/SumateBanner';
+import FaqItem from '../../../components/FaqItem';
+import Icon, { icons } from '../../../components/Icon';
 import { PROVEEDORES, MEDIOS_LABEL, REVISADO, TOPES, glosario } from '../../../data/posProveedores';
+import { POS_FAQ, ACTUALIZADO, datosFaq } from '../../../data/posFaq';
+import { WHATSAPP_VISIBLE, waLink } from '../../../data/contacto';
 import PosRecomendador from './PosRecomendador';
 import PosCard from './PosCard';
 import PosTabla from './PosTabla';
@@ -31,7 +36,9 @@ export default function Pos() {
         pagina="Comparador de POS"
         title="¿Con qué POS te conviene cobrar?"
         subtitle={`Respondé cuatro preguntas y te recomendamos entre ${PROVEEDORES.length} proveedores que operan en Uruguay. Abajo tenés la comparación completa.`}
-      />
+      >
+        <p className="pos-actualizado">Actualizado: <time dateTime={ACTUALIZADO.fecha}>{ACTUALIZADO.texto}</time></p>
+      </PageHeader>
 
       <section id="recomendador" aria-label="Recomendador de POS">
         <div className="section-inner">
@@ -113,12 +120,37 @@ export default function Pos() {
         </div>
       </section>
 
+      <section id="preguntas-pos" className="pos-preguntas" aria-labelledby="preguntas-pos-titulo">
+        <div className="section-inner">
+          <h2 id="preguntas-pos-titulo">Preguntas frecuentes sobre POS en Uruguay</h2>
+          <p className="section-sub">Respondidas con los datos de la tabla. Lo que no está publicado, lo decimos.</p>
+          <div className="faq-list">
+            {POS_FAQ.map(f => <FaqItem key={f.q} question={f.q} answer={f.a} />)}
+          </div>
+        </div>
+        {/* Datos estructurados de estas preguntas: van en el HTML pre-renderizado, sin tocar ningún .html */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(datosFaq()).replace(/</g, '\\u003c') }} />
+      </section>
+
       <SumateBanner
         title="¿Algún dato cambió o falta un proveedor?"
         text="Este comparador se actualiza a mano. Si trabajás con alguno y las condiciones son otras, avisame."
         buttonLabel="Avisar un cambio"
         mensaje="Hola José, quiero avisar un cambio en el comparador de POS"
       />
+
+      <section className="pos-cta" aria-labelledby="pos-cta-titulo">
+        <div className="pos-cta-inner">
+          <h2 id="pos-cta-titulo">¿Tenés un comercio? Te ayudo con tu web, Google Maps y redes</h2>
+          <p>Tu página, tu ficha de Google Maps y tus perfiles bien armados, para que te encuentren y te escriban. Antes de empezar, te paso un presupuesto cerrado.</p>
+          <div className="pos-cta-acciones">
+            <a className="btn btn-whatsapp" href={waLink('Hola José, tengo un comercio y quiero ayuda con la web, Google Maps o las redes')} target="_blank" rel="noopener noreferrer">
+              <Icon size="20">{icons.whatsapp}</Icon> Escribime al {WHATSAPP_VISIBLE}
+            </a>
+            <Link className="link" to="/desarrollo#servicios">Ver servicios y precios</Link>
+          </div>
+        </div>
+      </section>
 
       <p className="pos-aviso">Comparador independiente, sin relación comercial con los proveedores. Confirmá las condiciones vigentes antes de contratar.</p>
     </>
