@@ -34,9 +34,9 @@ export const RAMAS = [
   },
   {
     id: 'contratar',
-    to: '/laboral/cv',
-    nav: 'Contratar personal',
-    titulo: 'Contratar personal',
+    to: '/laboral',
+    nav: 'Laboral',
+    titulo: 'Laboral',
     resumen: 'Pediles a quienes se postulan que armen su CV gratis acá, o buscá gente en la bolsa de CVs.',
     icon: icons.cv,
     color: 'var(--palmera)',

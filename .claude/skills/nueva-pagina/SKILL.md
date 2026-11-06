@@ -25,7 +25,7 @@ Cada camino va a mudarse a su propio subdominio (laboral.conectatumundo.net, etc
 
 ## Diseño (tokens en `src/styles/tokens.css`)
 - Paleta tomada de la foto de la plaza de Durazno: `--buganvilia` (negocios), `--palmera` (laboral), `--cielo` (desarrollo), `--camino` (rojo, solo detalles), `--baldosa`, `--tinta`. No inventar colores nuevos.
-- Tipografías: `--font-display` (Bricolage Grotesque) para títulos y `--font-texto` (Atkinson Hyperlegible Next) para texto.
+- Tipografías: `--font-display` (IBM Plex Sans, alojada con @fontsource en `src/main.jsx`) para títulos y `--font-texto` (Atkinson Hyperlegible Next) para texto.
 - Bordes redondeados solo en lo que se toca (botones, campos: `--r-control`); los bloques y las tarjetas van rectos.
 - Mobile-first: probar a 390px de ancho. Botones y opciones de al menos 44px de alto.
 - Nada de mayúsculas sostenidas en etiquetas, emojis decorativos ni flechas "→" en los botones.
