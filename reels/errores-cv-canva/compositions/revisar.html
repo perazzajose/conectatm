@@ -168,6 +168,10 @@
       lupa(P[i][0], P[i][1], t, 0.6);
       if (i > 0) tl.to(".mk" + (i - 1), { opacity: 0, duration: 0.2 }, t);
       tl.fromTo(".mk" + i, { opacity: 0, scale: 1.3 }, { opacity: 1, scale: 1, duration: 0.25, stagger: 0.12, ease: "back.out(2)" }, t + 0.65);
+      // Mientras se lee: el título crece apenas y la marca late
+      tl.fromTo(titulos[i + 1], { scale: 1 }, { scale: 1.06, duration: 2.4, ease: "sine.inOut", transformOrigin: "0% 50%" }, t + 0.35);
+      tl.to(".mk" + i, { scale: 1.07, duration: 0.3, yoyo: true, repeat: 5, ease: "sine.inOut" }, t + 1.0);
+      tl.fromTo("#lupa-mango", { rotation: 0 }, { rotation: 4, duration: 0.6, yoyo: true, repeat: 3, ease: "sine.inOut" }, t + 0.8);
       // La lupa sigue recorriendo despacio mientras se lee
       lupa(P[i][0] + 6, P[i][1] + 4, t + 0.7, 2.2, "sine.inOut");
     }
@@ -187,6 +191,9 @@
     // Salida
     tl.to(["#t6", "#tg6"], { opacity: 0, filter: "blur(10px)", duration: 0.2, ease: "power2.in" }, 21.6);
     tl.to(["#doc", "#sombra", "#chip"], { y: -1600, duration: 0.4, ease: "power3.in" }, 21.55);
+    tl.fromTo("#pt1", { y: 0 }, { y: -160, duration: 22, ease: "none" }, 0);
+    tl.fromTo("#pt2", { y: 0 }, { y: 160, duration: 22, ease: "none" }, 0);
+    tl.fromTo("#sombra", { x: 0 }, { x: 30, duration: 18, ease: "sine.inOut" }, 0);
     window.__timelines["revisar"] = tl;
   </script>
 </template>
