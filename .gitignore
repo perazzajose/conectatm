@@ -8,3 +8,6 @@ fotos-originales/
 # Resultados de tests
 test-results/
 playwright-report/
+
+# Videos generados por el generador de reels
+reels/salida/

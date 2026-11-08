@@ -1,0 +1,30 @@
+{
+  "nombre": "cv-60-segundos",
+  "escenas": [
+    {
+      "tipo": "portada",
+      "texto": "¿No tenés CV para la temporada?",
+      "subtexto": "Armalo gratis desde el celular, en un minuto.",
+      "segundos": 3
+    },
+    {
+      "tipo": "pagina",
+      "ruta": "/laboral/cv",
+      "pasos": [
+        { "accion": "esperar", "segundos": 1.5, "subtitulo": "Entrá al generador de CV" },
+        { "accion": "escribir", "selector": "#paso-nombre", "valor": "Lucía Pereira", "subtitulo": "Poné tus datos" },
+        { "accion": "escribir", "selector": "#paso-cargo", "valor": "Atención al cliente y ventas", "subtitulo": "¿Qué trabajo buscás?" },
+        { "accion": "escribir", "selector": "#paso-ubicacion", "valor": "Chuy, Rocha", "subtitulo": "¿Dónde vivís?" },
+        { "accion": "tocar", "texto": "Siguiente", "subtitulo": "Y seguís paso a paso" },
+        { "accion": "esperar", "segundos": 1.5, "subtitulo": "Al final lo bajás en PDF" }
+      ]
+    },
+    {
+      "tipo": "cierre",
+      "texto": "Tu CV listo, gratis",
+      "subtexto": "Pensado para pasar los filtros de las empresas.",
+      "pie": "conectatumundo.net/laboral/cv",
+      "segundos": 3
+    }
+  ]
+}

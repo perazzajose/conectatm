@@ -1,0 +1,30 @@
+{
+  "nombre": "pos-turistas",
+  "escenas": [
+    {
+      "tipo": "portada",
+      "texto": "¿Te compran turistas de Brasil?",
+      "subtexto": "Fijate qué POS te deja cobrarles con Pix, en 30 segundos.",
+      "segundos": 3
+    },
+    {
+      "tipo": "pagina",
+      "ruta": "/negocios/pos",
+      "pasos": [
+        { "accion": "esperar", "segundos": 1.8, "subtitulo": "Entrá al comparador gratis de POS" },
+        { "accion": "tocar", "texto": "Turistas de Brasil, con Pix", "subtitulo": "Marcá cómo te pagan" },
+        { "accion": "tocar", "texto": "Local con mostrador", "subtitulo": "Elegí tu tipo de negocio" },
+        { "accion": "tocar", "texto": "Sí, la necesito", "subtitulo": "¿Necesitás factura electrónica?" },
+        { "accion": "tocar", "texto": "Puedo esperar los plazos normales", "subtitulo": "¿Cuándo querés cobrar?" },
+        { "accion": "bajar", "pixeles": 420, "segundos": 1.4, "pausa": 2.2, "subtitulo": "Y te dice cuál te conviene" }
+      ]
+    },
+    {
+      "tipo": "cierre",
+      "texto": "Compará gratis antes de firmar",
+      "subtexto": "Aranceles, cuotas y plazos de los POS de Uruguay.",
+      "pie": "conectatumundo.net/pos",
+      "segundos": 3
+    }
+  ]
+}
