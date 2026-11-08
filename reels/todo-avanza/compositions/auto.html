@@ -1,0 +1,134 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #0b1d3e;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+    }
+    .tit {
+      position: absolute;
+      left: 80px;
+      right: 80px;
+      top: 210px;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 118px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      z-index: 3;
+    }
+    .tit .acc { color: #0ccdd9; }
+    #au-cielo {
+      position: absolute;
+      left: 60px;
+      top: 500px;
+      width: 960px;
+      height: 820px;
+      border-radius: 30px;
+      overflow: hidden;
+      background: linear-gradient(180deg, #1766d1 0%, #5fb4ff 55%, #ffd9a8 100%);
+      box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    }
+    #au-ciudad {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 960px;
+      height: 360px;
+    }
+    #au-sombra {
+      position: absolute;
+      left: 250px;
+      top: 742px;
+      width: 460px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.35);
+      filter: blur(6px);
+    }
+    #au-auto {
+      position: absolute;
+      left: 180px;
+      top: 520px;
+      width: 600px;
+      height: 240px;
+    }
+    #au-chip {
+      position: absolute;
+      left: 36px;
+      top: 40px;
+      padding: 16px 28px;
+      border-radius: 999px;
+      background: #0b1d3e;
+      color: #ffffff;
+      font-size: 38px;
+      font-weight: 700;
+      opacity: 0;
+    }
+  </style>
+  <div id="root" data-composition-id="auto" data-width="1080" data-height="1920">
+    <h1 class="tit" id="au-tit">La tecnología<br /><span class="acc">también.</span></h1>
+    <div id="au-cielo">
+      <svg id="au-ciudad" viewBox="0 0 960 360" preserveAspectRatio="none">
+        <g fill="#2c4f86" opacity="0.55">
+          <rect x="20" y="120" width="90" height="240" /><rect x="130" y="60" width="70" height="300" /><rect x="220" y="150" width="110" height="210" />
+          <rect x="610" y="90" width="80" height="270" /><rect x="700" y="40" width="70" height="320" /><rect x="790" y="130" width="130" height="230" />
+        </g>
+        <g fill="#16305e">
+          <rect x="0" y="200" width="120" height="160" /><rect x="660" y="180" width="110" height="180" /><rect x="820" y="220" width="140" height="140" />
+        </g>
+        <rect x="0" y="300" width="960" height="60" fill="#1b2433" />
+        <g fill="#f5f0e0"><rect x="40" y="326" width="70" height="8" /><rect x="190" y="326" width="70" height="8" /><rect x="340" y="326" width="70" height="8" /><rect x="490" y="326" width="70" height="8" /><rect x="640" y="326" width="70" height="8" /><rect x="790" y="326" width="70" height="8" /></g>
+      </svg>
+      <div id="au-sombra"></div>
+      <svg id="au-auto" viewBox="0 0 600 240">
+        <!-- Rotores: dos ductos con hélices -->
+        <g id="au-rot1">
+          <rect x="10" y="78" width="160" height="24" rx="12" fill="#3a4357" />
+          <ellipse id="au-h1" cx="90" cy="76" rx="84" ry="7" fill="#d9e6f5" opacity="0.8" />
+        </g>
+        <g id="au-rot2">
+          <rect x="430" y="78" width="160" height="24" rx="12" fill="#3a4357" />
+          <ellipse id="au-h2" cx="510" cy="76" rx="84" ry="7" fill="#d9e6f5" opacity="0.8" />
+        </g>
+        <rect x="80" y="100" width="20" height="40" fill="#3a4357" />
+        <rect x="500" y="100" width="20" height="40" fill="#3a4357" />
+        <!-- Carrocería -->
+        <path d="M40 190 C40 150 90 128 170 120 L250 76 C300 60 380 60 420 80 L470 120 C530 126 565 150 565 185 C565 202 550 210 530 210 L70 210 C52 210 40 202 40 190 Z" fill="#eef2f7" />
+        <path d="M262 84 C300 70 372 70 410 88 L446 120 L236 120 Z" fill="#14243f" />
+        <path d="M262 84 C300 70 372 70 410 88 L420 98 C380 82 304 82 268 96 Z" fill="#3d6aa8" opacity="0.7" />
+        <rect x="60" y="160" width="490" height="7" rx="3.5" fill="#0ccdd9" />
+        <path d="M548 160 L566 170 L548 176 Z" fill="#fff6c2" />
+        <!-- Ruedas que se guardan al despegar -->
+        <g id="au-ruedas">
+          <circle cx="150" cy="210" r="26" fill="#1b2433" /><circle cx="450" cy="210" r="26" fill="#1b2433" />
+          <circle cx="150" cy="210" r="10" fill="#9aa6b8" /><circle cx="450" cy="210" r="10" fill="#9aa6b8" />
+        </g>
+      </svg>
+      <div id="au-chip">Ya se prueban autos que vuelan</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#au-tit", { opacity: 0, y: 30, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.35, ease: "power4.out" }, 0);
+    tl.fromTo("#au-cielo", { x: 1100, rotation: 4 }, { x: 0, rotation: 0, duration: 0.5, ease: "expo.out" }, 0.0);
+    // Hélices girando (cantidad fija de vueltas)
+    tl.fromTo("#au-h1", { scaleX: 1 }, { scaleX: 0.15, duration: 0.06, yoyo: true, repeat: 59, ease: "sine.inOut", svgOrigin: "90 76" }, 0.4);
+    tl.fromTo("#au-h2", { scaleX: 1 }, { scaleX: 0.15, duration: 0.06, yoyo: true, repeat: 59, ease: "sine.inOut", svgOrigin: "510 76" }, 0.43);
+    // Despegue: tiembla, guarda las ruedas, sube y se va
+    tl.to("#au-auto", { y: -6, duration: 0.05, yoyo: true, repeat: 5, ease: "none" }, 0.7);
+    tl.to("#au-ruedas", { opacity: 0, duration: 0.3 }, 1.2);
+    tl.to("#au-auto", { y: -260, rotation: -3, duration: 1.2, ease: "power2.inOut" }, 1.1);
+    tl.to("#au-sombra", { scale: 0.45, opacity: 0.3, duration: 1.2, ease: "power2.inOut" }, 1.1);
+    tl.fromTo("#au-chip", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, ease: "back.out(2)" }, 1.9);
+    tl.to("#au-auto", { x: 260, y: -330, rotation: -6, scale: 0.9, duration: 1.4, ease: "power1.in" }, 2.3);
+    tl.to("#au-sombra", { x: 160, opacity: 0.15, duration: 1.4, ease: "power1.in" }, 2.3);
+    tl.fromTo("#au-cielo", { scale: 1 }, { scale: 1.03, duration: 1.6, ease: "sine.inOut" }, 2.3);
+    // Salida
+    tl.to("#au-tit", { opacity: 0, filter: "blur(10px)", duration: 0.2, ease: "power2.in" }, 3.95);
+    tl.to("#au-cielo", { y: -300, opacity: 0, duration: 0.3, ease: "power3.in" }, 3.9);
+    window.__timelines["auto"] = tl;
+  </script>
+</template>

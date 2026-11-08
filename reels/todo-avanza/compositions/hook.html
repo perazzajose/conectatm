@@ -1,0 +1,89 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #0b1d3e;
+      overflow: hidden;
+      font-family: "Inter", sans-serif;
+    }
+    #hk-glow {
+      position: absolute;
+      left: -200px;
+      top: 600px;
+      width: 1480px;
+      height: 1000px;
+      background: radial-gradient(ellipse at center, rgba(12, 205, 217, 0.25) 0%, rgba(12, 205, 217, 0) 62%);
+    }
+    #hk-title {
+      position: absolute;
+      left: 80px;
+      right: 80px;
+      top: 210px;
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 150px;
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+    #hk-title .acc {
+      color: #0ccdd9;
+    }
+    .hk-card {
+      position: absolute;
+      left: 80px;
+      width: 920px;
+      height: 150px;
+      border-radius: 26px;
+      display: flex;
+      align-items: center;
+      gap: 34px;
+      padding: 0 40px;
+      font-size: 52px;
+      font-weight: 700;
+      color: #ffffff;
+      background: rgba(255, 255, 255, 0.08);
+      border: 3px solid rgba(255, 255, 255, 0.16);
+    }
+    .hk-ico {
+      flex: none;
+      width: 92px;
+      height: 92px;
+      border-radius: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      font-weight: 900;
+    }
+    #hk-c1 { top: 640px; }
+    #hk-c2 { top: 820px; }
+    #hk-c3 { top: 1000px; }
+    #hk-c1 .hk-ico { background: #2a8ffe; color: #fff; }
+    #hk-c2 .hk-ico { background: #e0452f; color: #fff; }
+    #hk-c3 .hk-ico { background: #0ccdd9; color: #0b1d3e; }
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1080" data-height="1920">
+    <div id="hk-glow" data-layout-allow-overflow></div>
+    <h1 id="hk-title">Todo<br /><span class="acc">avanza.</span></h1>
+    <div class="hk-card" id="hk-c1"><div class="hk-ico">IA</div><span>La inteligencia artificial</span></div>
+    <div class="hk-card" id="hk-c2"><div class="hk-ico">!</div><span>Las estafas</span></div>
+    <div class="hk-card" id="hk-c3">
+      <div class="hk-ico">
+        <svg width="62" height="40" viewBox="0 0 62 40"><path d="M14 20 Q20 8 31 8 Q42 8 48 20 Z" fill="#0b1d3e" /><rect x="4" y="19" width="54" height="13" rx="6" fill="#0b1d3e" /><circle cx="16" cy="34" r="5" fill="#0b1d3e" /><circle cx="46" cy="34" r="5" fill="#0b1d3e" /><rect x="0" y="2" width="22" height="4" rx="2" fill="#0b1d3e" /><rect x="40" y="2" width="22" height="4" rx="2" fill="#0b1d3e" /><rect x="9" y="4" width="4" height="16" fill="#0b1d3e" /><rect x="49" y="4" width="4" height="16" fill="#0b1d3e" /></svg>
+      </div>
+      <span>Los autos</span>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Cuadro 0 completo: título y las tres tarjetas ya están
+    tl.fromTo("#hk-title", { scale: 1 }, { scale: 1.04, duration: 2.2, ease: "sine.inOut", transformOrigin: "0% 50%" }, 0);
+    tl.fromTo(["#hk-c1", "#hk-c2", "#hk-c3"], { x: 0 }, { x: 18, duration: 0.25, stagger: 0.35, yoyo: true, repeat: 1, ease: "power2.out" }, 0.4);
+    tl.fromTo(["#hk-c1", "#hk-c2", "#hk-c3"], { borderColor: "rgba(255,255,255,0.16)" }, { borderColor: "#0ccdd9", duration: 0.2, stagger: 0.35, ease: "none" }, 0.4);
+    // Salida
+    tl.to(["#hk-c1", "#hk-c2", "#hk-c3"], { x: -1100, duration: 0.35, stagger: 0.05, ease: "power3.in" }, 2.2);
+    tl.to("#hk-title", { opacity: 0, filter: "blur(10px)", duration: 0.2, ease: "power2.in" }, 2.35);
+    window.__timelines["hook"] = tl;
+  </script>
+</template>
