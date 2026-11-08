@@ -25,6 +25,8 @@
     tl.fromTo("#gr-tit", { opacity: 0, scale: 1.25, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power4.out", transformOrigin: "0% 50%" }, 0);
     tl.fromTo(["#gr-f1", "#gr-f2", "#gr-f3"], { x: 1100 }, { x: 0, duration: 0.45, stagger: 0.55, ease: "expo.out" }, 1.0);
     tl.fromTo(["#gr-f1 .ok", "#gr-f2 .ok", "#gr-f3 .ok"], { scale: 0 }, { scale: 1, duration: 0.3, stagger: 0.55, ease: "back.out(2.5)" }, 1.3);
+    tl.to(["#gr-f1", "#gr-f2", "#gr-f3"], { x: 16, duration: 0.25, stagger: 0.15, yoyo: true, repeat: 1, ease: "power2.out" }, 2.6);
+    tl.to("#gr-tit", { scale: 1.05, duration: 1.6, ease: "sine.inOut", transformOrigin: "0% 50%" }, 2.1);
     // Salida
     tl.to("#gr-tit", { opacity: 0, filter: "blur(10px)", duration: 0.2, ease: "power2.in" }, 3.75);
     tl.to(["#gr-f1", "#gr-f2", "#gr-f3"], { x: -1100, duration: 0.35, stagger: 0.05, ease: "power3.in" }, 3.65);
