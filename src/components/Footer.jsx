@@ -42,6 +42,7 @@ export default function Footer() {
           <span>En todo Uruguay:</span>
           <ul>
             {DEPARTAMENTOS.map(d => <li key={d.id}><Link to={`/${d.id}`}>{d.nombre}</Link></li>)}
+            <li><Link to="/chuy">Chuy</Link></li>
           </ul>
         </nav>
         <div className="footer-contacto">

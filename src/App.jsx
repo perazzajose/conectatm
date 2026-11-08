@@ -17,6 +17,7 @@ import Aprende from './pages/aprende/Aprende';
 import Faq from './pages/faq/Faq';
 import Privacy from './pages/Privacy';
 import Zona from './pages/zona/Zona';
+import Chuy from './pages/zona/Chuy';
 import Estudios from './pages/estudios/Estudios';
 import NotFound from './pages/NotFound';
 
@@ -27,14 +28,16 @@ const Reclutadores = lazy(() => import('./pages/laboral/reclutadores/Reclutadore
 export default function App() {
   const { pathname } = useLocation();
   // En el editor de CV la barra de acciones ocupa el borde inferior: el botón flotante la taparía.
-  const mostrarFlotante = pathname !== '/laboral/cv';
+  // La guía del Chuy es una sección aparte, con su propia barra y pie (src/pages/zona/Chuy.jsx)
+  const guia = pathname.replace(/\/$/, '') === '/chuy';
+  const mostrarFlotante = pathname !== '/laboral/cv' && !guia;
 
   return (
     <>
-      <Navbar />
+      {!guia && <Navbar />}
       <ScrollToHash />
       <Seo />
-      <main>
+      <main className={guia ? 'sin-menu' : undefined}>
         <Suspense fallback={<p className="cargando-pagina">Cargando…</p>}>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -61,13 +64,16 @@ export default function App() {
           <Route path="/emprendimientos" element={<Navigate to="/negocios/emprendimientos" replace />} />
           <Route path="/pos" element={<Navigate to="/negocios/pos" replace />} />
 
+          {/* Chuy (localidad de Rocha) tiene página propia; va antes de la ruta de departamento */}
+          <Route path="/chuy" element={<Chuy />} />
+
           {/* Un departamento por ruta (/durazno, /rocha…); lo que no sea un departamento da 404 */}
           <Route path="/:depto" element={<Zona />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         </Suspense>
       </main>
-      <Footer />
+      {!guia && <Footer />}
       {mostrarFlotante && <WhatsappFloat />}
     </>
   );

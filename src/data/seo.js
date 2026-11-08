@@ -115,6 +115,13 @@ export const PAGINAS = {
   },
 };
 
+PAGINAS['/chuy'] = {
+  titulo: 'Guía del Chuy: Pix, free shops, CPF y migraciones',
+  descripcion: 'Qué es Pix, quién compra en los free shops, qué es el CPF, cuándo hacer migraciones y dónde ir en Chuy y Chuí. Guía práctica de la frontera.',
+  padre: null,
+  nombre: 'Chuy',
+};
+
 // Una página por departamento (src/pages/zona/Zona.jsx), misma plantilla
 for (const { id, nombre: n, capital, localidades } of DEPARTAMENTOS) {
   PAGINAS[`/${id}`] = {

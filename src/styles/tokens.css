@@ -44,6 +44,7 @@ h3{font-size:1.2rem;line-height:1.25}
 p{max-width:68ch}
 
 main{padding-top:var(--nav-h)}
+main.sin-menu{padding-top:0}
 section{padding:3.5rem var(--gutter)}
 .section-inner{max-width:var(--ancho);margin:0 auto}
 .section-sub{color:var(--tinta-suave);font-size:1.02rem;margin-bottom:2rem}

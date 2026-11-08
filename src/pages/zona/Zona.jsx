@@ -110,6 +110,9 @@ export default function Zona() {
             Armo sitios web y sistemas para comercios de {capital === n ? n : d.capital} y de {lugares}, y las ofertas de abajo son
             de todo el departamento.
           </p>
+          {d.id === 'rocha' && (
+            <p className="zona-perfil">¿Vas al Chuy? <Link to="/chuy" className="link">Mirá la guía de la frontera</Link>: Pix, free shops, CPF y migraciones.</p>
+          )}
         </div>
       </section>
 

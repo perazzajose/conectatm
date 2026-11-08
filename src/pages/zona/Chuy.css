@@ -1,0 +1,117 @@
+/* Guía del Chuy: estilo propio, separado del resto del sitio. Todo cuelga de .guia-chuy.
+   Mundo de la ruta: asfalto, verde de cartel, amarillo de la doble línea, mojones blancos.
+   Letras: Barlow Condensed (títulos, como los carteles) y Barlow (texto). */
+.guia-chuy{
+  --ch-asfalto:#1E2528;
+  --ch-asfalto-2:#2B3438;
+  --ch-cartel:#0F6B4F;
+  --ch-cartel-osc:#0B533D;
+  --ch-linea:#F2C230;
+  --ch-papel:#F2F4F1;
+  --ch-borde:#D5DCD8;
+  --ch-texto:#1E2528;
+  --ch-suave:#4B585C;
+  --ch-cond:'Barlow Condensed',system-ui,sans-serif;
+  font-family:'Barlow',system-ui,sans-serif;
+  font-size:1.0625rem;
+  line-height:1.6;
+  background:var(--ch-papel);
+  color:var(--ch-texto);
+  min-height:100vh;
+}
+.guia-chuy ::selection{background:var(--ch-linea);color:var(--ch-asfalto)}
+.guia-chuy h1,.guia-chuy h2,.guia-chuy h3{font-family:var(--ch-cond);color:inherit;letter-spacing:0;line-height:1.05}
+.guia-chuy a{color:inherit}
+.guia-chuy a:focus-visible{outline:3px solid var(--ch-linea);outline-offset:3px}
+.ch-ancho{max-width:46rem;margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter)}
+
+/* Barra propia (reemplaza el menú del sitio) */
+.ch-barra{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.8rem var(--gutter);background:var(--ch-asfalto);color:#fff}
+.ch-marca{font-family:var(--ch-cond);font-weight:700;font-size:1.3rem}
+.ch-marca small{font-family:'Barlow',sans-serif;font-weight:400;font-size:.85rem;color:#B9C4C7;margin-left:.4rem}
+.ch-volver{font-weight:600;font-size:.95rem;color:#fff;text-underline-offset:4px}
+
+/* Portada: título y la avenida en corte */
+.ch-portada{background:var(--ch-asfalto);color:#fff;padding:0 0 2.4rem}
+/* Ilustración del monumento de bienvenida (public/fondos/monumento.webp), con el título encima.
+   El velo baja hacia el asfalto para que el texto se lea y la foto se funda con la avenida de abajo. */
+.ch-portada-imagen{position:relative;display:flex;align-items:flex-end;min-height:min(72svh,600px);overflow:hidden}
+.ch-portada-foto{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:55% 35%}
+.ch-portada-imagen::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,var(--ch-asfalto) 0%,rgba(30,37,40,.82) 28%,rgba(30,37,40,.25) 62%,rgba(30,37,40,0) 80%)}
+.ch-portada-texto{position:relative;z-index:1;width:100%;padding-top:6rem;padding-bottom:.4rem}
+.ch-portada-texto h1{text-shadow:0 2px 18px rgba(0,0,0,.35)}
+.ch-portada h1{font-size:clamp(3.6rem,17vw,8rem);font-weight:700;color:#fff;line-height:.9}
+.ch-bajada{margin-top:1rem;font-size:1.2rem;color:#D7DEE0;max-width:32ch}
+.ch-avenida{display:grid;grid-template-columns:1fr minmax(120px,1.3fr) 1fr;margin-top:2.4rem;min-height:110px}
+.ch-lado{display:flex;flex-direction:column;justify-content:center;gap:.15rem;padding:1rem}
+.ch-lado b{font-family:var(--ch-cond);font-size:1.6rem;line-height:1}
+.ch-lado span{font-size:.95rem;color:#C9D2D4}
+.ch-uy{background:#5C6B70;text-align:right;align-items:flex-end}
+.ch-br{background:#5C6B70}
+.ch-calzada{position:relative;display:grid;grid-template-columns:1fr auto 1fr;background:var(--ch-asfalto-2)}
+.ch-calzada i{display:block}
+.ch-calzada i:not(.ch-centro){background:repeating-linear-gradient(to bottom,transparent 0 14px,rgba(255,255,255,.55) 14px 30px) center/3px 100% no-repeat}
+.ch-calzada .ch-centro{width:14px;border-left:4px solid var(--ch-linea);border-right:4px solid var(--ch-linea)}
+.ch-nota{margin-top:1.2rem;color:#D7DEE0}
+
+/* Índice: carteles verdes de ruta */
+.ch-indice{padding-top:2.6rem;padding-bottom:1rem}
+.ch-indice h2{font-size:1.6rem;margin-bottom:.9rem}
+.ch-indice ul{list-style:none;display:flex;flex-wrap:wrap;gap:.6rem}
+.ch-cartel{display:inline-flex;align-items:center;min-height:48px;padding:.4rem 1.1rem;background:var(--ch-cartel);color:#fff!important;text-decoration:none;font-family:var(--ch-cond);font-weight:600;font-size:1.25rem;border-radius:6px;box-shadow:inset 0 0 0 2px var(--ch-cartel),inset 0 0 0 4px rgba(255,255,255,.85)}
+.ch-cartel:hover{background:var(--ch-cartel-osc);box-shadow:inset 0 0 0 2px var(--ch-cartel-osc),inset 0 0 0 4px #fff}
+
+/* Temas */
+.ch-temas{padding-bottom:3rem}
+.ch-tema{padding-top:2.4rem;padding-bottom:2rem;border-bottom:2px dashed var(--ch-borde);scroll-margin-top:1rem}
+.ch-tema h2{font-size:clamp(2rem,7vw,2.7rem);font-weight:700}
+.ch-tema p{max-width:65ch;margin-top:.8rem}
+.ch-tema .ch-pt{margin-top:.4rem;color:var(--ch-cartel);font-weight:600}
+.ch-pt abbr{text-decoration:none;display:inline-block;margin-right:.4rem;padding:0 .35rem;border:1.5px solid currentColor;border-radius:3px;font-size:.8rem;vertical-align:.1em}
+.guia-chuy .ch-fuente{margin-top:1rem;font-size:.88rem;color:var(--ch-suave)}
+.ch-fuente a{text-underline-offset:3px}
+
+/* Dónde ir: cada lugar con su mojón */
+.ch-lugares{list-style:none;display:flex;flex-direction:column;gap:1.6rem;margin-top:1.4rem}
+.ch-lugares li{display:grid;grid-template-columns:64px 1fr;gap:1rem;align-items:start}
+.ch-lugares h3{font-size:1.5rem;font-weight:700}
+.guia-chuy .ch-lugares p{margin-top:.3rem}
+.ch-mojon{display:flex;flex-direction:column;align-items:center;justify-content:center;width:64px;height:78px;padding-top:.3rem;background:#fff;border:2px solid var(--ch-asfalto);border-radius:22px 22px 4px 4px;font-family:var(--ch-cond);font-size:.85rem;line-height:1}
+.ch-mojon b{font-size:1.7rem;font-weight:700}
+.ch-mojon b.ch-cerca{font-size:1.15rem}
+
+/* Comercios: la parte de servicios, en verde de cartel */
+.ch-comercio{background:var(--ch-cartel);color:#fff;padding:3rem 0 3.2rem}
+.ch-comercio h2{font-size:clamp(2.1rem,7vw,3rem);font-weight:700}
+.ch-comercio-bajada{margin-top:.8rem;max-width:52ch;color:#E2EEE8}
+.ch-servicios{list-style:none;display:grid;gap:1.4rem;margin:2rem 0}
+.ch-servicios li{display:grid;grid-template-columns:auto 1fr;gap:.2rem .9rem;padding-top:1.2rem;border-top:2px solid rgba(255,255,255,.35)}
+.ch-servicios svg{grid-row:span 3;color:var(--ch-linea)}
+.ch-servicios h3{font-size:1.45rem;font-weight:600}
+.ch-servicios p{color:#E2EEE8}
+.ch-servicios a{font-weight:600;text-underline-offset:4px;justify-self:start}
+.ch-whatsapp{display:inline-flex;align-items:center;gap:.6rem;min-height:52px;padding:.7rem 1.4rem;background:var(--ch-linea);color:var(--ch-asfalto)!important;font-weight:600;font-size:1.1rem;text-decoration:none;border-radius:6px}
+.ch-whatsapp:hover{background:#FFD54A}
+
+/* Pie propio */
+.ch-pie{background:var(--ch-asfalto);color:#C9D2D4;padding:2rem 0 2.4rem;font-size:.95rem}
+.ch-pie a{color:#fff;text-underline-offset:3px}
+.ch-pie-enlaces{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;margin-top:.8rem;font-weight:600}
+
+@media(min-width:760px){
+  .ch-servicios{grid-template-columns:repeat(3,1fr)}
+  .ch-servicios li{grid-template-columns:1fr}
+  .ch-servicios svg{grid-row:auto}
+  .ch-ancho{max-width:52rem}
+}
+/* En celular la portada es más baja: así entran las dos banderas */
+@media(max-width:600px){
+  .ch-portada-imagen{min-height:440px}
+  .ch-portada-foto{object-position:62% 30%}
+  .ch-portada-texto{padding-top:9rem}
+}
+@media(max-width:480px){
+  .ch-lado{padding:.7rem .5rem}
+  .ch-lado b{font-size:1.25rem}
+  .ch-lado span{font-size:.8rem}
+}
