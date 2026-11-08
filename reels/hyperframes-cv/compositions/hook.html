@@ -1,0 +1,69 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      background: #0b1d3e;
+      overflow: hidden;
+    }
+    #hook-glow {
+      position: absolute;
+      left: 140px;
+      top: 700px;
+      width: 800px;
+      height: 800px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(42, 143, 254, 0.35) 0%, rgba(42, 143, 254, 0) 65%);
+    }
+    #hook-title {
+      position: absolute;
+      left: 80px;
+      right: 80px;
+      top: 230px;
+      color: #ffffff;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 124px;
+      line-height: 1.02;
+      letter-spacing: -0.035em;
+    }
+    #hook-title .w {
+      display: inline-block;
+      margin-right: 0.22em;
+    }
+    #hook-title .acc {
+      color: #0ccdd9;
+    }
+    #hook-cv-wrap {
+      position: absolute;
+      left: 170px;
+      top: 640px;
+      width: 740px;
+    }
+    #hook-cv {
+      width: 100%;
+      display: block;
+      border-radius: 14px;
+      box-shadow: 0 40px 90px rgba(0, 0, 0, 0.55);
+    }
+  </style>
+  <div id="root" data-composition-id="hook" data-width="1080" data-height="1920">
+    <div id="hook-glow"></div>
+    <div id="hook-cv-wrap" data-layout-allow-overflow><img id="hook-cv" src="assets/cv-final.png" alt="CV terminado" /></div>
+    <h1 id="hook-title" data-layout-allow-overlap>
+      <span class="w" id="hook-w1">¿Sin</span><span class="w acc" id="hook-w2">CV</span><span class="w" id="hook-w3">para</span><br /><span class="w" id="hook-w4">la</span><span class="w" id="hook-w5">temporada?</span>
+    </h1>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    // Frame 0: "¿Sin CV" ya está en pantalla y el CV terminado asoma abajo
+    tl.fromTo("#hook-cv-wrap", { y: 260, rotation: -9, scale: 0.92 }, { y: 0, rotation: -5, scale: 1, duration: 0.9, ease: "expo.out" }, 0);
+    tl.fromTo("#hook-glow", { opacity: 0.4 }, { opacity: 1, duration: 0.9, ease: "power2.out" }, 0);
+    tl.fromTo(["#hook-w1", "#hook-w2"], { opacity: 1, filter: "blur(0px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.01 }, 0);
+    tl.fromTo(["#hook-w3", "#hook-w4", "#hook-w5"], { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.13, stagger: 0.09, ease: "power4.out" }, 0.25);
+    // Salida: el título se borra palabra por palabra y el CV sale hacia arriba acelerando
+    tl.to(["#hook-w1", "#hook-w2", "#hook-w3", "#hook-w4", "#hook-w5"], { opacity: 0, filter: "blur(8px)", duration: 0.15, stagger: 0.03, ease: "power2.in" }, 2.2);
+    tl.to("#hook-cv-wrap", { y: -1500, rotation: 2, filter: "blur(14px)", duration: 0.4, ease: "power3.in" }, 2.18);
+    window.__timelines["hook"] = tl;
+  </script>
+</template>

@@ -1,0 +1,94 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #end-bg {
+      position: absolute;
+      inset: 0;
+      background: #0b1d3e;
+    }
+    #end-glow {
+      position: absolute;
+      left: -200px;
+      top: 300px;
+      width: 1480px;
+      height: 1100px;
+      background: radial-gradient(ellipse at center, rgba(12, 205, 217, 0.22) 0%, rgba(12, 205, 217, 0) 60%);
+    }
+    #end-title {
+      position: absolute;
+      left: 80px;
+      right: 80px;
+      top: 470px;
+      color: #ffffff;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 140px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    #end-title .w {
+      display: inline-block;
+      margin-right: 0.2em;
+    }
+    #end-title .acc {
+      color: #0ccdd9;
+    }
+    #end-sub {
+      position: absolute;
+      left: 84px;
+      top: 790px;
+      color: rgba(255, 255, 255, 0.78);
+      font-family: "Inter", sans-serif;
+      font-weight: 400;
+      font-size: 46px;
+    }
+    #end-url {
+      position: absolute;
+      left: 80px;
+      top: 900px;
+      padding: 26px 38px;
+      border: 4px solid #0ccdd9;
+      border-radius: 20px;
+      color: #0ccdd9;
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      font-size: 50px;
+      letter-spacing: -0.01em;
+    }
+    #end-logo-card {
+      position: absolute;
+      left: 80px;
+      top: 1150px;
+      padding: 22px 30px;
+      background: #ffffff;
+      border-radius: 22px;
+    }
+    #end-logo {
+      display: block;
+      height: 104px;
+    }
+  </style>
+  <div id="root" data-composition-id="end" data-width="1080" data-height="1920">
+    <div id="end-bg"></div>
+    <div id="end-glow"></div>
+    <h1 id="end-title"><span class="w" id="end-w1">Armá</span><span class="w" id="end-w2">el</span><br /><span class="w acc" id="end-w3">tuyo.</span></h1>
+    <p id="end-sub">Gratis, desde el celular.</p>
+    <div id="end-url" data-var-text="url">conectatumundo.net/laboral/cv</div>
+    <div id="end-logo-card"><img id="end-logo" src="assets/logo.png" alt="ConectaTuMundo" /></div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#end-bg", { backgroundColor: "#eef3fa" }, { backgroundColor: "#0b1d3e", duration: 0.4, ease: "power2.inOut" }, 0);
+    tl.fromTo("#end-glow", { opacity: 0 }, { opacity: 1, duration: 0.6, ease: "power2.out" }, 0.2);
+    // Palabras de gris a blanco, sin moverse
+    tl.fromTo(["#end-w1", "#end-w2", "#end-w3"], { opacity: 0, filter: "blur(6px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.14, stagger: 0.09, ease: "power4.out" }, 0.3);
+    tl.fromTo("#end-sub", { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.2, ease: "power4.out" }, 0.75);
+    tl.fromTo("#end-url", { opacity: 0, scale: 0.85 }, { opacity: 1, scale: 1, duration: 0.5, ease: "back.out(1.4)" }, 0.95);
+    tl.fromTo("#end-logo-card", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.6, ease: "expo.out" }, 1.25);
+    window.__timelines["end"] = tl;
+  </script>
+</template>

@@ -1,0 +1,191 @@
+<template>
+  <style>
+    #root {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    #demo-bg {
+      position: absolute;
+      inset: 0;
+      background: #eef3fa;
+    }
+    .demo-label {
+      position: absolute;
+      left: 60px;
+      right: 60px;
+      top: 196px;
+      text-align: center;
+      color: #0b1d3e;
+      font-family: "Inter", sans-serif;
+      font-weight: 900;
+      font-size: 78px;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      opacity: 0;
+    }
+    .demo-label .acc {
+      color: #1766d1;
+    }
+    #demo-phone-wrap {
+      position: absolute;
+      left: 254px;
+      top: 330px;
+      width: 572px;
+      height: 992px;
+      transform-origin: 50% 30%;
+    }
+    #demo-phone {
+      position: absolute;
+      inset: 0;
+      background: #0b1d3e;
+      border-radius: 64px;
+      box-shadow: 0 50px 110px rgba(11, 29, 62, 0.35);
+    }
+    #demo-screen {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 540px;
+      height: 960px;
+      border-radius: 50px;
+      overflow: hidden;
+      background: #ffffff url("assets/cv-demo-first.jpg") 0 0 / 540px 960px no-repeat;
+    }
+    #demo-video {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 540px;
+      height: 960px;
+      object-fit: cover;
+    }
+    #demo-screen-cv {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 540px;
+      height: 960px;
+      background: #ffffff;
+      opacity: 0;
+    }
+    #demo-cv-wrap {
+      position: absolute;
+      left: 190px;
+      top: 330px;
+      width: 700px;
+      transform-origin: 0 0;
+      opacity: 0;
+    }
+    #demo-cv {
+      width: 100%;
+      display: block;
+      border-radius: 12px;
+      box-shadow: 0 40px 100px rgba(11, 29, 62, 0.3);
+    }
+    .demo-chip {
+      position: absolute;
+      left: 110px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 22px 34px 22px 24px;
+      background: #0b1d3e;
+      color: #ffffff;
+      border-radius: 999px;
+      font-family: "Inter", sans-serif;
+      font-weight: 700;
+      font-size: 42px;
+      letter-spacing: -0.01em;
+      box-shadow: 0 18px 40px rgba(11, 29, 62, 0.35);
+      opacity: 0;
+      transform-origin: 0 50%;
+    }
+    .demo-chip svg {
+      width: 46px;
+      height: 46px;
+      flex: none;
+    }
+  </style>
+  <div id="root" data-composition-id="demo" data-width="1080" data-height="1920">
+    <div id="demo-bg"></div>
+
+    <div class="demo-label" id="demo-l0"><span class="acc">Gratis</span>, desde el celu</div>
+    <div class="demo-label" id="demo-l1">Completás tus datos</div>
+    <div class="demo-label" id="demo-l4">Y seguís paso a paso</div>
+    <div class="demo-label" id="demo-l5">Y te queda <span class="acc">así</span></div>
+
+    <div id="demo-phone-wrap">
+      <div id="demo-phone"></div>
+      <div id="demo-screen">
+        <video
+          id="demo-video"
+          class="clip"
+          src="assets/cv-demo.mp4"
+          data-start="1"
+          data-duration="5.33"
+          data-playback-rate="1.5"
+          data-track-index="2"
+          muted
+          playsinline
+        ></video>
+        <div id="demo-screen-cv"><img src="assets/cv-final.png" alt="" style="width: 540px; display: block" /></div>
+      </div>
+    </div>
+
+    <div id="demo-cv-wrap"><img id="demo-cv" src="assets/cv-final.png" alt="CV de Lucía Fernández" /></div>
+
+    <div class="demo-chip" id="demo-c1" style="top: 960px">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#0CCDD9" /><path d="M7 12.5l3.2 3.2L17 9" stroke="#0B1D3E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      Lo bajás en PDF
+    </div>
+    <div class="demo-chip" id="demo-c2" style="top: 1070px">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#0CCDD9" /><path d="M7 12.5l3.2 3.2L17 9" stroke="#0B1D3E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      Pasa los filtros de las empresas
+    </div>
+    <div class="demo-chip" id="demo-c3" style="top: 1180px">
+      <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11" fill="#0CCDD9" /><path d="M7 12.5l3.2 3.2L17 9" stroke="#0B1D3E" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      Gratis, sin vueltas
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const swap = (from, to, at) => {
+      if (from) tl.to(from, { opacity: 0, filter: "blur(8px)", duration: 0.15, ease: "power2.in" }, at);
+      tl.fromTo(to, { opacity: 0, filter: "blur(8px)" }, { opacity: 1, filter: "blur(0px)", duration: 0.16, ease: "power4.out" }, at + 0.08);
+    };
+
+    // Inundación de color: del azul noche del gancho al fondo claro
+    tl.fromTo("#demo-bg", { backgroundColor: "#0b1d3e" }, { backgroundColor: "#eef3fa", duration: 0.4, ease: "power2.inOut" }, 0);
+
+    swap(null, "#demo-l0", 0.12);
+    // El celular entra rápido desde abajo y se asienta
+    tl.fromTo("#demo-phone-wrap", { y: 1200, filter: "blur(16px)" }, { y: 0, filter: "blur(0px)", duration: 0.65, ease: "expo.out" }, 0.55);
+
+    // Punch-in sobre los campos mientras se escribe
+    tl.fromTo("#demo-phone-wrap", { scale: 1 }, { scale: 1.16, duration: 0.5, ease: "power2.inOut" }, 1.45);
+    swap("#demo-l0", "#demo-l1", 1.95);
+    tl.to("#demo-phone-wrap", { scale: 1, duration: 0.45, ease: "power2.inOut" }, 4.05);
+    swap("#demo-l1", "#demo-l4", 4.15);
+
+    // El resultado aparece en la pantalla del celular, pausa, y sale a ocupar el cuadro
+    tl.fromTo("#demo-screen-cv", { opacity: 0 }, { opacity: 1, duration: 0.15, ease: "power2.out" }, 6.25);
+    swap("#demo-l4", "#demo-l5", 6.45);
+    tl.fromTo(
+      "#demo-cv-wrap",
+      { opacity: 0, x: 80, y: 16, scale: 0.7714 },
+      { opacity: 1, x: 80, y: 16, scale: 0.7714, duration: 0.01 },
+      6.84
+    );
+    tl.to("#demo-cv-wrap", { x: 0, y: 0, scale: 1, duration: 0.65, ease: "power2.inOut" }, 6.85);
+    tl.to("#demo-phone-wrap", { opacity: 0, filter: "blur(15px)", duration: 0.3, ease: "power2.in" }, 6.88);
+
+    // Beneficios: entran escalonados sobre el CV
+    tl.fromTo(["#demo-c1", "#demo-c2", "#demo-c3"], { opacity: 0, scale: 0.6, x: -30 }, { opacity: 1, scale: 1, x: 0, duration: 0.42, stagger: 0.28, ease: "back.out(1.5)" }, 8.98);
+
+    // Salida hacia el cierre
+    tl.to(["#demo-c1", "#demo-c2", "#demo-c3", "#demo-l5"], { opacity: 0, filter: "blur(8px)", duration: 0.18, stagger: 0.04, ease: "power2.in" }, 12.55);
+    tl.to("#demo-cv-wrap", { y: -260, opacity: 0, filter: "blur(12px)", duration: 0.35, ease: "power3.in" }, 12.62);
+    window.__timelines["demo"] = tl;
+  </script>
+</template>
