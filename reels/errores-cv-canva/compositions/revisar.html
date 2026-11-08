@@ -171,7 +171,6 @@
       // Mientras se lee: el título crece apenas y la marca late
       tl.fromTo(titulos[i + 1], { scale: 1 }, { scale: 1.06, duration: 2.4, ease: "sine.inOut", transformOrigin: "0% 50%" }, t + 0.35);
       tl.to(".mk" + i, { scale: 1.07, duration: 0.3, yoyo: true, repeat: 5, ease: "sine.inOut" }, t + 1.0);
-      tl.fromTo("#lupa-mango", { rotation: 0 }, { rotation: 4, duration: 0.6, yoyo: true, repeat: 3, ease: "sine.inOut" }, t + 0.8);
       // La lupa sigue recorriendo despacio mientras se lee
       lupa(P[i][0] + 6, P[i][1] + 4, t + 0.7, 2.2, "sine.inOut");
     }
