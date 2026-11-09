@@ -3,9 +3,9 @@
 Video vertical de 26,3 s para la temporada. No nombra la Expo. Mismo estilo que `reels/errores-cv-canva` (ver `reels/CLAUDE.md`).
 
 - `compositions/cv.html`: todo menos el cierre.
-  - **Gancho:** "¿Nunca trabajaste?", con el CV de Sofía Rodríguez (datos ficticios) y la experiencia vacía con un "?".
+  - **Gancho:** "¿Nunca trabajaste?", con el CV de Sofía Rodríguez (datos ficticios; hoja A4 de 800 x 1131 con contacto, títulos con raya y referencias, como un CV impreso) y la experiencia vacía con un "?".
   - **"5 cosas para poner en vez de experiencia":** se tacha "Experiencia", el "?" sube a la insignia y aparecen los 5 renglones.
-  - **Una sección cada 3 s:** perfil, estudios y cursos, proyectos, actividades y voluntariado, habilidades. Cada una trae su consejo y una tarjeta que sale de abajo del consejo y baja a su renglón.
+  - **Una sección cada 3 s:** perfil, estudios y cursos, proyectos, actividades y voluntariado, habilidades. Cada una trae su consejo y una tarjeta que sale de abajo del consejo, baja a su renglón y después pierde el fondo y queda como texto del CV.
   - **Cierre de la escena:** el "?" pasa a ✓ con "Listo para la temporada".
   - Los tiempos están en `T`, `A` y `F`; los renglones, en `SLOT`.
 - `compositions/final.html` y `sello-final.html`: cartel "Te ayudo con tu primer CV gratis", WhatsApp y sello "100 % GRATIS · TU CV".

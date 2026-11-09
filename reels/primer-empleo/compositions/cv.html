@@ -11,39 +11,43 @@
     .tip { position: absolute; left: 80px; right: 80px; top: 410px; font-size: 44px; font-weight: 700; line-height: 1.2; color: #f4e8f2; }
     .puntos { position: absolute; width: 200px; height: 120px; background-image: radial-gradient(circle, rgba(255,255,255,0.55) 5px, transparent 6px); background-size: 40px 40px; }
     #arroba { position: absolute; right: 80px; top: 186px; color: rgba(255,255,255,0.85); font-size: 30px; }
-    #sombra { position: absolute; left: 80px; top: 560px; width: 1620px; height: 1600px; background: rgba(23, 29, 88, 0.35); clip-path: polygon(920px 0, 1620px 700px, 1620px 1600px, 740px 1600px, 0 860px, 920px 860px); }
-    /* El CV: 920 x 860, arriba a la izquierda en (80, 560) */
-    #cv { position: absolute; left: 80px; top: 560px; width: 920px; height: 860px; }
+    #sombra { position: absolute; left: 140px; top: 520px; width: 1500px; height: 1600px; background: rgba(23, 29, 88, 0.35); clip-path: polygon(800px 0, 1500px 700px, 1500px 1600px, 469px 1600px, 0 1131px, 800px 1131px); }
+    /* El CV: hoja A4 de 800 x 1131 (1 : 1,414), arriba a la izquierda en (140, 520) */
+    #cv { position: absolute; left: 140px; top: 520px; width: 800px; height: 1131px; }
     .hoja { position: absolute; inset: 0; background: #fbfaf8; }
-    .head { border-radius: 0; }
-    .head { position: absolute; left: 0; top: 0; width: 920px; height: 140px; background: #8e3a86; }
-    .av { position: absolute; left: 24px; top: 20px; width: 100px; height: 100px; border-radius: 50%; background: #ffffff; overflow: hidden; }
-    .av .pelo-atras { position: absolute; left: 20px; top: 10px; width: 60px; height: 80px; border-radius: 30px 30px 12px 12px; background: #5a3a2a; }
-    .av .cuerpo { position: absolute; left: 14px; top: 70px; width: 72px; height: 54px; border-radius: 36px 36px 0 0; background: #2f8f7a; }
-    .av .cara { position: absolute; left: 28px; top: 18px; width: 44px; height: 50px; border-radius: 50%; background: #d9a07a; }
-    .av .flequillo { position: absolute; left: 24px; top: 12px; width: 52px; height: 20px; border-radius: 26px 26px 8px 8px; background: #5a3a2a; }
-    .ojo { position: absolute; top: 40px; width: 6px; height: 6px; border-radius: 50%; background: #22162b; }
-    .boca { position: absolute; left: 42px; top: 51px; width: 16px; height: 8px; border: 3px solid #22162b; border-top: none; border-radius: 0 0 10px 10px; }
-    .nom { position: absolute; left: 148px; top: 28px; color: #ffffff; font-weight: 700; font-size: 40px; line-height: 1.05; }
+    .head { position: absolute; left: 0; top: 0; width: 800px; height: 168px; background: #8e3a86; }
+    .av { position: absolute; left: 28px; top: 29px; width: 110px; height: 110px; border-radius: 50%; background: #ffffff; overflow: hidden; }
+    .av .pelo-atras { position: absolute; left: 22px; top: 11px; width: 66px; height: 88px; border-radius: 33px 33px 13px 13px; background: #5a3a2a; }
+    .av .cuerpo { position: absolute; left: 15px; top: 77px; width: 80px; height: 60px; border-radius: 40px 40px 0 0; background: #2f8f7a; }
+    .av .cara { position: absolute; left: 31px; top: 20px; width: 48px; height: 55px; border-radius: 50%; background: #d9a07a; }
+    .av .flequillo { position: absolute; left: 26px; top: 13px; width: 58px; height: 22px; border-radius: 29px 29px 9px 9px; background: #5a3a2a; }
+    .ojo { position: absolute; top: 44px; width: 7px; height: 7px; border-radius: 50%; background: #22162b; }
+    .boca { position: absolute; left: 46px; top: 56px; width: 18px; height: 9px; border: 3px solid #22162b; border-top: none; border-radius: 0 0 10px 10px; }
+    .nom { position: absolute; left: 162px; top: 22px; color: #ffffff; font-weight: 700; font-size: 40px; line-height: 1.05; }
     .nom small { display: block; margin-top: 8px; font-size: 28px; font-weight: 400; color: #f4e8f2; }
-    .letras { position: absolute; right: 170px; top: 30px; color: #ffffff; font-weight: 700; font-size: 66px; }
+    .nom small.contacto { margin-top: 4px; font-size: 28px; color: #ffffff; }
     /* Escena 1: experiencia vacía */
-    #exp-lab { position: absolute; left: 24px; top: 158px; font-size: 28px; font-weight: 700; letter-spacing: 0.08em; color: #8e3a86; }
-    #exp-tacha { position: absolute; left: 18px; top: 175px; width: 236px; height: 5px; background: #e0452f; transform-origin: 0% 50%; }
-    #exp-caja { position: absolute; left: 24px; top: 200px; width: 872px; height: 560px; border: 4px dashed #cdbfd9; border-radius: 16px; }
-    #q-grande { position: absolute; left: 24px; top: 200px; width: 872px; height: 560px; display: flex; align-items: center; justify-content: center; font-family: "Oswald", sans-serif; font-weight: 700; font-size: 260px; color: #e0452f; }
-    /* Las 5 secciones */
-    .slot { position: absolute; left: 24px; width: 872px; height: 124px; }
-    .lab { position: absolute; left: 0; top: 0; opacity: 0; font-size: 28px; font-weight: 700; letter-spacing: 0.08em; color: #8c7a9f; }
-    .ph { position: absolute; left: 0; top: 38px; opacity: 0; width: 872px; height: 82px; border: 3px dashed #b9a8c9; border-radius: 10px; }
-    .card { position: absolute; left: 0; top: 38px; width: 872px; height: 82px; border-radius: 10px; background: #f4e8f2; overflow: hidden; font-size: 32px; line-height: 40px; padding: 1px 0 0 30px; color: #22162b; white-space: nowrap; opacity: 0; }
-    .card::before { content: ""; position: absolute; left: 0; top: 0; width: 10px; height: 82px; background: #8e3a86; }
-    .brillo { position: absolute; left: -200px; top: 0; width: 140px; height: 82px; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%); }
+    #exp-lab { position: absolute; left: 36px; top: 190px; font-size: 28px; font-weight: 700; letter-spacing: 0.08em; color: #8e3a86; }
+    #exp-tacha { position: absolute; left: 30px; top: 207px; width: 236px; height: 5px; background: #e0452f; transform-origin: 0% 50%; }
+    #exp-caja { position: absolute; left: 36px; top: 228px; width: 728px; height: 560px; border: 4px dashed #cdbfd9; border-radius: 16px; }
+    #q-grande { position: absolute; left: 36px; top: 228px; width: 728px; height: 560px; display: flex; align-items: center; justify-content: center; font-family: "Oswald", sans-serif; font-weight: 700; font-size: 260px; color: #e0452f; }
+    /* Las 5 secciones, con título y raya fina como en un CV impreso */
+    .slot { position: absolute; left: 36px; width: 728px; height: 124px; }
+    .lab { position: absolute; left: 0; top: 0; width: 728px; padding-bottom: 2px; border-bottom: 2px solid #e5dbec; opacity: 0; font-size: 28px; font-weight: 700; letter-spacing: 0.08em; color: #8c7a9f; }
+    .ph { position: absolute; left: 0; top: 42px; opacity: 0; width: 728px; height: 80px; border: 3px dashed #b9a8c9; border-radius: 10px; }
+    .card { position: absolute; left: 0; top: 42px; width: 728px; height: 80px; border-radius: 10px; background: rgba(244, 232, 242, 1); overflow: hidden; font-size: 30px; line-height: 38px; padding: 2px 0 0 22px; color: #22162b; white-space: nowrap; opacity: 0; }
+    .raya { position: absolute; left: 0; top: 0; width: 10px; height: 80px; background: #8e3a86; }
+    .brillo { position: absolute; left: -200px; top: 0; width: 140px; height: 80px; background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0) 100%); }
+    /* Pie de la hoja: referencias y renglones de relleno (textura) */
+    #ref { position: absolute; left: 36px; top: 856px; width: 728px; }
+    #ref .lab2 { width: 728px; padding-bottom: 2px; border-bottom: 2px solid #e5dbec; font-size: 28px; font-weight: 700; letter-spacing: 0.08em; color: #8e3a86; }
+    #ref .txt { margin-top: 10px; font-size: 28px; color: #22162b; }
+    .rel { position: absolute; left: 36px; height: 10px; border-radius: 5px; background: #e5dbec; }
     /* Insignia: el "?" del gancho que termina en ✓ */
-    #badge { position: absolute; left: 850px; top: -50px; width: 120px; height: 120px; border-radius: 50%; background: #e0452f; border: 8px solid #ffffff; box-shadow: 0 10px 26px rgba(34, 22, 43, 0.35); }
+    #badge { position: absolute; left: 730px; top: -50px; width: 120px; height: 120px; border-radius: 50%; background: #e0452f; border: 8px solid #ffffff; box-shadow: 0 10px 26px rgba(34, 22, 43, 0.35); }
     #badge-q { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: "Oswald", sans-serif; font-weight: 700; font-size: 70px; color: #ffffff; }
     #badge-ok { position: absolute; left: 22px; top: 24px; opacity: 0; }
-    #chip { position: absolute; left: 80px; top: 482px; padding: 12px 28px; border-radius: 999px; background: #25d366; color: #0b2b17; font-weight: 700; font-size: 36px; opacity: 0; }
+    #chip { position: absolute; left: 560px; top: 330px; padding: 12px 26px; border-radius: 999px; background: #25d366; color: #0b2b17; font-weight: 700; font-size: 32px; opacity: 0; }
   </style>
   <div id="root" data-composition-id="cv" data-width="1080" data-height="1920">
     <div class="puntos" id="pt1" style="right:60px;top:1460px"></div><div class="puntos" id="pt2" style="left:60px;top:1620px"></div>
@@ -81,17 +85,18 @@
       <div class="hoja">
         <div class="head"></div>
         <div class="av"><div class="pelo-atras"></div><div class="cuerpo"></div><div class="cara"></div><div class="flequillo"></div><div class="ojo" style="left:40px"></div><div class="ojo" style="left:56px"></div><div class="boca"></div></div>
-        <div class="nom">Sofía Rodríguez<small>18 años · Busco mi primer trabajo</small></div>
-        <div class="letras">CV</div>
+        <div class="nom">Sofía Rodríguez<small>18 años · Busco mi primer trabajo</small><small class="contacto">099 000 000 · sofia.rodriguez@gmail.com</small></div>
         <div id="exp-lab">EXPERIENCIA</div>
         <div id="exp-tacha"></div>
         <div id="exp-caja"></div>
         <div id="q-grande">?</div>
-        <div class="slot" id="s0" style="top:158px"><div class="lab">PERFIL</div><div class="ph"></div><div class="card" data-layout-allow-overlap>Tengo 18 años, soy responsable y aprendo rápido.<br />Busco mi primer trabajo de temporada.<div class="brillo"></div></div></div>
-        <div class="slot" id="s1" style="top:282px"><div class="lab">ESTUDIOS Y CURSOS</div><div class="ph"></div><div class="card" data-layout-allow-overlap>6.º de liceo (2026) · Curso online de Excel<br />Carné de manipulación de alimentos<div class="brillo"></div></div></div>
-        <div class="slot" id="s2" style="top:406px"><div class="lab">PROYECTOS</div><div class="ph"></div><div class="card" data-layout-allow-overlap>Vendo tortas por Instagram<br />Ayudo en el almacén de mi familia<div class="brillo"></div></div></div>
-        <div class="slot" id="s3" style="top:530px"><div class="lab">ACTIVIDADES Y VOLUNTARIADO</div><div class="ph"></div><div class="card" data-layout-allow-overlap>Capitana del equipo de fútbol del club<br />Delegada en el centro de estudiantes<div class="brillo"></div></div></div>
-        <div class="slot" id="s4" style="top:654px"><div class="lab">HABILIDADES</div><div class="ph"></div><div class="card" data-layout-allow-overlap>Portugués: me defiendo · Excel básico<br />Puntual, comunicativa y ordenada<div class="brillo"></div></div></div>
+        <div class="slot" id="s0" style="top:190px"><div class="lab">PERFIL</div><div class="ph"></div><div class="card" data-layout-allow-overlap>18 años, responsable y con ganas de aprender.<br />Busco mi primer trabajo de temporada.<div class="raya"></div><div class="brillo"></div></div></div>
+        <div class="slot" id="s1" style="top:318px"><div class="lab">ESTUDIOS Y CURSOS</div><div class="ph"></div><div class="card" data-layout-allow-overlap>6.º de liceo (2026) · Curso online de Excel<br />Carné de manipulación de alimentos<div class="raya"></div><div class="brillo"></div></div></div>
+        <div class="slot" id="s2" style="top:446px"><div class="lab">PROYECTOS</div><div class="ph"></div><div class="card" data-layout-allow-overlap>Vendo tortas por Instagram<br />Ayudo en el almacén de mi familia<div class="raya"></div><div class="brillo"></div></div></div>
+        <div class="slot" id="s3" style="top:574px"><div class="lab">ACTIVIDADES Y VOLUNTARIADO</div><div class="ph"></div><div class="card" data-layout-allow-overlap>Capitana del equipo de fútbol del club<br />Delegada en el centro de estudiantes<div class="raya"></div><div class="brillo"></div></div></div>
+        <div class="slot" id="s4" style="top:702px"><div class="lab">HABILIDADES</div><div class="ph"></div><div class="card" data-layout-allow-overlap>Portugués: me defiendo · Excel básico<br />Puntual, comunicativa y ordenada<div class="raya"></div><div class="brillo"></div></div></div>
+        <div id="ref"><div class="lab2">REFERENCIAS</div><div class="txt">A pedido.</div></div>
+        <div class="rel" style="top:960px;width:520px"></div><div class="rel" style="top:986px;width:640px"></div><div class="rel" style="top:1012px;width:460px"></div><div class="rel" style="top:1050px;width:580px"></div><div class="rel" style="top:1076px;width:400px"></div>
       </div>
       <div id="badge" data-layout-allow-overflow>
         <div id="badge-q">?</div>
@@ -121,7 +126,7 @@
     // Escena 1 (gancho): el "?" late en la experiencia vacía
     tl.fromTo("#q-grande", { scale: 1 }, { scale: 1.18, duration: 0.45, yoyo: true, repeat: 4, ease: "sine.inOut" }, 0);
     // La vista se acerca al hueco vacío
-    tl.to("#cv", { scale: 1.05, duration: 2.3, ease: "sine.inOut", transformOrigin: "50% 480px" }, 0);
+    tl.to("#cv", { scale: 1.05, duration: 2.3, ease: "sine.inOut", transformOrigin: "50% 508px" }, 0);
     tl.fromTo("#t0", { scale: 1 }, { scale: 1.05, duration: 2.3, ease: "sine.inOut", transformOrigin: "0% 50%" }, 0);
 
     // Escena 2: "experiencia" se tacha, el "?" sube a la insignia y aparecen los 5 renglones
@@ -129,7 +134,7 @@
     cambio(1, A);
     tl.to("#cv", { scale: 1, duration: 0.3, ease: "power2.inOut" }, A);
     tl.to("#exp-tacha", { scaleX: 1, duration: 0.3, ease: "power2.out" }, A + 0.1);
-    tl.to("#q-grande", { x: 450, y: -470, scale: 0.3, duration: 0.5, ease: "power3.inOut" }, A + 0.3);
+    tl.to("#q-grande", { x: 390, y: -498, scale: 0.3, duration: 0.5, ease: "power3.inOut" }, A + 0.3);
     tl.to("#q-grande", { opacity: 0, duration: 0.1 }, A + 0.75);
     tl.fromTo("#badge", { scale: 0 }, { scale: 1, duration: 0.3, ease: "back.out(2.5)" }, A + 0.72);
     tl.to(["#exp-lab", "#exp-tacha", "#exp-caja"], { opacity: 0, duration: 0.25 }, A + 0.55);
@@ -138,23 +143,26 @@
 
     // Las 5 secciones: la tarjeta sale de abajo del consejo y baja a su renglón
     const T = [4.9, 7.9, 10.9, 13.9, 16.9];
-    const SLOT = [158, 282, 406, 530, 654];
-    const SALIDA = 476 - 560; // borde de abajo del consejo, en coordenadas del CV
+    const SLOT = [190, 318, 446, 574, 702];
+    const SALIDA = 476 - 520; // borde de abajo del consejo, en coordenadas del CV
     for (let i = 0; i < 5; i++) {
       const t = T[i];
       const card = "#s" + i + " .card";
-      const dy = SALIDA - (SLOT[i] + 38);
+      const dy = SALIDA - (SLOT[i] + 42);
       cambio(i + 2, t);
       tl.to("#cv", { scale: 1, duration: 0.3, ease: "power2.inOut" }, t);
       // Mientras se lee, la vista se acerca a la sección nueva
-      tl.to("#cv", { scale: 1.045, duration: 1.7, ease: "sine.inOut", transformOrigin: "50% " + (SLOT[i] + 80) + "px" }, t + 1.2);
+      tl.to("#cv", { scale: 1.045, duration: 1.7, ease: "sine.inOut", transformOrigin: "50% " + (SLOT[i] + 64) + "px" }, t + 1.2);
       tl.fromTo(card, { opacity: 0, y: dy, scale: 0.92 }, { opacity: 1, scale: 1, duration: 0.25, ease: "back.out(2)" }, t + 0.2);
       tl.to(card, { y: 0, duration: 0.6, ease: "power3.inOut" }, t + 0.5);
       tl.to("#s" + i + " .ph", { opacity: 0, duration: 0.15 }, t + 1.05);
       tl.to("#s" + i + " .lab", { color: "#8e3a86", duration: 0.2 }, t + 1.05);
       tl.to(card, { scale: 1.03, duration: 0.15, yoyo: true, repeat: 1, ease: "sine.inOut" }, t + 1.1);
       // Mientras se lee: un brillo recorre la tarjeta y la insignia se mueve
-      tl.fromTo("#s" + i + " .brillo", { x: 0 }, { x: 1250, duration: 1.1, ease: "power1.inOut" }, t + 1.35);
+      tl.fromTo("#s" + i + " .brillo", { x: 0 }, { x: 1000, duration: 1.1, ease: "power1.inOut" }, t + 1.35);
+      // Después la tarjeta se vuelve texto del CV (sin fondo ni raya)
+      tl.to(card, { backgroundColor: "rgba(244, 232, 242, 0)", duration: 0.4, ease: "power1.inOut" }, t + 2.3);
+      tl.to("#s" + i + " .raya", { opacity: 0, duration: 0.4 }, t + 2.3);
       tl.to("#badge", { rotation: 10, duration: 0.2, yoyo: true, repeat: 3, ease: "sine.inOut" }, t + 2.1);
     }
 
@@ -167,7 +175,7 @@
     tl.set("#badge-ok", { opacity: 1 }, F + 0.44);
     tl.to("#badge", { scaleX: 1, duration: 0.2, ease: "back.out(2)" }, F + 0.44);
     tl.to("#badge", { scale: 1.15, duration: 0.2, yoyo: true, repeat: 1, ease: "sine.inOut" }, F + 0.7);
-    tl.fromTo(".brillo", { x: 0 }, { x: 1250, duration: 0.9, stagger: 0.12, ease: "power1.inOut", immediateRender: false }, F + 0.5);
+    tl.to(".slot .lab", { color: "#1f8f4e", duration: 0.2, stagger: 0.12 }, F + 0.5);
     tl.to("#cv", { scale: 1, duration: 0.3, ease: "power2.inOut" }, F);
     tl.to("#cv", { scale: 1.03, duration: 1.9, ease: "sine.inOut", transformOrigin: "50% 50%" }, F + 0.35);
     tl.fromTo("#chip", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, F + 0.45);
