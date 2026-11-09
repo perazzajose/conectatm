@@ -1,0 +1,54 @@
+<template>
+  <style>
+    @font-face { font-family: "IBM Plex Sans"; src: url("assets/fonts/ibm-plex-sans-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+    @font-face { font-family: "IBM Plex Sans"; src: url("assets/fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+    @font-face { font-family: "Oswald"; src: url("assets/fonts/oswald-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+    #root { position: absolute; inset: 0; background: radial-gradient(ellipse 900px 800px at 50% 55%, #74509f 0%, #5c3d8a 60%, #4a2f73 100%); overflow: hidden; font-family: "IBM Plex Sans", sans-serif; color: #ffffff; }
+    .cinta { position: absolute; left: -300px; width: 1700px; height: 76px; background: #c4a8e8; color: #2b1d4a; font-family: "Oswald", sans-serif; font-weight: 700; font-size: 44px; letter-spacing: 0.04em; white-space: nowrap; display: flex; align-items: center; overflow: hidden; }
+    #c1 { top: 175px; rotate: -8deg; }
+    #c2 { top: 1380px; rotate: 7deg; }
+    #arroba { position: absolute; left: 0; right: 0; top: 300px; text-align: center; font-size: 34px; color: rgba(255,255,255,0.85); }
+    #en-tit { position: absolute; left: 60px; right: 60px; top: 350px; text-align: center; font-family: "Oswald", sans-serif; font-weight: 700; font-size: 104px; line-height: 1.04; text-transform: uppercase; }
+    #en-tit .acc { color: #c4a8e8; }
+    #caja { position: absolute; left: 110px; top: 710px; width: 860px; height: 420px; border-radius: 48px; background: #171d58; border: 4px solid #8a7cc8; }
+    #caja-t { position: absolute; left: 0; right: 0; top: 50px; text-align: center; font-size: 50px; font-weight: 700; letter-spacing: 0.04em; }
+    #wa-ico { position: absolute; left: 380px; top: 130px; width: 100px; height: 100px; border-radius: 26px; background: #25d366; }
+    #wa-pill { position: absolute; left: 70px; top: 260px; width: 720px; height: 112px; border-radius: 999px; background: #25d366; color: #0b2b17; font-weight: 700; font-size: 70px; display: flex; align-items: center; justify-content: center; letter-spacing: 0.01em; }
+    #en-web { position: absolute; left: 0; right: 0; top: 1175px; text-align: center; font-size: 44px; font-weight: 700; }
+    #en-sub { position: absolute; left: 60px; right: 60px; top: 615px; text-align: center; font-size: 42px; font-weight: 700; color: #ffffff; }
+    #en-nota { position: absolute; left: 0; right: 0; top: 1225px; text-align: center; font-size: 34px; color: rgba(255,255,255,0.85); }
+    .puntos { position: absolute; width: 200px; height: 120px; background-image: radial-gradient(circle, rgba(255,255,255,0.55) 5px, transparent 6px); background-size: 40px 40px; }
+  </style>
+  <div id="root" data-composition-id="final" data-width="1080" data-height="1920">
+    <div class="puntos" style="left:70px;top:1500px"></div><div class="puntos" style="right:70px;top:1560px"></div>
+    <div class="cinta" id="c1" data-layout-allow-overflow><span id="c1t">GRATIS · GRATIS · GRATIS · GRATIS · GRATIS · GRATIS · GRATIS · GRATIS · GRATIS · GRATIS · GRATIS · GRATIS</span></div>
+    <div class="cinta" id="c2" data-layout-allow-overflow><span id="c2t">PRIMER EMPLEO · TEMPORADA · PRIMER EMPLEO · TEMPORADA · PRIMER EMPLEO · TEMPORADA</span></div>
+    <div id="arroba">@conectatumundo</div>
+    <h1 id="en-tit">Te ayudo con tu<br />primer CV <span class="acc">gratis</span></h1>
+    <p id="en-sub">Guardalo para cuando armes el tuyo</p>
+    <div id="caja">
+      <div id="caja-t">¡ESCRIBIME!</div>
+      <div id="wa-ico">
+        <svg viewBox="0 0 100 100" width="100" height="100"><path d="M50 18 C32 18 18 31 18 48 C18 55 20 61 24 66 L20 82 L36 77 C40 79 45 80 50 80 C68 80 82 66 82 48 C82 31 68 18 50 18 Z" fill="none" stroke="#ffffff" stroke-width="6" /><path d="M38 36 C36 36 34 39 35 43 C37 52 46 61 56 64 C60 65 63 63 63 61 L63 57 L56 54 L52 58 C47 56 43 52 41 47 L45 43 L42 36 Z" fill="#ffffff" /></svg>
+      </div>
+      <div id="wa-pill">097 154 271</div>
+    </div>
+    <div id="en-web">conectatumundo.net</div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    tl.fromTo("#c1", { x: -500 }, { x: 0, duration: 0.5, ease: "expo.out" }, 0);
+    tl.fromTo("#c2", { x: 500 }, { x: 0, duration: 0.5, ease: "expo.out" }, 0.1);
+    // Las cintas corren despacio todo el cierre
+    tl.to("#c1t", { x: -300, duration: 4.2, ease: "none" }, 0.2);
+    tl.to("#c2t", { x: 300, duration: 4.2, ease: "none" }, 0.2);
+    tl.fromTo("#arroba", { opacity: 0 }, { opacity: 1, duration: 0.3 }, 0.2);
+    tl.fromTo("#en-tit", { opacity: 0, scale: 1.25, filter: "blur(10px)" }, { opacity: 1, scale: 1, filter: "blur(0px)", duration: 0.35, ease: "power4.out" }, 0.15);
+    tl.fromTo("#caja", { y: 300, opacity: 0 }, { y: 0, opacity: 1, duration: 0.5, ease: "expo.out" }, 0.45);
+    tl.fromTo("#wa-ico", { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(2.2)" }, 0.8);
+    tl.fromTo("#wa-pill", { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4, ease: "back.out(1.8)" }, 0.95);
+    tl.to("#wa-pill", { scale: 1.05, duration: 0.25, yoyo: true, repeat: 1, ease: "sine.inOut" }, 1.6);
+    tl.fromTo(["#en-web", "#en-nota"], { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3, stagger: 0.12, ease: "power3.out" }, 1.2);
+    window.__timelines["final"] = tl;
+  </script>
+</template>
