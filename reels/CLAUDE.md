@@ -15,6 +15,7 @@ Notas para retomar los reels sin volver a preguntar. Escrito el 09/11/2026, desp
 | Reel | Estilo | Duración | Estado |
 |---|---|---|---|
 | `errores-cv-canva` | Canva morado | 25,6 s | **Terminado** 09/11. Para publicar antes del 19/11 |
+| `primer-empleo` | Canva morado | 26,3 s | **Terminado** 09/11. "Primer trabajo: qué poner en el CV", 5 secciones con los conceptos que dio José. Sirve toda la temporada. Recursos: hueco que se llena, tarjetas que bajan del consejo al CV, "?" → ✓ y acercamiento a la sección que se lee |
 | `cv-expo-chuy` | Lila web | 18 s | Hecho. Nombra la Expo: publicar antes del 19/11 |
 | `cuaderno-vs-pos` | Marca azul + letra a mano | 21,5 s | Hecho, sin revisar con José |
 | `todo-avanza` | Marca azul | 22,4 s | Hecho, sin revisar con José |
