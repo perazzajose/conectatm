@@ -98,3 +98,7 @@ Para comercios y talleres seguir con la marca azul. Si José pide "como los de C
 ## Música de stock
 
 El skill `media-use` de HyperFrames puede buscar música en el catálogo de HeyGen (`--type bgm`) o generarla. Para eso hace falta iniciar sesión gratis: José lo hizo el 09/11 (plan Free; la sesión vence el 19/11; para renovarla, `npx.cmd --yes hyperframes@0.9.23 auth login`). En PowerShell, `npx` está bloqueado por la política de scripts: usar `npx.cmd` y no cambiar la política, que es decisión de José. **Pero el catálogo necesita el CLI `heygen`, que no tiene versión para Windows** (al 09/11 HeyGen recomienda WSL), así que en esta PC no anda. Para la música, usar los temas de Pixabay que baja José.
+
+## Otras piezas
+
+- `portada-facebook/`: portada de Facebook de 1640x624 (09/11). Usa las fotos del sitio (Plaza Independencia en Montevideo, `fondos/laboral.webp`; la plaza con buganvilias de Durazno, `hero.webp`; el faro de Rocha, `fondos/rocha.webp`) en tres franjas diagonales, el logo, la banda morada con "Trabajo, estudio y negocios" y el WhatsApp. Todo lo que se lee está entre x 265 y 1374, que es lo que muestra el celular. Abajo a la izquierda queda libre para la foto de perfil. Para regenerarla: `node reels/portada-facebook/sacar-png.cjs`. José vive en Durazno; las zonas del sitio son Durazno, Rocha y Montevideo (`src/data/contacto.js`).

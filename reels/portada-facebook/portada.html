@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<title>Portada de Facebook</title>
+<style>
+  /* Portada de Facebook, 1640 x 624 (el doble de 820 x 312).
+     En el celular Facebook muestra solo el centro (x 265 a 1374): todo lo que se lee va ahí.
+     Abajo a la izquierda va la foto de perfil: esa zona queda libre. */
+  @font-face { font-family: "Oswald"; src: url("../errores-cv-canva/assets/fonts/oswald-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+  @font-face { font-family: "IBM Plex Sans"; src: url("../errores-cv-canva/assets/fonts/ibm-plex-sans-latin-700-normal.woff2") format("woff2"); font-weight: 700; }
+  @font-face { font-family: "IBM Plex Sans"; src: url("../errores-cv-canva/assets/fonts/ibm-plex-sans-latin-400-normal.woff2") format("woff2"); font-weight: 400; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1640px; height: 624px; overflow: hidden; background: #4a2f73; }
+  #p { position: relative; width: 1640px; height: 624px; overflow: hidden; font-family: "IBM Plex Sans", sans-serif; color: #ffffff; }
+
+  /* Tres ciudades en franjas diagonales */
+  .f { position: absolute; top: 0; height: 414px; width: 600px; background-repeat: no-repeat; }
+  .f::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(23,29,88,0.05) 0%, rgba(23,29,88,0.0) 55%, rgba(74,47,115,0.55) 100%); }
+  #mvd { left: 0; background-image: url("../../public/fondos/laboral.webp"); background-size: 900px auto; background-position: 16% 0%; clip-path: polygon(0 0, 600px 0, 520px 414px, 0 414px); }
+  #dur { left: 520px; background-image: url("../../public/hero.webp"); background-size: 640px auto; background-position: 45% 55%; clip-path: polygon(80px 0, 600px 0, 520px 414px, 0 414px); }
+  #roc { left: 1040px; background-image: url("../../public/fondos/rocha.webp"); background-size: 960px auto; background-position: 77% 30%; clip-path: polygon(80px 0, 600px 0, 600px 414px, 0 414px); }
+  #rayas { position: absolute; left: 0; top: 0; }
+
+  .ciudad { position: absolute; top: 340px; padding: 8px 22px; border-radius: 999px; background: #171d58; font-family: "Oswald", sans-serif; font-weight: 700; font-size: 34px; letter-spacing: 0.04em; text-transform: uppercase; box-shadow: 0 6px 16px rgba(0,0,0,0.3); }
+
+  #logo { position: absolute; left: 640px; top: 26px; width: 360px; height: 128px; border-radius: 26px; background: #ffffff; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 28px rgba(0,0,0,0.3); }
+  #logo img { width: 320px; height: auto; }
+
+  /* Franja de abajo, con la paleta de los reels */
+  #banda { position: absolute; left: 0; top: 414px; width: 1640px; height: 210px; background: radial-gradient(ellipse 900px 300px at 55% 40%, #74509f 0%, #5c3d8a 55%, #4a2f73 100%); }
+  #cinta { position: absolute; left: 0; top: 408px; width: 1640px; height: 12px; background: #c4a8e8; }
+  .puntos { position: absolute; width: 200px; height: 120px; background-image: radial-gradient(circle, rgba(255,255,255,0.45) 5px, transparent 6px); background-size: 40px 40px; }
+  #col { position: absolute; left: 350px; width: 940px; top: 432px; text-align: center; }
+  #tit { font-family: "Oswald", sans-serif; font-weight: 700; font-size: 64px; line-height: 1.02; text-transform: uppercase; letter-spacing: 0.01em; }
+  #tit .acc { color: #c4a8e8; }
+  #sub { margin-top: 8px; font-size: 32px; font-weight: 700; color: #f4e8f2; }
+  #pie { margin-top: 14px; display: flex; justify-content: center; align-items: center; gap: 22px; }
+  #web { font-size: 32px; font-weight: 700; }
+  #wa { display: flex; align-items: center; gap: 10px; padding: 6px 22px 6px 10px; border-radius: 999px; background: #25d366; color: #0b2b17; font-size: 32px; font-weight: 700; }
+  #wa svg { width: 40px; height: 40px; }
+</style>
+</head>
+<body>
+<div id="p">
+  <div class="f" id="mvd"></div>
+  <div class="f" id="dur"></div>
+  <div class="f" id="roc"></div>
+  <svg id="rayas" width="1640" height="414" viewBox="0 0 1640 414"><path d="M600 0 L520 414 M1120 0 L1040 414" stroke="#c4a8e8" stroke-width="10" /></svg>
+
+  <div class="ciudad" style="left:270px">Montevideo</div>
+  <div class="ciudad" style="left:690px">Durazno</div>
+  <div class="ciudad" style="left:1180px">Rocha</div>
+
+  <div id="logo"><img src="../../public/logo-ctm.png" alt="ConectaTuMundo" /></div>
+
+  <div id="banda"></div>
+  <div id="cinta"></div>
+  <div class="puntos" style="left:60px;top:470px"></div>
+  <div class="puntos" style="right:50px;top:470px"></div>
+  <div id="col">
+    <h1 id="tit">Trabajo, estudio y <span class="acc">negocios</span></h1>
+    <p id="sub">Herramientas digitales para Durazno, Rocha y Montevideo</p>
+    <div id="pie">
+      <span id="web">conectatumundo.net</span>
+      <span id="wa"><svg viewBox="0 0 100 100"><path d="M50 18 C32 18 18 31 18 48 C18 55 20 61 24 66 L20 82 L36 77 C40 79 45 80 50 80 C68 80 82 66 82 48 C82 31 68 18 50 18 Z" fill="none" stroke="#0b2b17" stroke-width="7" /><path d="M38 36 C36 36 34 39 35 43 C37 52 46 61 56 64 C60 65 63 63 63 61 L63 57 L56 54 L52 58 C47 56 43 52 41 47 L45 43 L42 36 Z" fill="#0b2b17" /></svg>097 154 271</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
