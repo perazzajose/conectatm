@@ -74,6 +74,7 @@ Para comercios y talleres seguir con la marca azul. Si José pide "como los de C
 
 - Un efecto por cada acción visible (`assets/sfx/`): `whoosh-short` cuando se mueve la lupa, `click` en cada marca, `sparkle` en el arreglo, `pop` en el chip y en WhatsApp, `impact-bass-1` en el sello y `whoosh` en las transiciones.
 - **Sin música en el render.** José la agrega desde Instagram o Facebook al publicar: tiene licencia y puede usar sonidos de moda.
+- **Excepción, estados de WhatsApp:** ahí no se puede agregar música, así que se hace una versión `-whatsapp.mp4` mezclando con ffmpeg un tema de Pixabay que José baja a `C:\Users\P.C\Music`. Al 09/11 hay cuatro: `atlasaudio-upbeat` (102 s, el elegido, desde el segundo 15), `reachingup` (30 s, va creciendo), `grumpynora-happy-walker-loop` (21 s, loop) y `crimecomic` (20 s, bajo). Los MP3 no se suben al repo; la receta está en `errores-cv-canva/README.md`. La música va a mitad de volumen, debajo de los efectos, y todo se normaliza a −14 LUFS.
 
 ## Contenido
 
@@ -95,4 +96,4 @@ Para comercios y talleres seguir con la marca azul. Si José pide "como los de C
 
 ## Música de stock
 
-El skill `media-use` de HyperFrames puede buscar música en el catálogo de HeyGen (`--type bgm`) o generarla. Para eso hace falta iniciar sesión gratis: José lo hizo el 09/11 (plan Free; la sesión vence el 19/11; para renovarla, `npx.cmd --yes hyperframes@0.9.23 auth login`). En PowerShell, `npx` está bloqueado por la política de scripts: usar `npx.cmd` y no cambiar la política, que es decisión de José. Antes de usar una pista del catálogo, confirmar su licencia para redes. Por ahora la decisión es que José ponga la música desde la app.
+El skill `media-use` de HyperFrames puede buscar música en el catálogo de HeyGen (`--type bgm`) o generarla. Para eso hace falta iniciar sesión gratis: José lo hizo el 09/11 (plan Free; la sesión vence el 19/11; para renovarla, `npx.cmd --yes hyperframes@0.9.23 auth login`). En PowerShell, `npx` está bloqueado por la política de scripts: usar `npx.cmd` y no cambiar la política, que es decisión de José. **Pero el catálogo necesita el CLI `heygen`, que no tiene versión para Windows** (al 09/11 HeyGen recomienda WSL), así que en esta PC no anda. Para la música, usar los temas de Pixabay que baja José.
