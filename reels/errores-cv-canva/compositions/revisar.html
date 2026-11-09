@@ -9,9 +9,9 @@
     .tit .acc { color: #c4a8e8; }
     .tit .rojo { color: #ffb4a8; }
     .tit .verde { color: #7ee2a8; }
-    #sombra { position: absolute; left: 260px; top: 650px; width: 1400px; height: 1600px; background: rgba(23, 29, 88, 0.35); clip-path: polygon(560px 0, 1260px 700px, 1260px 1600px, 700px 1600px, 0 848px, 560px 848px); }
+    #sombra { position: absolute; left: 204px; top: 630px; width: 1680px; height: 1920px; background: rgba(23, 29, 88, 0.35); clip-path: polygon(672px 0, 1512px 840px, 1512px 1920px, 840px 1920px, 0 1018px, 672px 1018px); }
     .doc { position: absolute; width: 560px; height: 848px; }
-    #doc { left: 260px; top: 650px; }
+    #doc { left: 260px; top: 715px; }
     .arch { position: absolute; left: 0; top: 0; width: 560px; height: 46px; background: #22162b; color: #ffffff; font-size: 19px; }
     .arch-ico { position: absolute; left: 14px; top: 10px; width: 20px; height: 26px; background: #c0392b; }
     .nomarch { position: absolute; left: 46px; top: 11px; white-space: nowrap; }
@@ -42,10 +42,10 @@
     .marca { position: absolute; border: 5px solid #c0392b; border-radius: 10px; opacity: 0; }
     .puntos { position: absolute; width: 200px; height: 120px; background-image: radial-gradient(circle, rgba(255,255,255,0.55) 5px, transparent 6px); background-size: 40px 40px; }
     #arroba { position: absolute; right: 80px; top: 186px; color: rgba(255,255,255,0.85); font-size: 30px; }
-    #lupa { position: absolute; left: 0; top: 0; width: 540px; height: 540px; z-index: 5; }
+    #lupa { position: absolute; left: 0; top: 0; width: 600px; height: 600px; z-index: 5; }
     #lupa-vidrio { position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: #fbfaf8; border: 14px solid #22162b; box-shadow: 0 20px 50px rgba(34, 22, 43, 0.35); }
     #lupa-in { position: absolute; left: -14px; top: -14px; }
-    #lupa-mango { position: absolute; left: 462px; top: 440px; width: 44px; height: 150px; background: #22162b; border-radius: 14px; transform-origin: 50% 0%; rotate: -45deg; }
+    #lupa-mango { position: absolute; left: 513px; top: 489px; width: 48px; height: 165px; background: #22162b; border-radius: 14px; transform-origin: 50% 0%; rotate: -45deg; }
     #lupa-brillo { position: absolute; left: 50px; top: 40px; width: 90px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.35); rotate: -30deg; }
     #chip { position: absolute; left: 590px; top: 300px; padding: 16px 30px; border-radius: 999px; background: #25d366; color: #0b2b17; font-weight: 700; font-size: 40px; opacity: 0; z-index: 6; }
   </style>
@@ -137,9 +137,11 @@
   <script>
     const tl = gsap.timeline({ paused: true });
     // Lupa: centro en un punto del documento (coordenadas del documento)
-    const DX = 260, DY = 650, R = 270, M = 1.35, B = 14;
+    // El CV se ve a escala S (centrado, 1,2 = 672 px de ancho); la lupa aumenta M/S = 1,25 sobre lo que se ve
+    const DX = 204, DY = 630, S = 1.2, R = 300, M = 1.5, B = 14;
+    tl.set("#doc", { scale: S }, 0);
     function lupa(px, py, t, dur, ease) {
-      const props = { x: DX + px - R, y: DY + py - R };
+      const props = { x: DX + S * px - R, y: DY + S * py - R };
       const inner = { x: R - B - M * px + B, y: R - B - M * py + B };
       if (t === 0) {
         tl.set("#lupa", { x: props.x, y: props.y }, 0);
@@ -149,11 +151,11 @@
         tl.to("#lupa-in", { ...inner, duration: dur, ease: ease || "power3.inOut" }, t);
       }
     }
-    const P = [[213, 40], [75, 131], [258, 282], [205, 405], [150, 578]];
+    const P = [[213, 60], [95, 131], [258, 282], [205, 405], [150, 578]];
     const T = [2.4, 5.6, 8.8, 12.0, 15.2];
     // Cuadro 0: título, CV y la lupa ya sobre el nombre del archivo
-    lupa(240, 40, 0);
-    lupa(216, 42, 0.2, 2.0, "sine.inOut");
+    lupa(240, 60, 0);
+    lupa(216, 62, 0.2, 2.0, "sine.inOut");
     const titulos = ["#t0", "#t1", "#t2", "#t3", "#t4", "#t5", "#t6"];
     const tagsel = ["#tg0", "#tg1", "#tg2", "#tg3", "#tg4", "#tg5", "#tg6"];
     function cambio(i, t) {
@@ -185,7 +187,9 @@
       tl.fromTo(".ok-" + k, { opacity: 0 }, { opacity: 1, duration: 0.25 }, F + 0.4 + i * 0.18);
       tl.set(".mal-" + k, { display: "none" }, F + 0.6 + i * 0.18);
     });
-    tl.fromTo("#doc", { scale: 1 }, { scale: 1.04, duration: 2.0, ease: "sine.inOut" }, F + 0.4);
+    // Sin pausa hasta la salida: la hoja sigue creciendo y el chip late
+    tl.fromTo("#doc", { scale: S }, { scale: S * 1.05, duration: 2.75, ease: "sine.inOut" }, F + 0.4);
+    tl.to("#chip", { scale: 1.08, duration: 0.25, yoyo: true, repeat: 3, ease: "sine.inOut" }, F + 2.1);
     tl.fromTo("#chip", { opacity: 0, scale: 0.6 }, { opacity: 1, scale: 1, duration: 0.4, ease: "back.out(2)" }, F + 1.6);
     // Salida
     tl.to(["#t6", "#tg6"], { opacity: 0, filter: "blur(10px)", duration: 0.2, ease: "power2.in" }, 21.6);
