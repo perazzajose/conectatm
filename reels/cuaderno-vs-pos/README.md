@@ -10,4 +10,4 @@ Vista previa: `npm run dev`. MP4: `npm run render`.
 
 ## Publicación de temporada (09/11)
 
-Se publica tal cual con el texto de `texto-publicacion.txt` ("¿Arrancás la temporada con el cuaderno?"). La versión para los estados de WhatsApp, `renders/cuaderno-vs-pos-whatsapp.mp4`, lleva `grumpynora-happy-walker-loop` de `C:\Users\P.C\Music` repetido hasta 21,5 s, a un cuarto de volumen (`volume=0.25`, `-stream_loop 1`, `atrim=0:21.5`), con entrada de 0,3 s, salida de 1,8 s y normalizado con objetivo −16 LUFS.
+El gancho se cambió a "¿Arrancás la temporada con el cuaderno?" (antes "¿Cuaderno o punto de venta?"); la primera línea va a 68 px para que entre en dos renglones. Se publica con el texto de `texto-publicacion.txt`. La versión para los estados de WhatsApp, `renders/cuaderno-vs-pos-whatsapp.mp4`, lleva `grumpynora-happy-walker-loop` de `C:\Users\P.C\Music` repetido hasta 21,5 s, a un cuarto de volumen (`volume=0.25`, `-stream_loop 1`, `atrim=0:21.5`), con entrada de 0,3 s, salida de 1,8 s y normalizado con objetivo −16 LUFS.
