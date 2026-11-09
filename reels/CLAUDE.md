@@ -95,4 +95,4 @@ Para comercios y talleres seguir con la marca azul. Si José pide "como los de C
 
 ## Música de stock
 
-El skill `media-use` de HyperFrames puede buscar música en el catálogo de HeyGen (`--type bgm`) o generarla. Para eso hace falta iniciar sesión gratis con `npx hyperframes auth login`, que al 09/11 todavía no estaba hecho. Antes de usar una pista del catálogo, confirmar su licencia para redes. Por ahora la decisión es que José ponga la música desde la app.
+El skill `media-use` de HyperFrames puede buscar música en el catálogo de HeyGen (`--type bgm`) o generarla. Para eso hace falta iniciar sesión gratis: José lo hizo el 09/11 (plan Free; la sesión vence el 19/11; para renovarla, `npx.cmd --yes hyperframes@0.9.23 auth login`). En PowerShell, `npx` está bloqueado por la política de scripts: usar `npx.cmd` y no cambiar la política, que es decisión de José. Antes de usar una pista del catálogo, confirmar su licencia para redes. Por ahora la decisión es que José ponga la música desde la app.
