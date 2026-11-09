@@ -6,8 +6,8 @@ Vista previa: `npm run dev`. MP4: `npm run render`.
 
 ## Versión con música (estados de WhatsApp)
 
-`renders/errores-cv-canva-whatsapp.mp4` = el render normal + el tema "Upbeat" de atlasaudio (Pixabay, en `C:\Users\P.C\Music\atlasaudio-upbeat-613343.mp3`; no se sube al repo) desde el segundo 15, a mitad de volumen, con entrada de 0,3 s y salida de 1,8 s, normalizado a −14 LUFS. Desde `renders/`:
+`renders/errores-cv-canva-whatsapp.mp4` = el render normal + el tema "Upbeat" de atlasaudio (Pixabay, en `C:\Users\P.C\Music\atlasaudio-upbeat-613343.mp3`; no se sube al repo) desde el segundo 15, a un cuarto de volumen (a mitad, a José le pareció muy fuerte), con entrada de 0,3 s y salida de 1,8 s, normalizado con objetivo −16 LUFS (queda en unos −14,4). Desde `renders/`:
 
 ```
-ffmpeg -y -i errores-cv-canva.mp4 -ss 15 -t 25.6 -i "%USERPROFILE%\Music\atlasaudio-upbeat-613343.mp3" -filter_complex "[1:a]aresample=48000,volume=0.5,afade=t=in:st=0:d=0.3,afade=t=out:st=23.8:d=1.8[m];[0:a][m]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-14:TP=-1.5:LRA=11[a]" -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -movflags +faststart errores-cv-canva-whatsapp.mp4
+ffmpeg -y -i errores-cv-canva.mp4 -ss 15 -t 25.6 -i "%USERPROFILE%\Music\atlasaudio-upbeat-613343.mp3" -filter_complex "[1:a]aresample=48000,volume=0.25,afade=t=in:st=0:d=0.3,afade=t=out:st=23.8:d=1.8[m];[0:a][m]amix=inputs=2:duration=first:normalize=0,loudnorm=I=-16:TP=-1.5:LRA=11[a]" -map 0:v -map "[a]" -c:v copy -c:a aac -b:a 192k -movflags +faststart errores-cv-canva-whatsapp.mp4
 ```
