@@ -1,7 +1,9 @@
 import PageHeader from '../../components/PageHeader';
 import ContactoForm from '../../components/ContactoForm';
+import Rapidos from './Rapidos';
 import Servicios from './Servicios';
 import ComoTrabajo from './ComoTrabajo';
+import { waLink } from '../../data/contacto';
 import './Desarrollo.css';
 
 export default function Desarrollo() {
@@ -9,11 +11,15 @@ export default function Desarrollo() {
     <>
       <PageHeader
         camino="desarrollo"
-        title="Sitios web y sistemas para tu negocio"
-        subtitle="Soy José, desarrollador. Hago sitios, sistemas a medida y soporte técnico para emprendimientos y pymes. La primera charla es gratis."
+        title="Web, Google Maps y sistemas para tu negocio"
+        subtitle="Soy José, desarrollador. Te dejo el comercio bien puesto en Google Maps, con su página y sus redes, y hago sistemas a medida. La primera charla es gratis."
       >
-        <a href="#contacto" className="btn btn-primary header-cta">Pedir presupuesto</a>
+        <div className="header-ctas">
+          <a href={waLink('Hola José, quiero pedirte un presupuesto')} target="_blank" rel="noopener noreferrer" className="btn btn-whatsapp">Pedir presupuesto por WhatsApp</a>
+          <a href="#rapidos" className="btn btn-outline">Ver qué hago</a>
+        </div>
       </PageHeader>
+      <Rapidos />
       <Servicios />
       <ComoTrabajo />
       <ContactoForm

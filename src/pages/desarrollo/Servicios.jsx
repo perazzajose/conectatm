@@ -1,4 +1,5 @@
 import Icon, { icons } from '../../components/Icon';
+import { waLink } from '../../data/contacto';
 
 const servicios = [
   {
@@ -43,7 +44,7 @@ export default function Servicios() {
   return (
     <section id="servicios">
       <div className="section-inner">
-        <h2>Qué hago</h2>
+        <h2>Todo lo que hago</h2>
         <p className="section-sub">Precios pensados para emprendimientos y pymes. Antes de cobrar nada, te paso un presupuesto cerrado.</p>
         <ul className="servicios-lista">
           {servicios.map(s => (
@@ -54,6 +55,9 @@ export default function Servicios() {
                 <p>{s.desc}</p>
               </div>
               <span className="servicio-precio">{s.precio}</span>
+              <a href={waLink(`Hola José, quiero consultarte por: ${s.title}`)} target="_blank" rel="noopener noreferrer" className="link servicio-consulta">
+                Consultar<span className="visually-hidden"> por {s.title}</span>
+              </a>
             </li>
           ))}
         </ul>

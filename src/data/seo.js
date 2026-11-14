@@ -85,7 +85,7 @@ export const PAGINAS = {
   },
   '/desarrollo': {
     titulo: 'Desarrollo web y sistemas a medida en Uruguay',
-    descripcion: 'Sitios web, tiendas online, sistemas a medida y soporte técnico para emprendimientos y pymes de Durazno, Rocha y Montevideo. La primera charla es gratis.',
+    descripcion: 'Ficha de Google Maps, página web, reservas por WhatsApp, sistemas a medida y soporte técnico para comercios de Durazno, Rocha y Montevideo. Primera charla gratis.',
     padre: null,
     nombre: 'Desarrollo',
   },

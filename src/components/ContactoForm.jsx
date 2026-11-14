@@ -10,6 +10,8 @@ const EMAILJS_TEMPLATE_ID = 'template_th43thh';
 
 const OPCIONES_INTERES = [
   'Quiero un sitio web para mi negocio',
+  'Quiero aparecer en Google Maps',
+  'Quiero recibir reservas o pedidos por WhatsApp',
   'Quiero un sistema a medida (stock, ventas, turnos…)',
   'Quiero que revisen mi presencia digital (gratis)',
   'Tengo un problema con mi computadora o red',

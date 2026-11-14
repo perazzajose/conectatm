@@ -49,3 +49,8 @@
 @media(min-width:900px){
   .hero-texto{padding-bottom:4.5rem}
 }
+
+/* Botones del hero: WhatsApp primero, servicios al lado */
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.4rem}
+.hero .hero-btn-claro{background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.7)}
+.hero .hero-btn-claro:hover{background:#fff;color:var(--tinta)}

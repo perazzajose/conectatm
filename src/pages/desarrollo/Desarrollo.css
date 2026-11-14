@@ -20,3 +20,21 @@
   .pasos{grid-template-columns:repeat(4,1fr);gap:2rem}
   .pasos li{padding-left:0;padding-top:3.4rem}
 }
+
+/* Botones del encabezado */
+.header-ctas{display:flex;flex-wrap:wrap;gap:.7rem;margin-top:1.5rem}
+
+/* ── LISTO EN POCOS DÍAS: tres trabajos cortos, cada uno con su botón de WhatsApp ── */
+.rapidos-lista{list-style:none;display:grid;gap:1px;background:var(--baldosa-borde);border:1px solid var(--baldosa-borde)}
+.rapido{display:flex;flex-direction:column;align-items:flex-start;gap:.6rem;padding:1.4rem 1.2rem;background:var(--blanco);border-top:4px solid var(--cielo)}
+.rapido-icono{width:48px;height:48px;display:flex;align-items:center;justify-content:center;background:var(--cielo-suave);color:var(--cielo)}
+.rapido h3{font-size:1.3rem}
+.rapido p{color:var(--tinta-suave);flex:1}
+.rapido .btn{margin-top:.4rem}
+.servicio-consulta{grid-column:2;justify-self:start;font-size:.95rem}
+
+@media(min-width:760px){
+  .rapidos-lista{grid-template-columns:repeat(3,1fr)}
+  .servicio{grid-template-columns:auto 1fr 200px auto}
+  .servicio-consulta{grid-column:auto}
+}
