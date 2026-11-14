@@ -17,6 +17,7 @@ Notas para retomar los reels sin volver a preguntar. Escrito el 09/11/2026, desp
 | `errores-cv-canva` | Canva morado | 25,6 s | **Terminado** 09/11. Para publicar antes del 19/11 |
 | `primer-empleo` | Canva morado | 26,3 s | **Terminado** 09/11. El CV es una hoja A4 que parece impresa (José pidió que no fuera "cuadrado": **los CV de los reels van siempre en proporción A4**). "Primer trabajo: qué poner en el CV", 5 secciones con los conceptos que dio José. Sirve toda la temporada. Recursos: hueco que se llena, tarjetas que bajan del consejo al CV, "?" → ✓ y acercamiento a la sección que se lee |
 | `cv-expo-chuy` | Lila web | 18 s | Hecho. Nombra la Expo: publicar antes del 19/11 |
+| `servicios-rapidos` | Marca azul | 21 s | Hecho 14/11 para la página de Facebook, **con música incluida** (José la pidió así: tema propio generado por código, ver su README). Google Maps, página de una pantalla y reservas por WhatsApp, con las tarjetas reales de /desarrollo |
 | `pos-pix` | Marca azul | 21,7 s | Hecho 11/11. Pix para turistas de Brasil: de 8 POS solo 2 aceptan Pix (Handy y Fiserv), demo real del recomendador |
 | `cuaderno-vs-pos` | Marca azul + letra a mano | 21,5 s | Hecho, sin revisar con José |
 | `todo-avanza` | Marca azul | 22,4 s | Hecho, sin revisar con José |

@@ -1,0 +1,165 @@
+<template>
+  <style>
+    #root { position: absolute; inset: 0; overflow: hidden; font-family: "Inter", sans-serif; background: #0b1d3e; color: #fff; }
+    #glow { position: absolute; left: -260px; top: 380px; width: 1600px; height: 1300px; background: radial-gradient(ellipse at center, rgba(42, 143, 254, 0.28) 0%, rgba(42, 143, 254, 0) 62%); }
+    #arroba { position: absolute; right: 70px; top: 96px; font-size: 30px; font-weight: 700; color: rgba(255, 255, 255, 0.85); }
+
+    /* Títulos: todos en el mismo lugar */
+    .titulo { position: absolute; left: 80px; right: 60px; top: 250px; font-weight: 900; font-size: 96px; line-height: 1.02; letter-spacing: -0.035em; transform-origin: 0% 0%; }
+    .titulo .acc { color: #0ccdd9; }
+    #hk-title { top: 190px; font-size: 104px; }
+    #t3 { font-size: 88px; }
+    #t4 { font-size: 92px; }
+
+    /* Gancho: buscador y mapa genéricos (es un ejemplo, no una app real) */
+    #mapa { position: absolute; left: 80px; top: 660px; width: 920px; height: 940px; background: #fff; border-radius: 36px; overflow: hidden; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.45); }
+    #busca { position: absolute; left: 36px; right: 36px; top: 36px; height: 110px; border-radius: 55px; background: #eef2f8; display: flex; align-items: center; gap: 22px; padding: 0 36px; color: #0b1d3e; font-size: 46px; font-weight: 700; }
+    #busca svg { width: 48px; height: 48px; flex: none; }
+    #calles { position: absolute; left: 0; right: 0; top: 180px; bottom: 0; background: #e3ebf5; }
+    .calle { position: absolute; background: #fff; }
+    .pin { position: absolute; width: 96px; height: 124px; transform-origin: 50% 100%; }
+    .pin svg { width: 100%; height: 100%; display: block; }
+    .lugar { position: absolute; height: 56px; padding: 0 22px; border-radius: 12px; background: #fff; color: #5b6b85; font-size: 34px; font-weight: 700; line-height: 56px; box-shadow: 0 6px 16px rgba(11, 29, 62, 0.15); white-space: nowrap; }
+    #mio { position: absolute; left: 376px; top: 420px; width: 168px; height: 216px; transform-origin: 50% 100%; }
+    #mio svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    #mio-signo { position: absolute; left: 0; right: 0; top: 34px; text-align: center; font-size: 84px; font-weight: 900; color: #e0452f; }
+    #mio-lugar { left: 330px; top: 650px; color: #0b1d3e; font-size: 40px; height: 66px; line-height: 66px; }
+    .chip { position: absolute; height: 84px; padding: 0 34px; border-radius: 42px; font-size: 42px; font-weight: 800; line-height: 84px; white-space: nowrap; }
+    #chip-no { left: 300px; top: 300px; background: #e0452f; color: #fff; }
+    #chip-si { left: 320px; top: 300px; background: #0ccdd9; color: #0b1d3e; }
+
+    /* Servicios */
+    #tag { position: absolute; left: 80px; top: 166px; height: 64px; padding: 0 28px 0 22px; border-radius: 32px; background: rgba(12, 205, 217, 0.16); border: 3px solid #0ccdd9; color: #0ccdd9; font-size: 32px; font-weight: 800; letter-spacing: 0.08em; line-height: 58px; display: flex; align-items: center; gap: 14px; }
+    #tag svg { width: 30px; height: 38px; }
+    #barras { position: absolute; left: 80px; top: 548px; width: 920px; display: flex; gap: 16px; }
+    .barra { flex: 1; height: 12px; border-radius: 6px; background: rgba(255, 255, 255, 0.22); overflow: hidden; }
+    .barra i { display: block; width: 100%; height: 100%; background: #0ccdd9; transform-origin: 0% 50%; }
+    .card { position: absolute; left: 70px; top: 610px; width: 940px; transform-origin: 50% 0%; box-shadow: 0 40px 90px rgba(0, 0, 0, 0.5); }
+    .card img { display: block; width: 100%; }
+    #toque { position: absolute; left: 298px; top: 1236px; width: 140px; height: 140px; border-radius: 50%; border: 10px solid #0ccdd9; background: rgba(12, 205, 217, 0.3); }
+
+    /* Mensaje ya escrito */
+    #chat { position: absolute; left: 70px; top: 1090px; width: 940px; height: 560px; border-radius: 36px; background: #10294f; border: 3px solid rgba(255, 255, 255, 0.14); }
+    #chat-para { position: absolute; left: 44px; top: 34px; font-size: 34px; font-weight: 700; color: rgba(255, 255, 255, 0.7); }
+    #burbuja { position: absolute; right: 44px; top: 104px; width: 780px; padding: 34px 38px; border-radius: 30px 30px 6px 30px; background: #d9fdd3; color: #0b2b17; font-size: 50px; font-weight: 700; line-height: 1.22; transform-origin: 100% 100%; }
+    #burbuja span { display: inline-block; margin-right: 0.24em; }
+    #chip-dia { left: 44px; top: 430px; background: #0ccdd9; color: #0b1d3e; }
+  </style>
+  <div id="root" data-composition-id="serv" data-width="1080" data-height="1920">
+    <div id="glow" data-layout-allow-overflow></div>
+    <div id="arroba">@conectatumundo</div>
+
+    <!-- 1. Gancho -->
+    <h1 id="hk-title" class="titulo">¿Tu comercio aparece <span class="acc">cuando lo buscan?</span></h1>
+    <div id="mapa" data-layout-allow-overlap>
+      <div id="calles">
+        <div class="calle" style="left: 0; right: 0; top: 250px; height: 38px"></div>
+        <div class="calle" style="left: 0; right: 0; top: 560px; height: 38px"></div>
+        <div class="calle" style="top: 0; bottom: 0; left: 250px; width: 38px"></div>
+        <div class="calle" style="top: 0; bottom: 0; left: 640px; width: 38px"></div>
+        <div id="pin-a" class="pin" style="left: 90px; top: 60px"><svg viewBox="0 0 48 62"><path d="M24 60S46 39 46 23A22 22 0 0 0 2 23C2 39 24 60 24 60Z" fill="#8e9bb3" /><circle cx="24" cy="23" r="8" fill="#fff" /></svg></div>
+        <div id="lugar-a" class="lugar" style="left: 40px; top: 192px">Otro almacén</div>
+        <div id="pin-b" class="pin" style="left: 720px; top: 110px"><svg viewBox="0 0 48 62"><path d="M24 60S46 39 46 23A22 22 0 0 0 2 23C2 39 24 60 24 60Z" fill="#8e9bb3" /><circle cx="24" cy="23" r="8" fill="#fff" /></svg></div>
+        <div id="lugar-b" class="lugar" style="left: 650px; top: 242px">Otro almacén</div>
+        <div id="pin-c" class="pin" style="left: 700px; top: 470px"><svg viewBox="0 0 48 62"><path d="M24 60S46 39 46 23A22 22 0 0 0 2 23C2 39 24 60 24 60Z" fill="#8e9bb3" /><circle cx="24" cy="23" r="8" fill="#fff" /></svg></div>
+        <div id="lugar-c" class="lugar" style="left: 630px; top: 602px">Otro almacén</div>
+      </div>
+      <div id="busca">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#0b1d3e" stroke-width="2.6" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5" /><path d="M19.5 19.5 15.3 15.3" /></svg>
+        <span>almacén cerca de mí</span>
+      </div>
+      <div id="mio">
+        <svg id="mio-vacio" viewBox="0 0 48 62"><path d="M24 59S45 39 45 23A21 21 0 0 0 3 23C3 39 24 59 24 59Z" fill="#fff" stroke="#e0452f" stroke-width="2.4" stroke-dasharray="5 4" /></svg>
+        <svg id="mio-lleno" viewBox="0 0 48 62"><path d="M24 60S46 39 46 23A22 22 0 0 0 2 23C2 39 24 60 24 60Z" fill="#0ccdd9" stroke="#0b1d3e" stroke-width="2" /><circle cx="24" cy="23" r="8" fill="#0b1d3e" /></svg>
+        <div id="mio-signo">?</div>
+      </div>
+      <div id="mio-lugar" class="lugar">Tu comercio</div>
+      <div id="chip-no" class="chip">No aparece</div>
+      <div id="chip-si" class="chip">Ahora sí</div>
+    </div>
+
+    <!-- 2. Los tres trabajos, con las tarjetas reales de conectatumundo.net/desarrollo -->
+    <div id="tag">
+      <svg viewBox="0 0 48 62"><path d="M24 60S46 39 46 23A22 22 0 0 0 2 23C2 39 24 60 24 60Z" fill="#0ccdd9" /><circle cx="24" cy="23" r="8" fill="#0b1d3e" /></svg>
+      LISTO EN POCOS DÍAS
+    </div>
+    <h1 id="t1" class="titulo">Te pongo en <span class="acc">Google Maps.</span></h1>
+    <h1 id="t2" class="titulo">Tu página, <span class="acc">en una pantalla.</span></h1>
+    <h1 id="t3" class="titulo">Reservas y pedidos <span class="acc">por WhatsApp.</span></h1>
+    <h1 id="t4" class="titulo">Tocás el botón <span class="acc">y ya está escrito.</span></h1>
+    <div id="barras">
+      <div class="barra"><i id="b1"></i></div>
+      <div class="barra"><i id="b2"></i></div>
+      <div class="barra"><i id="b3"></i></div>
+    </div>
+    <div id="c1" class="card" data-layout-allow-overlap><img src="assets/card1.png" alt="Tu comercio en Google Maps" /></div>
+    <div id="c2" class="card" data-layout-allow-overlap><img src="assets/card2.png" alt="Página de una pantalla" /></div>
+    <div id="c3" class="card" data-layout-allow-overlap><img src="assets/card3.png" alt="Reservas y pedidos por WhatsApp" /></div>
+    <div id="toque" data-layout-allow-overlap></div>
+
+    <!-- 3. El mensaje que arma el botón del sitio (texto real del enlace) -->
+    <div id="chat" data-layout-allow-overlap>
+      <div id="chat-para">Mensaje para José</div>
+      <div id="burbuja"><span>Hola</span><span>José,</span><span>quiero</span><span>recibir</span><span>reservas</span><span>o</span><span>pedidos</span><span>por</span><span>WhatsApp</span></div>
+      <div id="chip-dia" class="chip">Presupuesto en el día</div>
+    </div>
+  </div>
+  <script>
+    const tl = gsap.timeline({ paused: true });
+    const out = { opacity: 0, filter: "blur(10px)", duration: 0.18, ease: "power2.in" };
+    const tin = (id, at) => tl.fromTo(id, { opacity: 0, y: 24, filter: "blur(10px)" }, { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.3, ease: "power4.out" }, at);
+    const lee = (id, at, d) => tl.fromTo(id, { scale: 1 }, { scale: 1.05, duration: d, ease: "sine.inOut" }, at);
+
+    // Estado inicial de lo que entra después
+    tl.set(["#tag", "#t1", "#t2", "#t3", "#t4", "#barras", "#c1", "#c2", "#c3", "#toque", "#chat", "#chip-no", "#chip-si", "#mio-lleno", "#chip-dia"], { opacity: 0 }, 0);
+    tl.set(["#b1", "#b2", "#b3"], { scaleX: 0 }, 0);
+    tl.set("#burbuja span", { opacity: 0 }, 0);
+    tl.fromTo("#glow", { x: -60 }, { x: 80, duration: 16.8, ease: "none" }, 0);
+
+    // 1. Gancho (0 a 3,6): los demás aparecen, el tuyo no; después sí
+    lee("#hk-title", 0, 3.2);
+    tl.fromTo(["#pin-a", "#pin-b", "#pin-c"], { scale: 0 }, { scale: 1, duration: 0.35, ease: "back.out(2)", stagger: 0.14 }, 0.1);
+    tl.fromTo(["#lugar-a", "#lugar-b", "#lugar-c"], { opacity: 0, y: 10 }, { opacity: 1, y: 0, duration: 0.25, stagger: 0.14 }, 0.3);
+    tl.fromTo("#mio", { scale: 1 }, { scale: 1.1, duration: 0.4, yoyo: true, repeat: 4, ease: "sine.inOut" }, 0.2);
+    tl.fromTo("#chip-no", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 0.9);
+    tl.to("#chip-no", { opacity: 0, scale: 0.7, duration: 0.15 }, 2.2);
+    tl.to(["#mio-vacio", "#mio-signo"], { opacity: 0, duration: 0.12 }, 2.25);
+    tl.fromTo("#mio-lleno", { opacity: 0, y: -260 }, { opacity: 1, y: 0, duration: 0.45, ease: "bounce.out" }, 2.25);
+    tl.fromTo("#chip-si", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.3, ease: "back.out(2)" }, 2.6);
+    tl.to("#hk-title", out, 3.3);
+    tl.to("#mapa", { y: 1500, duration: 0.4, ease: "power3.in" }, 3.25);
+
+    // 2. Tres trabajos (3,6 a 12,6), uno cada 3 s
+    tl.fromTo("#tag", { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 0.25, ease: "power3.out" }, 3.5);
+    tl.fromTo("#barras", { opacity: 0 }, { opacity: 1, duration: 0.25 }, 3.6);
+    [["#t1", "#c1", "#b1", 3.6], ["#t2", "#c2", "#b2", 6.6], ["#t3", "#c3", "#b3", 9.6]].forEach(([t, c, b, at], i) => {
+      tin(t, at);
+      lee(t, at + 0.3, 2.5);
+      tl.fromTo(c, { opacity: 1, y: 1400, rotation: i % 2 ? -3 : 3 }, { y: 0, rotation: 0, duration: 0.55, ease: "expo.out" }, at);
+      tl.fromTo(c, { scale: 1 }, { scale: 1.035, duration: 2.4, ease: "sine.inOut" }, at + 0.55);
+      tl.fromTo(b, { scaleX: 0 }, { scaleX: 1, duration: 3, ease: "none" }, at);
+      if (i < 2) {
+        tl.to(t, out, at + 2.82);
+        tl.to(c, { opacity: 0, scale: 0.9, y: -70, duration: 0.3, ease: "power2.in" }, at + 2.9);
+      }
+    });
+
+    // 3. Toque en "Pedir presupuesto" y mensaje ya armado (12,6 a 16,8)
+    tl.fromTo("#toque", { opacity: 0, scale: 1.6 }, { opacity: 1, scale: 1, duration: 0.25, ease: "power2.out" }, 12.7);
+    tl.to("#toque", { scale: 0.7, duration: 0.1 }, 12.95);
+    tl.to("#toque", { opacity: 0, scale: 1.8, duration: 0.3, ease: "power2.out" }, 13.05);
+    tl.to("#t3", out, 13.0);
+    tl.to("#barras", { opacity: 0, duration: 0.2 }, 13.0);
+    tin("#t4", 13.2);
+    lee("#t4", 13.5, 2.8);
+    tl.to("#c3", { scale: 0.52, y: -90, duration: 0.5, ease: "power3.inOut" }, 13.2);
+    tl.fromTo("#chat", { opacity: 0, y: 200 }, { opacity: 1, y: 0, duration: 0.45, ease: "expo.out" }, 13.45);
+    tl.fromTo("#burbuja", { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.3, ease: "back.out(1.6)" }, 13.75);
+    tl.to("#burbuja span", { opacity: 1, duration: 0.08, stagger: 0.16 }, 13.95);
+    tl.fromTo("#chip-dia", { opacity: 0, scale: 0.5 }, { opacity: 1, scale: 1, duration: 0.35, ease: "back.out(2)" }, 15.6);
+    tl.to("#chip-dia", { scale: 1.06, duration: 0.3, yoyo: true, repeat: 1, ease: "sine.inOut" }, 15.95);
+    tl.to(["#tag", "#t4", "#c3"], { y: -1600, duration: 0.35, ease: "power3.in" }, 16.42);
+    tl.to("#chat", { y: -1900, duration: 0.38, ease: "power3.in" }, 16.42);
+    window.__timelines["serv"] = tl;
+  </script>
+</template>
